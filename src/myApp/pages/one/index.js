@@ -8,7 +8,8 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    StatusBar
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import Swiper from 'react-native-swiper';
@@ -28,16 +29,34 @@ export default class index extends Component {
 
         let fc = lotterys[2].lottery[0];
         this.lottery = lotterys[1].lottery;
-        console.log(this.lottery)
+        this.lottery[7] = fc;
     }
+
+    componentDidMount() {
+        this.setLotteryMenu();
+    }
+
+    goToPage(route,params) {
+        this.props.navigation.navigate(route,params)
+    }
+
 
     setLotteryMenu() {
         let lotteryMenu = [];
         for(let i = 0; i < this.lottery.length; i++) {
             lotteryMenu.push(
-                <View></View>
+                <TouchableOpacity
+                    onPress={this.goToPage.bind(this,'touzhu',{name:this.lottery[i].name,url:this.lottery[i].url})}
+                    activeOpacity={0.8} key={this.lottery[i].code} style={styles.menuBodyItem}>
+                    <Image style={styles.imgIcon} source={this.lottery[i].icon}/>
+                    <Text>{this.lottery[i].name}</Text>
+                </TouchableOpacity>
             )
         }
+
+        this.setState({
+            lotteryMenu:lotteryMenu
+        })
     }
 
     render() {
@@ -69,14 +88,18 @@ export default class index extends Component {
                         <View style={styles.titleIcon}/>
                         <Text style={styles.titleText}>彩种推荐</Text>
                         <TouchableOpacity
+                            onPress={()=>this.goToPage('moreLot',{name:'彩种列表'})}
                             activeOpacity={0.8}
                             style={styles.more}>
                             <Text>更多>></Text>
                         </TouchableOpacity>
                     </View>
-                    <View>
-                        {/*<Image style={styles.imgIcon} source={this.lottery[0].icon}/>*/}
-                        {/*<Text>{this.lottery[0].name}</Text>*/}
+                    <View style={styles.menuBody}>
+                        {/*<View style={styles.menuBodyItem}>*/}
+                            {/*<Image style={styles.imgIcon} source={this.lottery[0].icon}/>*/}
+                            {/*<Text>{this.lottery[0].name}</Text>*/}
+                        {/*</View>*/}
+                        {this.state.lotteryMenu}
                     </View>
                 </View>
 
@@ -86,6 +109,11 @@ export default class index extends Component {
                         <Text style={styles.titleText}>常用工具</Text>
                     </View>
                 </View>
+                <StatusBar hidden={false}
+                           translucent= {true}
+                           backgroundColor={'transparent'}
+                           barStyle={'light-content'}/>
+
             </View>
         )
     }
@@ -107,11 +135,10 @@ const styles = StyleSheet.create({
     },
     menuContainer: {
         width:cfn.deviceWidth(),
-        height:cfn.picHeight(300),
         backgroundColor:'#fff'
     },
     menuTitle: {
-        height:cfn.picHeight(60),
+        height:cfn.picHeight(80),
         flexDirection:'row',
         width:cfn.deviceWidth(),
         alignItems:'center',
@@ -135,13 +162,21 @@ const styles = StyleSheet.create({
         right:5,
         alignItems:'center',
         justifyContent:'center',
-        height:cfn.picHeight(60),
+        height:cfn.picHeight(80),
     },
     menuBody: {
+        flexDirection:'row',
+        flexWrap:'wrap',
 
+    },
+    menuBodyItem: {
+      alignItems:'center',
+        justifyContent:'center',
+        width:cfn.deviceWidth()/4,
+        height:cfn.deviceWidth()/4,
     },
     imgIcon: {
         width:cfn.picHeight(120),
         height:cfn.picHeight(120)
-    }
+    },
 })
