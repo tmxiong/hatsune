@@ -8,9 +8,10 @@ import {
     StatusBar,
     WebView
 } from 'react-native';
-import {Container, Header, Button, Title, Icon} from 'native-base';
 import cfn from '../../commons/utils/commonFun'
 import myTheme from '../../commons/theme/index'
+import { Loading, EasyLoading } from 'react-native-easy-loading';
+import Header from '../../components/header'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -22,27 +23,48 @@ export default class helloPage extends Component {
         this.script='document.getElementById("touchProNavCom").style.display="none"';
     }
 
+    componentDidMount() {
+        EasyLoading.show('加载数据...');
+    }
+
     goBack() {
         this.props.navigation.goBack();
+    }
+
+    _onLoadEnd() {
+        EasyLoading.dismis();
+    }
+
+    _onNavigationStateChange(e) {
+        console.log(e);
+        let url = e.url;
+        //  不能跳到 我到投注 页；
+        if(url.match(/planQuery/)) {
+            this._webView.stopLoading();
+            alert('暂停销售！')
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={{backgroundColor:'#d22',zIndex:999}}>
-                    <Header theme={myTheme} style={{marginTop:myTheme.headerTopHeight}}>
-                        <Button transparent onPress={()=>this.goBack()}><Icon name="ios-arrow-back" /></Button>
-                        <Title>{this.params.name}</Title>
-                        <Button transparent><Icon name="ios-menu" /></Button>
-                    </Header>
-                </View>
+                <Header
+                    title={this.params.name}
+                    leftBtn={"ios-arrow-back"}
+                    leftFun={()=>this.goBack()}
+                    rightBtn={"ios-menu"}
+                    rightFun={()=>{}}
+                />
 
                 <WebView
                     //injectedJavaScript={this.script}
-                    style={{marginTop:-48}}
+                    ref={ref=>this._webView = ref}
+                    style={{marginTop:-48,zIndex:-1}}
                     source={{uri:`http://m.aicai.com/bet/${this.params.url}.do`}}
+                    onLoadEnd={()=>this._onLoadEnd()}
+                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
                 />
-
+                <Loading/>
             </View>
         )
     }
