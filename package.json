@@ -29,6 +29,7 @@
     "react-native-root-toast": "^1.0.3",
     "react-native-scrollable-tab-view": "^0.6.0",
     "react-native-shake-event": "^2.0.0",
+    "react-native-smart-sortable-sudoku-grid": "^1.0.5",
     "react-native-sound": "^0.8.3",
     "react-native-swipeout": "^2.0.12",
     "react-native-swiper": "^1.5.13",

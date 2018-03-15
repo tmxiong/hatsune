@@ -6,7 +6,7 @@
 
 import React, { AppRegistry } from 'react-native';
 import App from './src/cpApp/containers/app';
-import MyApp from './src/myApp/routers';
+import MyApp from './src/myApp/root';
 
 AppRegistry.registerComponent('hatsune', () => App);
 AppRegistry.registerComponent('MyApp', () => MyApp);

@@ -18,7 +18,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
     for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
-}
+};
 
 
 module.exports = {
@@ -44,11 +44,12 @@ module.exports = {
         return width;
     },
 
-    getPK10Color(num) {
-        var colors = ['#2E82C2','#787B84','#E5E027','#DB952C','#0B256E',
-            '#4ACD53','#9E1C9B','#82CCE0','#EAE8EC','#BD2E27'
-        ];
-        return colors[num - 1];
+    goToPage(_this,pageName,params={}) {
+        _this.props.navigation.navigate(pageName, params);
+    },
+
+    goBack(_this) {
+        _this.props.navigation.goBack();
     }
 
 };

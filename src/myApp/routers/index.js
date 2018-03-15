@@ -8,6 +8,7 @@ import {StackNavigator,TabNavigator} from "react-navigation";
 
 import main from '../pages/main'
 import touzhu from '../pages/one/touzhu'
+import touzhuOther from '../pages/one/touzhuOther'
 import moreLot from '../pages/one/moreLot'
 
 const routers = StackNavigator({
@@ -17,6 +18,8 @@ const routers = StackNavigator({
     main:{screen: main, navigationOptions: { header:null,}},
     // 点开彩票图标后
     touzhu:{screen: touzhu, navigationOptions: { header:null,}},
+    //  投注页面点按钮后进入
+    touzhuOther: {screen: touzhuOther, navigationOptions: { header:null,}},
     // 更多彩票
     moreLot:{screen: moreLot, navigationOptions: { header:null,}},
 

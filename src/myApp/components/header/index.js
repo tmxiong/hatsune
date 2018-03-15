@@ -17,6 +17,7 @@ export default class helloPage extends PureComponent {
         leftFun:()=>{},
         rightBtn:'',
         rightFun:()=>{},
+        rightType:'icon' //icon or text
     };
 
     constructor(props) {
@@ -30,7 +31,9 @@ export default class helloPage extends PureComponent {
                 <Header theme={myTheme} style={{marginTop:myTheme.headerTopHeight}}>
                     <Button transparent onPress={()=>this.props.leftFun()}><Icon name={this.props.leftBtn} /></Button>
                     <Title>{this.props.title}</Title>
-                    <Button transparent><Icon name={this.props.rightBtn} /></Button>
+                    <Button transparent onPress={()=>this.props.rightFun()}>
+                        {this.props.rightType === 'icon' ? <Icon name={this.props.rightBtn} /> : <Title>{this.props.rightBtn}</Title>}
+                    </Button>
                 </Header>
             </View>
         )

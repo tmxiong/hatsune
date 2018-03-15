@@ -40,13 +40,14 @@ export default class index extends Component {
         this.props.navigation.navigate(route,params)
     }
 
-
     setLotteryMenu() {
         let lotteryMenu = [];
         for(let i = 0; i < this.lottery.length; i++) {
             lotteryMenu.push(
                 <TouchableOpacity
-                    onPress={this.goToPage.bind(this,'touzhu',{name:this.lottery[i].name,url:this.lottery[i].url})}
+                    onPress={()=>cfn.goToPage(this,'touzhu',
+                        {name:this.lottery[i].name,
+                            url:`http://m.aicai.com/bet/${this.lottery[i].url}.do`,fromMenu:true})}
                     activeOpacity={0.8} key={this.lottery[i].code} style={styles.menuBodyItem}>
                     <Image style={styles.imgIcon} source={this.lottery[i].icon}/>
                     <Text>{this.lottery[i].name}</Text>
@@ -88,7 +89,7 @@ export default class index extends Component {
                         <View style={styles.titleIcon}/>
                         <Text style={styles.titleText}>彩种推荐</Text>
                         <TouchableOpacity
-                            onPress={()=>this.goToPage('moreLot',{name:'彩种列表'})}
+                            onPress={()=>this.goToPage('moreLot',{name:'彩种列表',data:this.lottery})}
                             activeOpacity={0.8}
                             style={styles.more}>
                             <Text>更多>></Text>

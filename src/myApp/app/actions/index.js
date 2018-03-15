@@ -1,16 +1,10 @@
 /**
  * Created by timxiong on 2018/3/5.
  */
-import { FETCH_START, FETCH_SUCCESS, FETCH_FAILURE, RUN_TIMER } from '../actionTypes';
+import { show_loading, } from '../actionTypes';
 
-const fetchStart = () => ({ type: FETCH_START });
-const fetchSuccess = () => ({ type: FETCH_SUCCESS });
-const fetchFailure = () => ({ type: FETCH_FAILURE });
-const runTime = () => ({ type: RUN_TIMER });
+const showLoading = () => ({ type: show_loading });
 
 export {
-    fetchStart,
-    fetchSuccess,
-    fetchFailure,
-    runTime
+    showLoading
 }
