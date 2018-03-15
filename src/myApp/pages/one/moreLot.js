@@ -6,7 +6,8 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    Animated
+    Animated,
+    Alert
 } from 'react-native';
 import {Icon} from 'native-base';
 import Header from '../../components/header'
@@ -14,6 +15,8 @@ import SortableSudokuGrid from '../../components/sortGridView/SortableSudokuGrid
 import myTheme from '../../commons/theme/index'
 import cfn from '../../commons/utils/commonFun'
 import lotterys from '../../commons/config/lotterys_new'
+import global from '../../commons/global/global'
+
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -23,36 +26,44 @@ export default class helloPage extends Component {
 
         this.params = props.navigation.state.params;
 
+        let allLottery = this.getAllLottery(lotterys);
+
         this.state = {
             dataSource: this.params.data,
-            candidates:lotterys[0].lottery,
+            candidates: this.getAnotherLottery(allLottery,this.params.data),
             sortable: false,
             scrollEnabled: true,
             disabled: false,
             managementButtonText: '管理',
             opacity: new Animated.Value(0),
         };
-
-        this.getAllLottery(lotterys);
     }
 
+    componentWillUnmount() {
+        this.params.reloadMenu();
+    }
+
+    // 所有彩种放数组里；
     getAllLottery(data) {
         let allLottery = [];
-        console.log(data);
+        //console.log(data);
         for(let i = 0; i < data.length; i++) {
             allLottery = allLottery.concat(data[i].lottery);
         }
+        return allLottery;
     }
 
+    //挑出没有被选中的彩种
     getAnotherLottery(data,other) {
         for(let i = 0; i < data.length; i++) {
             for(let j = 0; j < other.length; j++) {
-                if(data[i].name === other[j].name) {
-                    data.splice(i--,1)
+                if(data[i].name == other[j].name) {
+                    data.splice(i--,1);
+                    break;
                 }
             }
-
         }
+        return data;
     }
 
     _renderGridCell(data,component) {
@@ -87,9 +98,15 @@ export default class helloPage extends Component {
 
     _onPressCell = (data) => {
         alert('clicked grid cell -> ' + data.name)
-    }
+    };
 
     _onRemoveCellButtonPress = (component) => {
+
+        let sortableData = this._sortableSudokuGrid.getSortedDataSource();
+        if(sortableData.length <= 1) {
+            return Alert.alert('提示：', '亲，留一个吧，不能再减了。')
+        }
+
         let cellIndex = this._sortableSudokuGrid._cells.findIndex((cell) => {
             return cell.component === component
         })
@@ -123,10 +140,20 @@ export default class helloPage extends Component {
         if (!sortable) {
             let sortedDataSource = this._sortableSudokuGrid.getSortedDataSource()
             //console.log(`_onPressManagementButton get sorted/added/removed DataSource`)
-            //console.log(sortedDataSource)
+            console.log(sortedDataSource);
             let candidateDataSource = this._candidatesSudokuGrid.getSortedDataSource()
             //console.log(`_onPressManagementButton get sorted/added/removed candidateDataSource`)
             //console.log(candidateDataSource)
+
+            global.storage.save({
+                key: 'lotteryMenu',  // 注意:请不要在key中使用_下划线符号!
+                id: 'lotteryMenu',
+                data: sortedDataSource,
+
+                // 如果不指定过期时间，则会使用defaultExpires参数
+                // 如果设为null，则永不过期
+                expires: null
+            });
         }
     };
 
@@ -168,9 +195,16 @@ export default class helloPage extends Component {
     }
 
     _onRemoveCandidatesCellButtonPress = (component) => {
+
+        let sortableData = this._sortableSudokuGrid.getSortedDataSource();
+
+        if(sortableData.length >= 8) {
+            return Alert.alert('提示：', '亲，已经满了，不能再加了。')
+        }
+
         let cellIndex = this._candidatesSudokuGrid._cells.findIndex((cell) => {
             return cell.component === component
-        })
+        });
 
         this._candidatesSudokuGrid.removeCell(this,{
             cellIndex,

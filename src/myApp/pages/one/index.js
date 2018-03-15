@@ -9,7 +9,8 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StatusBar
+    StatusBar,
+    AsyncStorage
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import Swiper from 'react-native-swiper';
@@ -18,6 +19,8 @@ import Banner from '../../components/banner'
 import MarqueeLabel from '../../components/notice/marqueeLabel'
 import NavBar from '../../components/navbar'
 import lotterys from '../../commons/config/lotterys_new'
+import Storage from 'react-native-storage';
+import global from '../../commons/global/global'
 
 export default class index extends Component {
 
@@ -33,24 +36,64 @@ export default class index extends Component {
     }
 
     componentDidMount() {
-        this.setLotteryMenu();
+        this.initStorage();
+        this.getLotteryDataByStorage();
     }
 
-    goToPage(route,params) {
-        this.props.navigation.navigate(route,params)
+    initStorage() {
+        global.storage = new Storage({
+            // 最大容量，默认值1000条数据循环存储
+            size: 1000,
+
+            // 存储引擎：对于RN使用AsyncStorage，对于web使用window.localStorage
+            // 如果不指定则数据只会保存在内存中，重启后即丢失
+            storageBackend: AsyncStorage,
+
+            // 数据过期时间，默认一整天（1000 * 3600 * 24 毫秒），设为null则永不过期
+            defaultExpires: null,
+
+            // 读写时在内存中缓存数据。默认启用。
+            enableCache: true,
+
+            // 如果storage中没有相应数据，或数据已过期，
+            // 则会调用相应的sync方法，无缝返回最新数据。
+            // sync方法的具体说明会在后文提到
+            // 你可以在构造函数这里就写好sync的方法
+            // 或是写到另一个文件里，这里require引入
+            // 或是在任何时候，直接对storage.sync进行赋值修改
+            sync: require('../../commons/global/sync')  // 这个sync文件是要你自己写的
+        })
     }
 
-    setLotteryMenu() {
+    getLotteryDataByStorage() {
+        // global.storage.getAllDataForKey('lotteryMenu')
+        //     .then((data)=>this.setLotteryStorageData(data))
+        //     .catch((error)=>this.setLotteryMenu(this.lottery))
+
+        global.storage.load({key:'lotteryMenu',id:'lotteryMenu'})
+            .then((data)=>this.setLotteryStorageData(data))
+            .catch((error)=>this.setLotteryMenu(this.lottery))
+
+    }
+
+    setLotteryStorageData(data) {
+        if(data.length != 0) {
+            this.lottery = data;
+        }
+        this.setLotteryMenu(data);
+    }
+
+    setLotteryMenu(data) {
         let lotteryMenu = [];
-        for(let i = 0; i < this.lottery.length; i++) {
+        for(let i = 0; i < data.length; i++) {
             lotteryMenu.push(
                 <TouchableOpacity
                     onPress={()=>cfn.goToPage(this,'touzhu',
-                        {name:this.lottery[i].name,
-                            url:`http://m.aicai.com/bet/${this.lottery[i].url}.do`,fromMenu:true})}
-                    activeOpacity={0.8} key={this.lottery[i].code} style={styles.menuBodyItem}>
-                    <Image style={styles.imgIcon} source={this.lottery[i].icon}/>
-                    <Text>{this.lottery[i].name}</Text>
+                        {name:data[i].name,
+                            url:`http://m.aicai.com/bet/${data[i].url}.do`,fromMenu:true})}
+                    activeOpacity={0.8} key={data[i].code} style={styles.menuBodyItem}>
+                    <Image style={styles.imgIcon} source={data[i].icon}/>
+                    <Text>{data[i].name}</Text>
                 </TouchableOpacity>
             )
         }
@@ -89,7 +132,8 @@ export default class index extends Component {
                         <View style={styles.titleIcon}/>
                         <Text style={styles.titleText}>彩种推荐</Text>
                         <TouchableOpacity
-                            onPress={()=>this.goToPage('moreLot',{name:'彩种列表',data:this.lottery})}
+                            onPress={()=>cfn.goToPage(this,'moreLot',
+                                {name:'彩种列表',data:this.lottery,reloadMenu:this.getLotteryDataByStorage.bind(this)})}
                             activeOpacity={0.8}
                             style={styles.more}>
                             <Text>更多>></Text>
