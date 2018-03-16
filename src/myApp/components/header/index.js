@@ -9,12 +9,13 @@ import {
 } from 'react-native';
 import myTheme from '../../commons/theme/index'
 import {Container, Header, Button, Title, Icon} from 'native-base';
-export default class helloPage extends PureComponent {
+export default class header extends PureComponent {
 
     static defaultProps = {
         title:'',
         leftBtn:'',
         leftFun:()=>{},
+        leftType: 'icon',
         rightBtn:'',
         rightFun:()=>{},
         rightType:'icon' //icon or text
@@ -29,7 +30,9 @@ export default class helloPage extends PureComponent {
         return (
             <View style={{backgroundColor:'#d22'}}>
                 <Header theme={myTheme} style={{marginTop:myTheme.headerTopHeight}}>
-                    <Button transparent onPress={()=>this.props.leftFun()}><Icon name={this.props.leftBtn} /></Button>
+                    <Button transparent onPress={()=>this.props.leftFun()}>
+                        {this.props.leftType === 'icon' ? <Icon name={this.props.leftBtn} /> : <Title>{this.props.leftBtn}</Title>}
+                    </Button>
                     <Title>{this.props.title}</Title>
                     <Button transparent onPress={()=>this.props.rightFun()}>
                         {this.props.rightType === 'icon' ? <Icon name={this.props.rightBtn} /> : <Title>{this.props.rightBtn}</Title>}

@@ -12,7 +12,7 @@ import {
 import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
-export default class two extends Component {
+export default class trend extends Component {
 
     static defaultProps = {};
 
@@ -24,13 +24,13 @@ export default class two extends Component {
         this.params = props.navigation.state.params;
 
         this.script = 'document.getElementsByClassName("header")[0].style.display="none";' +
-            'document.getElementsByClassName("fl_list")[0].style.marginTop=0';
+            'document.getElementsByClassName("nav")[0].style.display="none";';
 
 
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...',5000);
+        EasyLoading.show('加载数据...');
     }
 
     _onLoadEnd() {
@@ -45,13 +45,13 @@ export default class two extends Component {
 
     _onNavigationStateChange(e) {
         let url = e.url;
-        console.log(e);
-        if(url.match(/zst/) && url.match(/clientType/)) {
-            this._webView.stopLoading();
-            if(!e.loading) {
-                cfn.goToPage(this,'trend',{name: e.title,url:url})
-            }
-        }
+        // console.log(e);
+        // if(url.match(/zst/)) {
+        //     this._webView.stopLoading();
+        //     if(!e.loading) {
+        //         cfn.goToPage(this,'articleDetail',{name: e.title,url:url})
+        //     }
+        // }
     }
 
     render() {
@@ -59,9 +59,8 @@ export default class two extends Component {
             <View style={styles.container}>
                 <Header
                     title={"图表走势"}
-                    leftBtn={""}
-                    leftType="text"
-                    leftFun={()=>{}}
+                    leftBtn={"ios-arrow-back"}
+                    leftFun={()=>cfn.goBack(this)}
                     rightBtn={"ios-menu"}
                     rightFun={()=>{}}
                 />
@@ -69,8 +68,8 @@ export default class two extends Component {
                 <WebView
                     injectedJavaScript={this.script}
                     ref={ref=>this._webView = ref}
-                    style={{zIndex:-1,flex:this.state.flex}}
-                    source={{uri:"http://m.aicai.com/zst/index.do?vt=5"}}
+                    style={{marginTop:-115,zIndex:-1,flex:this.state.flex}}
+                    source={{uri:this.params.url}}
                     onLoadEnd={()=>this._onLoadEnd()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
                     renderError={()=><Text>加载错误！！</Text>}

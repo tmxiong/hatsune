@@ -1,6 +1,7 @@
 /**
  * Created by tmxiong on 2018/3/11.
  */
+import {lotteryIcon as icon} from './images'
 module.exports = [
     {
         type: '竞技彩',
@@ -8,38 +9,38 @@ module.exports = [
             {
                 name: '竞彩足球',
                 icon: require('../asset/imgs/lotteryIcons_new/jczq.png'),
-                code: 'jczq',
-                url: 'zchome'
+                code: icon.jczq,
+                url: 'http://m.aicai.com/b/zchome.do?agentId=1&vt=5'
             },
             {
                 name: '竞足单关',
                 icon: require('../asset/imgs/lotteryIcons_new/jzdg.png'),
-                code: 'jzdg',
-                url: 'zcdg'
+                code: icon.jzdg,
+                url: 'http://m.aicai.com/b/zcdg.do?agentId=1&vt=5'
             },
             {
                 name: '竞彩篮球',
                 icon: require('../asset/imgs/lotteryIcons_new/jclq.png'),
-                code: 'jclq',
-                url: 'lc'
+                code: icon.jclq,
+                url: 'http://m.aicai.com/bet/lc.do?agentId=1&vt=5'
             },
             {
                 name: '篮彩单关',
                 icon: require('../asset/imgs/lotteryIcons_new/lcdg.png'),
-                code: 'lcdg',
-                url: 'lc'
+                code: icon.lcdg,
+                url: 'http://m.aicai.com/bet/lc.do?agentId=1&vt=5'
             },
             {
                 name: '胜负彩',
                 icon: require('../asset/imgs/lotteryIcons_new/sfc.png'),
-                code: 'sfc',
-                url: 'sfc'
+                code: icon.sfc,
+                url: 'http://m.aicai.com/bet/sfc.do?agentId=1&vt=5'
             },
             {
                 name: '任选九场',
                 icon: require('../asset/imgs/lotteryIcons_new/rx9c.png'),
-                code: 'rx9c',
-                url: 'rx9'
+                code: icon.rx9c,
+                url: 'http://m.aicai.com/bet/rx9.do?agentId=1&vt=5'
             },
         ]
     },
@@ -49,45 +50,45 @@ module.exports = [
             {
                 name: '时时彩',
                 icon: require('../asset/imgs/lotteryIcons_new/ssc.png'),
-                code: 'ssc',
-                url: 'cqssc'
+                code: icon.ssc,
+                url: 'http://m.aicai.com/bet/cqssc.do?agentId=1&vt=5'
             },
             {
                 name: '粤11选5',
                 icon: require('../asset/imgs/lotteryIcons_new/y11x5.png'),
-                code: 'y11x5',
-                url: 'gd11x5'
+                code: icon.y11x5,
+                url: 'http://m.aicai.com/bet/gd11x5.do?agentId=1&vt=5'
             },
 
             {
                 name: '湖北快3',
                 icon: require('../asset/imgs/lotteryIcons_new/hbk3.png'),
-                code: 'hbk3',
-                url: 'hbk3'
+                code: icon.hbk3,
+                url: 'http://m.aicai.com/bet/hbk3.do?agentId=1&vt=5'
             },
             {
                 name: '新快3',
                 icon: require('../asset/imgs/lotteryIcons_new/xk3.png'),
-                code: 'xk3',
-                url: 'k3'
+                code: icon.xk,
+                url: 'http://m.aicai.com/bet/k3.do?agentId=1&vt=5'
             },
             {
                 name: '快乐扑克3',
                 icon: require('../asset/imgs/lotteryIcons_new/klpk.png'),
-                code: 'klpk',
-                url: 'klpk'
+                code: icon.klpk,
+                url: 'http://m.aicai.com/bet/klpk.do?agentId=1&vt=5'
             },
             {
                 name: '幸运赛车',
                 icon: require('../asset/imgs/lotteryIcons_new/xysc.png'),
-                code: 'xysc',
-                url: 'xysc/index'
+                code: icon.xysc,
+                url: 'http://m.aicai.com/bet/xysc/index.do?agentId=1&vt=5'
             },
             {
                 name: '11运夺金',
                 icon: require('../asset/imgs/lotteryIcons_new/11ydj.png'),
-                code:'11ydj',
-                url: 'sd11x5'
+                code:icon.syydj,
+                url: 'http://m.aicai.com/bet/sd11x5.do?agentId=1&vt=5'
             },
 
         ]
@@ -98,20 +99,20 @@ module.exports = [
             {
                 name: '福彩3D',
                 icon: require('../asset/imgs/lotteryIcons_new/fc3d.png'),
-                code: 'fc3d',
-                url: 'fc3d'
+                code: icon.fc3d,
+                url: 'http://m.aicai.com/bet/fc3d.do?agentId=1&vt=5'
             },
             {
                 name: '双色球',
                 icon: require('../asset/imgs/lotteryIcons_new/ssq.png'),
-                code: 'ssq',
-                url: 'ssq'
+                code: icon.ssq,
+                url: 'http://m.aicai.com/bet/ssq.do?agentId=1&vt=5'
             },
             {
                 name: '大乐透',
                 icon: require('../asset/imgs/lotteryIcons_new/dlt.png'),
-                code: 'dlt',
-                url: 'dlt'
+                code: icon.dlt,
+                url: 'http://m.aicai.com/bet/dlt.do?agentId=1&vt=5'
             },
 
         ]

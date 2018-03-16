@@ -14,7 +14,7 @@ var appid = {
 };
 module.exports = {
 
-    appName: '福彩3D',
+    appName: '时时彩',
     baseColor:'#d81e06',
     // launchImg:require('../imgs/launch/launch.png'),
     // welcomeImg:[

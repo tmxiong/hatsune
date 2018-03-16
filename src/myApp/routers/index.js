@@ -10,6 +10,8 @@ import main from '../pages/main'
 import touzhu from '../pages/one/touzhu'
 import touzhuOther from '../pages/one/touzhuOther'
 import moreLot from '../pages/one/moreLot'
+import articleDetail from '../pages/one/articleDetail'
+import trend from '../pages/two/trend'
 
 const routers = StackNavigator({
     //launch: {screen: launch},
@@ -20,8 +22,14 @@ const routers = StackNavigator({
     touzhu:{screen: touzhu, navigationOptions: { header:null,}},
     //  投注页面点按钮后进入
     touzhuOther: {screen: touzhuOther, navigationOptions: { header:null,}},
+    // 资讯
+    articleDetail: {screen: articleDetail, navigationOptions: { header:null,}},
     // 更多彩票
     moreLot:{screen: moreLot, navigationOptions: { header:null,}},
+
+
+    // 走势图
+    trend:{screen: trend, navigationOptions: { header:null,}},
 
 
     // 彩票网站web页面

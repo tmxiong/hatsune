@@ -10,9 +10,11 @@ import {
     Alert,
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
+import myTheme from '../../commons/theme/index'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
-export default class two extends Component {
+import config from '../../commons/config/config'
+export default class helloPage extends Component {
 
     static defaultProps = {};
 
@@ -23,33 +25,37 @@ export default class two extends Component {
         };
         this.params = props.navigation.state.params;
 
-        this.script = 'document.getElementsByClassName("header")[0].style.display="none";' +
-            'document.getElementsByClassName("fl_list")[0].style.marginTop=0';
+        this.script = 'document.getElementsByClassName("cms-title")[0].textContent = "'+config.appName+'";' +
+            'document.getElementsByClassName("nnew_xgx")[0].style.display="none";' +
+            'document.getElementsByClassName("footer-down")[0].style.display="none";' +
+            'document.getElementsByClassName("nnews_xgg")[0].style.display="none";';
 
 
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...',5000);
+        EasyLoading.show('加载数据...');
     }
 
     _onLoadEnd() {
 
         setTimeout(()=>{
-            EasyLoading.dismis();
             this.setState({
                 flex:cfn.deviceHeight()
             })
-        },300)
+        },300);
+
+        setTimeout(()=>{
+            EasyLoading.dismis();
+        },800)
     }
 
     _onNavigationStateChange(e) {
         let url = e.url;
-        console.log(e);
-        if(url.match(/zst/) && url.match(/clientType/)) {
+        if(url.match(/tzzlottery/)) {
             this._webView.stopLoading();
             if(!e.loading) {
-                cfn.goToPage(this,'trend',{name: e.title,url:url})
+                cfn.goToPage(this,'articleDetail',{name: e.title})
             }
         }
     }
@@ -58,10 +64,9 @@ export default class two extends Component {
         return (
             <View style={styles.container}>
                 <Header
-                    title={"图表走势"}
-                    leftBtn={""}
-                    leftType="text"
-                    leftFun={()=>{}}
+                    title={this.params.name}
+                    leftBtn={"ios-arrow-back"}
+                    leftFun={()=>cfn.goBack(this)}
                     rightBtn={"ios-menu"}
                     rightFun={()=>{}}
                 />
@@ -69,11 +74,10 @@ export default class two extends Component {
                 <WebView
                     injectedJavaScript={this.script}
                     ref={ref=>this._webView = ref}
-                    style={{zIndex:-1,flex:this.state.flex}}
-                    source={{uri:"http://m.aicai.com/zst/index.do?vt=5"}}
+                    style={{marginTop:-48,zIndex:-1,flex:this.state.flex}}
+                    source={{uri:this.params.url}}
                     onLoadEnd={()=>this._onLoadEnd()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    renderError={()=><Text>加载错误！！</Text>}
                 />
                 <Loading topOffset={26+56}/>
             </View>

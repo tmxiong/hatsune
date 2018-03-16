@@ -1,3 +1,5 @@
+// 从投注页跳过来的
+
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -11,7 +13,7 @@ import {
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import myTheme from '../../commons/theme/index'
-import { Loading, EasyLoading } from 'react-native-easy-loading';
+import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 export default class helloPage extends Component {
 
@@ -25,7 +27,9 @@ export default class helloPage extends Component {
         this.params = props.navigation.state.params;
 
         this.script = '';
-        if(this.params.url.match(/help/)) {
+        if(this.params.url.match(/cqssc\/help/)) {
+            this.script = 'document.getElementsByClassName("fBack")[0].style.display="none";'
+        }else if(this.params.url.match(/help/)) {
             this.script = 'document.getElementsByClassName("back_tz")[0].style.display="none";'
         }else if(this.params.url.match(/history/)) {
             this.script = 'document.getElementsByClassName("history-btn")[0].style.display="none";';
@@ -48,26 +52,14 @@ export default class helloPage extends Component {
     }
 
     _onNavigationStateChange(e) {
-        console.log(e);
         let url = e.url;
-        //  我到投注 拦截
-        // if(url.match(/planQuery/)) {
-        //     this._webView.stopLoading();
-        //     if(!e.loading) {
-        //         Alert.alert('温馨提示：',
-        //             '应有关部门要求，当前所有彩种均停止销售，开奖历史和技巧可正常查看，已售出彩票兑奖不受影响。您可以到附近实体店进行购彩，给您带来不便敬请谅解！',
-        //             [
-        //                 {text: '可以原谅', onPress: ()=> {}}
-        //             ])
-        //     }
-        //
-        // }else if( url.match(/history/) || url.match(/help/) || url.match(/zst/)){
-        //     this._webView.stopLoading();
-        //     if(!e.loading && this.params.fromMenu) {
-        //         cfn.goToPage(this,'touzhu',{url:url,name:e.title});
-        //     }
-        //
-        // }
+        console.log(e);
+        if(url.match(/articleDetail/) || url.match(/article.do/)) {
+            this._webView.stopLoading();
+            if(!e.loading) {
+                cfn.goToPage(this,'articleDetail',{name: e.title,url:url})
+            }
+        }
     }
 
     render() {
@@ -89,7 +81,7 @@ export default class helloPage extends Component {
                     onLoadEnd={()=>this._onLoadEnd()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
                 />
-                <Loading/>
+                <Loading topOffset={26+56}/>
             </View>
         )
     }

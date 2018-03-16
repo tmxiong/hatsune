@@ -97,7 +97,7 @@ export default class helloPage extends Component {
     }
 
     _onPressCell = (data) => {
-        alert('clicked grid cell -> ' + data.name)
+        cfn.goToPage(this,'touzhu',{name:data.name,url:data.url ,fromMenu:true})
     };
 
     _onRemoveCellButtonPress = (component) => {
@@ -186,12 +186,8 @@ export default class helloPage extends Component {
         )
     }
 
-    _onPressCell = (data) => {
-        alert('clicked grid cell -> ' + data.name)
-    }
-
     _onPressCandidateCell = (data) => {
-        alert('clicked candidate cell -> ' + data.name)
+        cfn.goToPage(this,'touzhu',{name:data.name,url:data.url ,fromMenu:true})
     }
 
     _onRemoveCandidatesCellButtonPress = (component) => {
