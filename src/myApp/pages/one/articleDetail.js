@@ -10,7 +10,7 @@ import {
     Alert,
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
-import myTheme from '../../commons/theme/index'
+import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import config from '../../commons/config/config'
@@ -21,39 +21,42 @@ export default class helloPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            flex:0
+            webViewOffset:0
         };
         this.params = props.navigation.state.params;
-
-        this.script = 'document.getElementsByClassName("cms-title")[0].textContent = "'+config.appName+'";' +
-            'document.getElementsByClassName("nnew_xgx")[0].style.display="none";' +
-            'document.getElementsByClassName("footer-down")[0].style.display="none";' +
-            'document.getElementsByClassName("nnews_xgg")[0].style.display="none";';
-
-
     }
 
     componentDidMount() {
         EasyLoading.show('加载数据...');
     }
 
-    _onLoadEnd() {
-
-        setTimeout(()=>{
-            this.setState({
-                flex:cfn.deviceHeight()
-            })
-        },300);
+    _onMessage(e) {
+        this.setState({
+            webViewOffset:cfn.px2dp(e.message),
+        });
 
         setTimeout(()=>{
             EasyLoading.dismis();
-        },800)
+        },300)
+    }
+
+    _javascriptToInject() {
+        return `
+        
+        var height = document.getElementsByClassName("v-header")[0].offsetHeight;
+            window.webView.postMessage(height);
+            document.getElementsByClassName("cms-title")[0].textContent = '${config.appName}';
+            if(document.getElementsByClassName("nnew_xgx")[0]){document.getElementsByClassName("nnew_xgx")[0].style.display="none";}
+            if(document.getElementsByClassName("footer-down")[0]){document.getElementsByClassName("footer-down")[0].style.display="none";}
+            if(document.getElementsByClassName("nnews_xgg")[0]){document.getElementsByClassName("nnews_xgg")[0].style.display="none";}
+            if(document.getElementsByClassName("h_popup_mask")[0]){document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
+            `
     }
 
     _onNavigationStateChange(e) {
         let url = e.url;
         if(url.match(/tzzlottery/)) {
-            this._webView.stopLoading();
+            this.refs.webViewAndroid.stopLoading();
             if(!e.loading) {
                 cfn.goToPage(this,'articleDetail',{name: e.title})
             }
@@ -71,15 +74,17 @@ export default class helloPage extends Component {
                     rightFun={()=>{}}
                 />
 
-                <WebView
-                    injectedJavaScript={this.script}
-                    ref={ref=>this._webView = ref}
-                    style={{marginTop:-48,zIndex:-1,flex:this.state.flex}}
-                    source={{uri:this.params.url}}
-                    onLoadEnd={()=>this._onLoadEnd()}
+                <WebViewAndroid
+                    ref="webViewAndroid"
+                    javaScriptEnabled={true}
+                    geolocationEnabled={false}
+                    builtInZoomControls={false}
+                    injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                />
-                <Loading topOffset={26+56}/>
+                    onMessage={this._onMessage.bind(this)}
+                    source={{uri:this.params.url}} // or use the source(object) attribute...
+                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                <Loading topOffset={cfn.statusBarHeight()+56}/>
             </View>
         )
     }
@@ -89,5 +94,9 @@ export default class helloPage extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    webView: {
+        zIndex:-1,
+        flex:1
     },
 });

@@ -35,22 +35,9 @@ export default class helloPage extends Component {
 
     _javascriptToInject() {
         let className = '';
-
-        if(this.params.url.match(/cqssc\/help/)) {
-            className = 'fBack';
-        }else if(this.params.url.match(/help/)) {
-            className = 'back_tz';
-        }else if(this.params.url.match(/history/)) {
-            className = 'history-btn';
-        }
-
         return`
-            if(document.getElementsByClassName("v-hideSubTitle")[0]){document.getElementsByClassName("v-hideSubTitle")[0].style.display="block"}
             var height = document.getElementsByClassName("v-header")[0].offsetHeight;
-            window.webView.postMessage(height);
-            if(document.getElementsByClassName("h_popup_mask")[0]) {document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
-            if(document.getElementsByClassName("${className}")[0]){document.getElementsByClassName("${className}")[0].style.display = "none";}
-            
+            window.webView.postMessage(height);            
         `;
     }
 
@@ -62,16 +49,16 @@ export default class helloPage extends Component {
 
         setTimeout(()=>{
             EasyLoading.dismis();
-        },500)
+        },400)
     }
 
     _onNavigationStateChange(e) {
         let url = e.url;
         console.log(e);
-        if(url.match(/articleDetail/) || url.match(/article.do/)) {
+        if(url.match(/help/)) {
             this.refs.webViewAndroid.stopLoading();
             if(!e.loading) {
-                cfn.goToPage(this,'articleDetail',{name: e.title,url:url})
+                cfn.goToPage(this,'touzhuOther',{name: e.title,url:url})
             }
         }
     }

@@ -34,6 +34,7 @@ export class Loading extends PureComponent {
 
     static propTypes = {
         type: React.PropTypes.string,
+        background: React.PropTypes.string,
         color: React.PropTypes.string,
         textStyle: React.PropTypes.any,
         loadingStyle: React.PropTypes.any,
@@ -61,7 +62,9 @@ export class Loading extends PureComponent {
         }, this.state.timeout));
 
         return this.state.isShow ?
-            <View style={[styles.container,{height:SCREEN_HEIGHT - (this.props.topOffset || 0)}]}>
+            <View style={[styles.container,
+                {height:SCREEN_HEIGHT - (this.props.topOffset || 0),
+                    backgroundColor:this.props.background || '#E9E9EF'}]}>
                 <View style={[styles.load_box, this.props.loadingStyle]}>
                     <ActivityIndicator animating={true} color={this.props.color || '#FFF'} size={'large'} style={styles.load_progress} />
                     <Text style={[styles.load_text, this.props.textStyle]}>{this.state.text}</Text>

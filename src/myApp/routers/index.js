@@ -11,7 +11,9 @@ import touzhu from '../pages/one/touzhu'
 import touzhuOther from '../pages/one/touzhuOther'
 import moreLot from '../pages/one/moreLot'
 import articleDetail from '../pages/one/articleDetail'
-import trend from '../pages/two/trend'
+import trend from '../pages/two/trend';
+import kaijiang from '../pages/three/kaijiang'
+import kaijiangDetail from '../pages/three/kaijiangDetail'
 
 const routers = StackNavigator({
     //launch: {screen: launch},
@@ -26,6 +28,9 @@ const routers = StackNavigator({
     articleDetail: {screen: articleDetail, navigationOptions: { header:null,}},
     // 更多彩票
     moreLot:{screen: moreLot, navigationOptions: { header:null,}},
+    // 开奖列表
+    kaijiang: {screen: kaijiang, navigationOptions: { header:null,}},
+    kaijiangDetail: {screen: kaijiangDetail, navigationOptions: { header:null,}},
 
 
     // 走势图

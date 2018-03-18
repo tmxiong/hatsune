@@ -1,3 +1,5 @@
+import {PixelRatio,StatusBar} from 'react-native'
+
 const picHeight = 1334;
 const picWidth = 750;
 
@@ -50,6 +52,14 @@ module.exports = {
 
     goBack(_this) {
         _this.props.navigation.goBack();
+    },
+
+    px2dp(px) {
+        return PixelRatio.roundToNearestPixel(px);
+    },
+
+    statusBarHeight() {
+        return StatusBar.currentHeight;
     }
 
 };

@@ -1,12 +1,12 @@
 import Color from 'color';
 
-import {Platform} from 'react-native';
+import {Platform,StatusBar} from 'react-native';
 
 export default {
 
     // customer Style
     // 安卓设置沉浸式状态栏后，Header高度不够，需手动增加
-    headerTopHeight: Platform.OS == 'ios' ? 0 : 26,
+    headerTopHeight: Platform.OS == 'ios' ? 0 : StatusBar.currentHeight,
 
     // Badge
     badgeBg: '#ED1727',

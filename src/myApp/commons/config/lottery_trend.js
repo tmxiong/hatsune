@@ -7,6 +7,7 @@ module.exports = [
         name:'双色球',
         code:'ssq',
         icon:icon.ssq,
+        desc: '每周二、四、日的21:15开奖',
         menu:[
             {
                 title:'基本走势',
@@ -16,10 +17,10 @@ module.exports = [
                 title:'冷热分析',
                 url:'http://m.aicai.com/zst/ssq/lr.do?vt=5&clientType=0'
             },
-            {
-                title:'投注倾向',
-                url:'http://m.aicai.com/zst/ssq/betTrend.do?vt=5&clientType=0'
-            },
+            // {
+            //     title:'投注倾向',
+            //     url:'http://m.aicai.com/zst/ssq/betTrend.do?vt=5&clientType=0'
+            // },
             {
                 title:'大小奇偶',
                 url:'http://m.aicai.com/zst/ssq/dxjo.do?vt=5&clientType=0'
@@ -42,6 +43,7 @@ module.exports = [
         name:'大乐透',
         code:'dlt',
         icon:icon.dlt,
+        desc:'每周一、三、六的20:30开奖',
         menu:[
             {
                 title:'基本走势',
@@ -51,10 +53,10 @@ module.exports = [
                 title:'冷热分析',
                 url:'http://m.aicai.com/zst/dlt/lr.do?vt=5&clientType=0'
             },
-            {
-                title:'投注倾向',
-                url:'http://m.aicai.com/zst/dlt/betTrend.do?vt=5&clientType=0'
-            },
+            // {
+            //     title:'投注倾向',
+            //     url:'http://m.aicai.com/zst/dlt/betTrend.do?vt=5&clientType=0'
+            // },
             {
                 title:'大小奇偶',
                 url:'http://m.aicai.com/zst/dlt/dxjo.do?vt=5&clientType=0'
@@ -76,6 +78,7 @@ module.exports = [
     {
         name:'福彩3D',
         code:'fc3d',
+        desc:'每天的21:20开奖',
         icon:icon.fc3d,
         menu:[
             {
@@ -108,6 +111,7 @@ module.exports = [
         name:'排列3',
         code:'pl3',
         icon:icon.pl3,
+        desc:'每天的20:30开奖',
         menu:[
             {
                 title:'定位走势',
@@ -135,6 +139,7 @@ module.exports = [
         name:'排列5',
         code:'pl5',
         icon:icon.pl5,
+        desc:'每天的20:30开奖',
         menu:[
             {
                 title:'直选走势',
@@ -158,6 +163,7 @@ module.exports = [
         name:'十一运夺金',
         code:'11ydj',
         icon:icon.syydj,
+        desc:'每天87期，08:35起每10分钟一期',
         menu:[
             {
                 title:'基本走势',
@@ -177,6 +183,7 @@ module.exports = [
         name:'吉林快3',
         code:'jlk3',
         icon:icon.xk3,
+        desc:'每天87期，08:29起每9分钟一期',
         menu:[
             {
                 title:'基本走势',
@@ -196,6 +203,7 @@ module.exports = [
         name:'重庆时时彩',
         code:'cqssc',
         icon:icon.ssc,
+        desc:'每天120期，00:05起每5、10、\n5分钟一期',
         menu:[
             {
                 title:'基本走势',

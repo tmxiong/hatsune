@@ -5,7 +5,7 @@ import {
     View,
     Image,
     TouchableOpacity,
-
+    StatusBar
 } from 'react-native';
 import myTheme from '../../commons/theme/index'
 import {Container, Header, Button, Title, Icon} from 'native-base';

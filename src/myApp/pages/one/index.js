@@ -34,9 +34,9 @@ export default class index extends Component {
             toolsMenu:null,
         };
 
-        let fc = lotterys[2].lottery[0];
+        //let fc = lotterys[2].lottery[0];
         this.lottery = lotterys[1].lottery;
-        this.lottery[7] = fc;
+        //this.lottery[7] = fc;
     }
 
     componentDidMount() {
@@ -112,7 +112,7 @@ export default class index extends Component {
         for(let i = 0; i < 4; i++) {
             toolsMenu.push(
                 <TouchableOpacity
-                    key={i}
+                    key={'s'+i}
                     activeOpacity={0.8}
                     onPress={()=>cfn.goToPage(this,'tool',{})}
                     style={[styles.toolCell,{borderRightColor:'#eee',borderRightWidth:1}]}>

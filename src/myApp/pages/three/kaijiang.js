@@ -1,3 +1,5 @@
+// 从投注页跳过来的
+
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -24,87 +26,45 @@ export default class helloPage extends Component {
         };
         this.params = props.navigation.state.params;
 
-        this.script = 'document.getElementsByClassName("h_popup_mask")[0].style.display = "none";';
-        // if(!this.params.fromMenu) {
-        //     this.script='document.getElementsByClassName("back_tz")[0].style.display="none"';
-        // }
-
     }
 
     componentDidMount() {
         EasyLoading.show('加载数据...');
     }
 
-    _onLoadEnd() {
-
-    }
 
     _javascriptToInject() {
-        // let className = 'v-header';
-        // const {name} = this.params;
-        // if(name == '幸运赛车') {
-        //     className = 'racing-header';
-        // } else if (name == '任选九场' || name == '胜负彩') {
-        //     className = 'p_header';
-        // }
-
-
-        return `
-          var height = 0;
-          if(document.getElementsByClassName("v-header")[0]){
-            height = document.getElementsByClassName("v-header")[0].offsetHeight;
-          } else if(document.getElementsByClassName("racing-header")[0]) {
-            height = document.getElementsByClassName("racing-header")[0].offsetHeight;
-          } else if(document.getElementsByClassName("p_header")[0]) {
-            height = document.getElementsByClassName("p_header")[0].offsetHeight;
-          }
-          window.webView.postMessage(height)
-        `
+        let className = '';
+        return`
+            var height = document.getElementsByClassName("v-header")[0].offsetHeight;
+            window.webView.postMessage(height);            
+        `;
     }
 
     _onMessage(e) {
+        console.log(e)
         this.setState({
             webViewOffset:cfn.px2dp(e.message),
         });
 
         setTimeout(()=>{
             EasyLoading.dismis();
-        },300)
+        },400)
     }
 
     _onNavigationStateChange(e) {
-        //console.log(e);
         let url = e.url;
-        //  我到投注 拦截
-        if(url.match(/planQuery/) || url.match(/login/)) {
+        console.log(e);
+        if(url.match(/help/)) {
             this.refs.webViewAndroid.stopLoading();
             if(!e.loading) {
-                Alert.alert('温馨提示：',
-                    '应有关部门要求，当前所有彩种均停止销售，开奖历史和技巧资讯可正常查看，已售出彩票兑奖不受影响。您可以到附近实体店进行购彩，给您带来不便敬请谅解！',
-                    [
-                        {text: '表示理解', onPress: ()=> {}}
-                    ])
+                cfn.goToPage(this,'touzhuOther',{name: e.title,url:url})
             }
-
-        }else if( url.match(/history/)  //开奖记录
-            || url.match(/help/) //玩法介绍
-            || url.match(/zst/)  //走势图
-            || url.match(/openCountDownIndex/)
-            || url.match(/winTop/) //竞技彩的 中奖排行
-            || url.match(/articles/) //竞技彩的 资讯
-        ){
+        } else if(url.match(/detailAll/)) {
             this.refs.webViewAndroid.stopLoading();
-            if(!e.loading && this.params.fromMenu) {
-                let title = e.title;
-                if(title.match(/aicai/) || title=='' || !title) {
-                    title = "介绍";
-                }
-
-                cfn.goToPage(this,'touzhuOther',
-                    {url:url,name:title,
-                        fromTouzhu:true});
+            if(!e.loading) {
+                cfn.goToPage(this,'kaijiangDetail',{name: e.title,url:url})
             }
-
         }
     }
 
