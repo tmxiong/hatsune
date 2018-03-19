@@ -14,6 +14,7 @@ import articleDetail from '../pages/one/articleDetail'
 import trend from '../pages/two/trend';
 import kaijiang from '../pages/three/kaijiang'
 import kaijiangDetail from '../pages/three/kaijiangDetail'
+import loginAndRegist from '../pages/four/loginAndRegist'
 
 const routers = StackNavigator({
     //launch: {screen: launch},
@@ -33,6 +34,8 @@ const routers = StackNavigator({
     kaijiangDetail: {screen: kaijiangDetail, navigationOptions: { header:null,}},
 
 
+    // 登录
+    loginAndRegist: {screen: loginAndRegist, navigationOptions: { header:null,}},
     // 走势图
     trend:{screen: trend, navigationOptions: { header:null,}},
 

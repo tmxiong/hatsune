@@ -10,7 +10,6 @@ import {
     Image,
     TouchableOpacity,
     StatusBar,
-    AsyncStorage,
     ScrollView
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
@@ -21,9 +20,9 @@ import MarqueeLabel from '../../components/notice/marqueeLabel'
 import { Loading, EasyLoading } from '../../components/loading'
 import lotterys from '../../commons/config/lotterys_new'
 import tools from '../../commons/config/lottery_tools'
-import Storage from 'react-native-storage';
 import global from '../../commons/global/global'
-import {Icon} from 'native-base'
+import {Icon} from 'native-base';
+import {load} from '../../commons/utils/storage'
 
 export default class index extends Component {
 
@@ -40,34 +39,8 @@ export default class index extends Component {
     }
 
     componentDidMount() {
-        this.initStorage();
         this.getLotteryDataByStorage();
         this.setToolMenu();
-    }
-
-    initStorage() {
-        global.storage = new Storage({
-            // 最大容量，默认值1000条数据循环存储
-            size: 1000,
-
-            // 存储引擎：对于RN使用AsyncStorage，对于web使用window.localStorage
-            // 如果不指定则数据只会保存在内存中，重启后即丢失
-            storageBackend: AsyncStorage,
-
-            // 数据过期时间，默认一整天（1000 * 3600 * 24 毫秒），设为null则永不过期
-            defaultExpires: null,
-
-            // 读写时在内存中缓存数据。默认启用。
-            enableCache: true,
-
-            // 如果storage中没有相应数据，或数据已过期，
-            // 则会调用相应的sync方法，无缝返回最新数据。
-            // sync方法的具体说明会在后文提到
-            // 你可以在构造函数这里就写好sync的方法
-            // 或是写到另一个文件里，这里require引入
-            // 或是在任何时候，直接对storage.sync进行赋值修改
-            sync: require('../../commons/global/sync')  // 这个sync文件是要你自己写的
-        })
     }
 
     getLotteryDataByStorage() {
@@ -75,9 +48,10 @@ export default class index extends Component {
         //     .then((data)=>this.setLotteryStorageData(data))
         //     .catch((error)=>this.setLotteryMenu(this.lottery))
 
-        global.storage.load({key:'lotteryMenu',id:'lotteryMenu'})
-            .then((data)=>this.setLotteryStorageData(data))
-            .catch((error)=>this.setLotteryMenu(this.lottery))
+        // global.storage.load({key:'lotteryMenu',id:'lotteryMenu'})
+        //     .then((data)=>this.setLotteryStorageData(data))
+        //     .catch((error)=>this.setLotteryMenu(this.lottery))
+        load('lotteryMenu','lotteryMenu',this.setLotteryStorageData.bind(this),this.setLotteryMenu.bind(this))
 
     }
 
@@ -88,7 +62,8 @@ export default class index extends Component {
         this.setLotteryMenu(data);
     }
 
-    setLotteryMenu(data) {
+    setLotteryMenu() {
+        let data = this.lottery;
         let lotteryMenu = [];
         for(let i = 0; i < data.length; i++) {
             lotteryMenu.push(

@@ -71,7 +71,7 @@ export default class three extends Component {
                     onMessage={this._onMessage.bind(this)}
                     source={{uri:'http://m.aicai.com/kjgg/index.do?agentId=1&vt=5'}} // or use the source(object) attribute...
                     style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
+                <Loading topOffset={cfn.statusBarHeight()+56+50}/>
             </View>
         )
     }

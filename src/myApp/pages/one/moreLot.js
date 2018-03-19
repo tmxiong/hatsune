@@ -16,7 +16,7 @@ import myTheme from '../../commons/theme/index'
 import cfn from '../../commons/utils/commonFun'
 import lotterys from '../../commons/config/lotterys_new'
 import global from '../../commons/global/global'
-
+import {save} from '../../commons/utils/storage'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -145,15 +145,17 @@ export default class helloPage extends Component {
             //console.log(`_onPressManagementButton get sorted/added/removed candidateDataSource`)
             //console.log(candidateDataSource)
 
-            global.storage.save({
-                key: 'lotteryMenu',  // 注意:请不要在key中使用_下划线符号!
-                id: 'lotteryMenu',
-                data: sortedDataSource,
+            // global.storage.save({
+            //     key: 'lotteryMenu',  // 注意:请不要在key中使用_下划线符号!
+            //     id: 'lotteryMenu',
+            //     data: sortedDataSource,
+            //
+            //     // 如果不指定过期时间，则会使用defaultExpires参数
+            //     // 如果设为null，则永不过期
+            //     expires: null
+            // });
 
-                // 如果不指定过期时间，则会使用defaultExpires参数
-                // 如果设为null，则永不过期
-                expires: null
-            });
+            save('lotteryMenu','lotteryMenu',sortedDataSource);
         }
     };
 

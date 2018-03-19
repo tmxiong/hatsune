@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import myTheme from '../../commons/theme/index'
 import {Container, Header, Button, Title, Icon} from 'native-base';
+import cfn from '../../commons/utils/commonFun'
 export default class header extends PureComponent {
 
     static defaultProps = {
@@ -28,7 +29,7 @@ export default class header extends PureComponent {
 
     render() {
         return (
-            <View style={{backgroundColor:'#d22'}}>
+            <View style={styles.container}>
                 <Header theme={myTheme} style={{marginTop:myTheme.headerTopHeight}}>
                     <Button transparent onPress={()=>this.props.leftFun()}>
                         {this.props.leftType === 'icon' ? <Icon name={this.props.leftBtn} /> : <Title>{this.props.leftBtn}</Title>}
@@ -46,6 +47,7 @@ export default class header extends PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        backgroundColor:'#d22',
+        width:cfn.deviceWidth()
     },
 });

@@ -46,9 +46,16 @@ export default class helloPage extends Component {
 
         return`
             if(document.getElementsByClassName("v-hideSubTitle")[0]){document.getElementsByClassName("v-hideSubTitle")[0].style.display="block"}
+            if(document.getElementsByClassName("v-header")[0]){
             var height = document.getElementsByClassName("v-header")[0].offsetHeight;
             window.webView.postMessage(height);
+            }else if(document.getElementsByClassName("head")[0]){
+            var height = document.getElementsByClassName("head")[0].offsetHeight;
+            window.webView.postMessage(height);
+            }
+            
             if(document.getElementsByClassName("h_popup_mask")[0]) {document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
+            if(document.getElementsByClassName("service")[0]) {document.getElementsByClassName("service")[0].style.display = "none";}
             if(document.getElementsByClassName("${className}")[0]){document.getElementsByClassName("${className}")[0].style.display = "none";}
             
         `;
@@ -58,11 +65,11 @@ export default class helloPage extends Component {
         console.log(e)
         this.setState({
             webViewOffset:cfn.px2dp(e.message),
+        },()=>{
+            setTimeout(()=>{
+                EasyLoading.dismis();
+            },400)
         });
-
-        setTimeout(()=>{
-            EasyLoading.dismis();
-        },500)
     }
 
     _onNavigationStateChange(e) {

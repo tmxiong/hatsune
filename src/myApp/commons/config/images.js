@@ -27,7 +27,8 @@ var images = {
         dlt: require('../asset/imgs/lotteryIcons_new/dlt.png'), // 大乐透
         pl3: require('../asset/imgs/lotteryIcons_new/pl3.png'), // 排列3
         pl5: require('../asset/imgs/lotteryIcons_new/pl5.png'), // 排列5
-    }
+    },
+    defaultIcon: require('../asset/imgs/default_icon.png') // 登录后显示的头像
 };
 
 module.exports = images;

@@ -26,6 +26,6 @@ module.exports = {
         'https://appid-ioss.xx-app.com/frontApi/getAboutUs?appid='+appid.iOS :
         'https://appid-apkk.xx-app.com/frontApi/getAboutUs?appid='+appid.sg,
 
-    app_id: 't2KlaXtFmin9V5cQgE9pAJgF-gzGzoHsz',
-    app_key: 'Y1C32dNauiF7tsF17YKcz1JT',
+    AV_APP_ID: 't2KlaXtFmin9V5cQgE9pAJgF-gzGzoHsz',
+    AV_APP_KEY: 'Y1C32dNauiF7tsF17YKcz1JT',
 };
