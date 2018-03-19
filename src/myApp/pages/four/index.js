@@ -5,18 +5,16 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StatusBar
+    StatusBar,
+    ScrollView
 } from 'react-native';
 import Header from '../../components/header'
 import {Icon} from 'native-base'
 import cfn from '../../commons/utils/commonFun'
-import AV from 'leancloud-storage'
-import {AV_APP_ID as appId, AV_APP_KEY as appKey} from '../../commons/config/config';
 import global from '../../commons/global/global'
 import {load} from '../../commons/utils/storage'
 import dateBase from '../../commons/utils/dateBase'
 import {defaultIcon} from '../../commons/config/images'
-
 export default class index extends Component {
 
     static defaultProps = {};
@@ -24,32 +22,28 @@ export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogin:false,
+            isLogin:global.userData,
 
         };
     }
 
     componentDidMount() {
-        this.initAV();
-
         if(!global.userData) {
             this.getUserData();
         }
 
     }
 
-    async initAV() {
-        AV.init({appId, appKey});
-        global.AV = AV;
-        // let user = new AV.User();
-        // user.setUsername('user1');
-        // user.setPassword('testpass');
-        // const result = await user.signUp();
-        // console.log(result);
-    }
 
     getUserData() {
-        load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this))
+        load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this));
+        load('userData','sessionToken',(data)=>{
+            console.log(data)
+            global.AV.User.become(data).then(function(user) {
+                console.log(user)
+            })
+
+        },this.onFailure.bind(this))
     }
 
     onSuccess(data) {
@@ -67,6 +61,19 @@ export default class index extends Component {
         return isLogin ? `${dateBase.cn_time()}欢迎亲爱的${global.userData.username}回来！` : `${dateBase.cn_time()}游客！登录更精彩～`
     }
 
+
+    updateToNoLogin() {
+        this.setState({
+            isLogin:false,
+        })
+    }
+
+    updateToLogin() {
+        this.setState({
+            isLogin:true,
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -80,7 +87,8 @@ export default class index extends Component {
                     {/*rightFun={()=>{}}*/}
                 {/*/>*/}
                 <TouchableOpacity
-                    onPress={()=>cfn.goToPage(this,this.state.isLogin ? 'userInfo':'loginAndRegist',{name:'登录'})}
+                    onPress={()=>cfn.goToPage(this,this.state.isLogin ? 'userInfo':'loginAndRegist',
+                        {name:'登录',updateToLogin:this.updateToLogin.bind(this),updateToNoLogin:this.updateToNoLogin.bind(this)})}
                     activeOpacity={1} style={[styles.itemHeader,{backgroundColor:'#d22'}]}>
                     <View style={{flexDirection: 'row',alignItems:'center'}}>
                         <View style={styles.userIconContainer}>
@@ -95,47 +103,66 @@ export default class index extends Component {
                         </View>
                         <Icon style={styles.forward} name="ios-arrow-forward"/>
                     </View>
-
                 </TouchableOpacity>
-                <View style={{height:cfn.picHeight(30)}}/>
-                <View style={styles.itemBody}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>我收藏的文章</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
-                    </View>
-                </View>
-                <View style={styles.itemBody}>
-                    <Icon style={styles.itemIcon} name="ios-time"/>
-                    <Text style={styles.itemText}>阅读过的文章</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
-                    </View>
-                </View>
 
-                <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>我收藏的彩种</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                <ScrollView>
+                    <View style={{height:cfn.picHeight(30)}}/>
+                    <View style={styles.itemBody}>
+                        <Icon style={styles.itemIcon} name="md-bookmark"/>
+                        <Text style={styles.itemText}>我收藏的文章</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
                     </View>
-                </View>
+                    <View style={styles.itemBody}>
+                        <Icon style={styles.itemIcon} name="md-heart"/>
+                        <Text style={styles.itemText}>我喜欢的文章</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </View>
+                    <View style={styles.itemBody}>
+                        <Icon style={styles.itemIcon} name="ios-time"/>
+                        <Text style={styles.itemText}>阅读过的文章</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </View>
 
-                <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>应用介绍</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                    <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
+                        <Icon style={styles.itemIcon} name="md-bookmark"/>
+                        <Text style={styles.itemText}>我收藏的彩种</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
                     </View>
-                </View>
+                    <View style={[styles.itemBody]}>
+                        <Icon style={styles.itemIcon} name="md-heart"/>
+                        <Text style={styles.itemText}>我喜欢的彩种</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </View>
 
-                <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>版本更新</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                    <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
+                        <Icon style={styles.itemIcon} name="md-list-box"/>
+                        <Text style={styles.itemText}>应用介绍</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
                     </View>
-                </View>
+
+                    <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
+                        <Icon style={styles.itemIcon} name="md-download"/>
+                        <Text style={styles.itemText}>版本更新</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </View>
+
+
+
+                </ScrollView>
 
             </View>
         )
@@ -217,7 +244,4 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         right:cfn.picWidth(30)
     },
-    itemForward: {
-
-    }
 });

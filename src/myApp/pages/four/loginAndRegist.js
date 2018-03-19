@@ -11,6 +11,7 @@ import Header from '../../components/header'
 import cfn from '../../commons/utils/commonFun'
 import Login from './login';
 import Regist from './regist';
+import {Loading, EasyLoading} from '../../components/loading'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -18,8 +19,9 @@ export default class helloPage extends Component {
     constructor(props) {
         super(props);
         this.params = props.navigation.state.params;
+        this.isLoading = false;
         this.state = {
-            isLogin:true,
+            isLogin:true, // 登录界面还是注册界面
         }
     }
 
@@ -41,11 +43,22 @@ export default class helloPage extends Component {
     }
 
     onPressSwitch() {
+        if(this.isLoading) return;
         if(this.state.isLogin) {
             this.goToRegist()
         } else {
             this.goToLogin();
         }
+    }
+
+    showLoading(text) {
+        this.isLoading = true;
+        EasyLoading.show(text);
+    }
+
+    dismisLoading() {
+        this.isLoading = false;
+        EasyLoading.dismis();
     }
 
     render() {
@@ -67,12 +80,19 @@ export default class helloPage extends Component {
                     <Login
                         goToRegist={this.goToRegist.bind(this)}
                         goBack={()=>cfn.goBack(this)}
+                        updateToLogin={()=>this.params.updateToLogin()}
+                        showLoading={()=>this.showLoading('正在登录...')}
+                        dismisLoading={()=>this.dismisLoading()}
                     />
                     <Regist
                         goToLogin={this.goToLogin.bind(this)}
                         goBack={()=>cfn.goBack(this)}
+                        updateToLogin={()=>this.params.updateToLogin()}
+                        showLoading={()=>this.showLoading('正在注册...')}
+                        dismisLoading={()=>this.dismisLoading()}
                     />
                 </ScrollView>
+                <Loading background={'transparent'} topOffset={cfn.statusBarHeight()+56}/>
             </View>
         )
     }

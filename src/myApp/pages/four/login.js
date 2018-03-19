@@ -7,18 +7,18 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
-import Header from '../../components/header'
 import cfn from '../../commons/utils/commonFun'
 import { Container, Spinner, Button, InputGroup, Input, Icon } from 'native-base';
 import global from '../../commons/global/global'
 import inputUtils from '../../commons/utils/inputUtils'
-import {Loading, EasyLoading} from '../../components/loading'
 import {save} from '../../commons/utils/storage'
 export default class login extends PureComponent {
 
     static defaultProps = {
         goToRegist:()=>{},
-        goBack:()=>{}
+        goBack:()=>{},
+        showLoading:()=>{},
+        dismisLoading:()=>{}
     };
 
     constructor(props) {
@@ -38,8 +38,13 @@ export default class login extends PureComponent {
     }
 
     setUserData(data) {
-        global.userData = data;
+        // 保存用户名，用于展示
+        global.userData = data.attributes;
         save('userData','userData',data);
+
+        // 保存SessionToken 用于下次登录
+        global.sessionToken = data._sessionToken;
+        save('userData','sessionToken',data._sessionToken);
     }
 
     _login() {
@@ -51,15 +56,18 @@ export default class login extends PureComponent {
             .catch(this._loginFailure.bind(this))
     }
 
+    // 登录成功！！
     _loginSuccess(data) {
-        EasyLoading.dismis();
+        this.props.dismisLoading();
         this.setUserData(data);
+        this.props.updateToLogin();
         this.props.goBack();
         console.log(data);
     }
 
+    // 登录失败！！
     _loginFailure(err) {
-        EasyLoading.dismis();
+        this.props.dismisLoading();
         this.setState({errorMsg:err.rawMessage})
     }
 
@@ -72,7 +80,6 @@ export default class login extends PureComponent {
     }
 
     _submit() {
-
         let desc = null;
 
         desc = inputUtils._checkUserName(this.userName.trim());
@@ -85,7 +92,7 @@ export default class login extends PureComponent {
             return this.setState({errorMsg:[desc[1]]})
         }
 
-        EasyLoading.show('正在登录...');
+        this.props.showLoading();
 
         this._login();
 
@@ -135,7 +142,6 @@ export default class login extends PureComponent {
                         </View>
                     </View>
                 </ScrollView>
-                <Loading topOffset={cfn.statusBarHeight()+56} background={'transparent'} />
             </View>
         )
     }

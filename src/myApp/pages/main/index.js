@@ -15,7 +15,7 @@ import Four from '../four';
 import cfn from '../../commons/utils/commonFun'
 import storage from '../../commons/utils/storage'
 storage.initStorage();
-
+storage.initAV();
 const mainPage = TabNavigator({
     Home: {
         screen: One,

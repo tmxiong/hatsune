@@ -5,18 +5,18 @@ import {
     View,
     Image,
     TouchableOpacity,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 import Header from '../../components/header'
-import {Icon} from 'native-base'
 import cfn from '../../commons/utils/commonFun'
-import AV from 'leancloud-storage'
-import {AV_APP_ID as appId, AV_APP_KEY as appKey} from '../../commons/config/config';
 import global from '../../commons/global/global'
 import {load} from '../../commons/utils/storage'
 import dateBase from '../../commons/utils/dateBase'
 import {defaultIcon} from '../../commons/config/images'
-
+import {  Button, Icon } from 'native-base';
+import {Loading, EasyLoading} from '../../components/loading'
+import {clearMapForKey, getUserDataBySessionToken} from '../../commons/utils/storage'
 export default class index extends Component {
 
     static defaultProps = {};
@@ -51,36 +51,79 @@ export default class index extends Component {
         console.log(err)
     }
 
+    _logout() {
+        var that = this;
+        Alert.alert('提示：','确定要注销 / 切换账号吗？',[
+            {text:'取消',onPress:()=>{}},
+            {text:'确定',onPress:()=>{
+                EasyLoading.show('正在注销...');
+                global.AV.User.logOut()
+                    .then((res)=>{
+                        EasyLoading.dismis();
+                        clearMapForKey('userData');
+                        global.userData = null;
+                        that.props.navigation.state.params.updateToNoLogin();
+                        cfn.goBack(that);
+                        console.log(res)
+                    })
+                    .catch((err)=>{
+                        EasyLoading.dismis();
+                        console.log(err)
+                    })
+            }},
+        ]);
+    }
+
+    _modifyInfo(info) {
+        getUserDataBySessionToken(global.sessionToken,(user)=>{
+            user.set('article',[{name:'西游记',price:120},{name:'红楼梦',price:99}]);
+            return user.save();
+        },(err)=>{
+            console.log(err)
+        })
+
+        setTimeout(()=>{
+            getUserDataBySessionToken(global.sessionToken,(user)=>{
+                console.log(user);
+            },(err)=>{
+                console.log(err)
+            })
+        },3000)
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity
-                    onPress={()=>cfn.goToPage(this,'loginAndRegist',{name:'登录'})}
-                    activeOpacity={1} style={[styles.itemHeader,{backgroundColor:'#d22'}]}>
-                    <View style={{alignItems:'center',justifyContent:'center'}}>
-                        <View style={styles.userIconContainer}>
 
-                            <Image style={styles.userImg} source={defaultIcon}/>
-
-                        </View>
-
-                        <View style={styles.userContent}>
-                            <Text style={styles.userName}>{global.userData.username}</Text>
-                            <Text style={styles.userDesc}>{`${dateBase.cn_time()}亲爱的${global.userData.username}~`}</Text>
-                        </View>
-
+                <View style={styles.itemHeader}>
+                    <View style={styles.userIconContainer}>
+                        <Image style={styles.userImg} source={defaultIcon}/>
                     </View>
 
-                </TouchableOpacity>
+                    <View style={styles.userContent}>
+                        <Text style={styles.userName}>{global.userData.username}</Text>
+                        <Text style={styles.userDesc}>{`${dateBase.cn_time()}亲爱的${global.userData.username}~`}</Text>
+                    </View>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goBack(this)}
+                                      style={{position:'absolute',top:20,width:50,height:50,alignItems:'center',
+                                          justifyContent:'center'}}>
+                        <Icon style={{color:'#eee'}} name="ios-arrow-back"/>
+                    </TouchableOpacity>
+
+
+                </View>
+
                 <View style={{height:cfn.picHeight(30)}}/>
-                <View style={styles.itemBody}>
+                <TouchableOpacity
+                    onPress={()=>this._modifyInfo('男')}
+                    style={styles.itemBody}>
                     <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>我收藏的文章</Text>
+                    <Text style={styles.itemText}>性别</Text>
                     <View style={styles.itemForwardContainer}>
                         <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.itemBody}>
                     <Icon style={styles.itemIcon} name="ios-time"/>
                     <Text style={styles.itemText}>阅读过的文章</Text>
@@ -113,6 +156,11 @@ export default class index extends Component {
                     </View>
                 </View>
 
+                <View style={{height:100,marginTop:20,alignItems:'center'}}>
+
+                    <Button onPress={this._logout.bind(this)} style={styles.btn} block disabled={false}> 注销 / 切换账号 </Button>
+                </View>
+            <Loading/>
             </View>
         )
     }
@@ -125,10 +173,10 @@ const styles = StyleSheet.create({
     },
     itemHeader: {
         width:cfn.deviceWidth(),
-        height:cfn.picHeight(400),
-        backgroundColor:'#fff',
+        height:cfn.picHeight(500),
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
+        backgroundColor:'#d22'
     },
     userIconContainer: {
         width:cfn.picWidth(150),
@@ -196,7 +244,11 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         right:cfn.picWidth(30)
     },
-    itemForward: {
-
-    }
+    btn: {
+        width:cfn.deviceWidth()-cfn.picWidth(40),
+        backgroundColor:'#e22',
+        marginTop:20,
+        height:50,
+        alignSelf:'center'
+    },
 });

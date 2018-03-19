@@ -12,11 +12,14 @@ import cfn from '../../commons/utils/commonFun'
 import { Container, Spinner, Button, InputGroup, Input, Icon } from 'native-base';
 import inputUtils from '../../commons/utils/inputUtils'
 import global from '../../commons/global/global'
+import {save} from '../../commons/utils/storage'
 export default class regist extends PureComponent {
 
     static defaultProps = {
         goToLogin:()=>{},
-        goBack:()=>{}
+        goBack:()=>{},
+        showLoading:()=>{},
+        dismisLoading:()=>{}
     };
 
     constructor(props) {
@@ -52,6 +55,7 @@ export default class regist extends PureComponent {
     }
 
     _submit() {
+
         let desc = null;
 
         desc = inputUtils._checkUserName(this.userName.trim());
@@ -69,16 +73,37 @@ export default class regist extends PureComponent {
             return this.setState({errorMsg:[desc[1]]})
         }
 
+        this.props.showLoading();
+
         let user = new global.AV.User();
         user.setUsername(this.userName);
         user.setPassword(this.psd);
-        // const result = await user.signUp();
-        // console.log(result);
+        user.setEmail(this.email);
+
+        // 注册成功！！
         user.signUp()
             .then((res)=>{
-            console.log(user);
+                this.props.dismisLoading();
+                // 保存用户名，用于展示
+                global.userData = res.attributes;
+                save('userData','userData',res);
+
+                // 保存SessionToken 用于下次登录
+                global.sessionToken = data._sessionToken;
+                save('userData','sessionToken',data._sessionToken);
+
+                // 刷新上一页为登录状态
+                this.props.updateToLogin();
+
+                // 返回上一页
+                this.props.goBack();
+                console.log(user);
+
         })
+            // 注册失败！！
             .catch((err)=>{
+                this.props.dismisLoading();
+                this.setState({errorMsg:err.rawMessage});
                 console.log(err)
             });
 
@@ -99,7 +124,7 @@ export default class regist extends PureComponent {
                             </InputGroup>
                             <InputGroup borderType="block" style={styles.textInput}>
                                 <Icon name="md-lock" style={styles.inputIcon}/>
-                                <Input onFocus={this._onFocus.bind(this)} onChangeText={(e)=>this._onChangeText(e,'psd')} placeholder="输入密码(不少于6位数)" placeholderTextColor="#ccc"/>
+                                <Input secureTextEntry={true} onFocus={this._onFocus.bind(this)} onChangeText={(e)=>this._onChangeText(e,'psd')} placeholder="输入密码(不少于6位数)" placeholderTextColor="#ccc"/>
                             </InputGroup>
                             <InputGroup borderType="block" style={styles.textInput}>
                                 <Icon name="md-lock"  style={styles.inputIcon}/>
@@ -107,7 +132,7 @@ export default class regist extends PureComponent {
                             </InputGroup>
                             <InputGroup borderType="block" style={styles.textInput}>
                                 <Icon name="md-mail" style={styles.inputIcon}/>
-                                <Input secureTextEntry={true} onFocus={this._onFocus.bind(this)} onChangeText={(e)=>this._onChangeText(e,'email')} placeholder="输入邮箱用于找回密码" placeholderTextColor="#ccc"/>
+                                <Input onFocus={this._onFocus.bind(this)} onChangeText={(e)=>this._onChangeText(e,'email')} placeholder="输入邮箱用于找回密码" placeholderTextColor="#ccc"/>
                             </InputGroup>
                             <View style={{height:100,marginTop:20,alignItems:'center'}}>
                                 <View style={{height:20}}>

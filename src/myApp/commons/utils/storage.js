@@ -4,7 +4,13 @@
 import Storage from 'react-native-storage'
 import {AsyncStorage} from 'react-native'
 import global from '../global/global'
+import AV from 'leancloud-storage'
+import {AV_APP_ID as appId, AV_APP_KEY as appKey} from '../../commons/config/config';
 
+
+/**localStorage and leancloudStorage*/
+
+/**********************  localStorage  ***************************/
 function initStorage() {
     global.storage = new Storage({
         // 最大容量，默认值1000条数据循环存储
@@ -30,6 +36,7 @@ function initStorage() {
     })
 }
 
+// 保存
 function save(key,id,data) {
     global.storage.save({
         key: key,  // 注意:请不要在key中使用_下划线符号!
@@ -42,14 +49,43 @@ function save(key,id,data) {
     });
 }
 
+// 获取
 function load(key,id,callback_success,ballback_failure) {
     global.storage.load({key:key,id:id})
         .then((data)=>callback_success(data))
         .catch((error)=>ballback_failure(this.lottery))
 }
 
+// 删除某个key下的所有数据
+function clearMapForKey(key) {
+    global.storage.clearMapForKey(key);
+}
+
+
+/*******************  leancloudStorage  *****************/
+
+function initAV() {
+    AV.init({appId, appKey});
+    global.AV = AV;
+    // let user = new AV.User();
+    // user.setUsername('user1');
+    // user.setPassword('testpass');
+    // const result = await user.signUp();
+    // console.log(result);
+}
+
+function getUserDataBySessionToken(sessionToken,success,failure) {
+    global.AV.User.become(sessionToken)
+        .then((data)=>success(data))
+        .catch((err)=>failure(err));
+}
+
 module.exports = {
     initStorage,
     save,
-    load
+    load,
+    clearMapForKey,
+
+    initAV,
+    getUserDataBySessionToken
 };
