@@ -30,23 +30,11 @@ export default class index extends Component {
     }
 
     componentDidMount() {
-        this.initAV();
-
         if(!global.userData) {
             this.getUserData();
         }
-
     }
 
-    async initAV() {
-        AV.init({appId, appKey});
-        global.AV = AV;
-        // let user = new AV.User();
-        // user.setUsername('user1');
-        // user.setPassword('testpass');
-        // const result = await user.signUp();
-        // console.log(result);
-    }
 
     getUserData() {
         load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this))
@@ -63,37 +51,25 @@ export default class index extends Component {
         console.log(err)
     }
 
-    getLoginDesc(isLogin) {
-        return isLogin ? `${dateBase.cn_time()}欢迎亲爱的${global.userData.username}回来！` : `${dateBase.cn_time()}游客！登录更精彩～`
-    }
 
     render() {
         return (
             <View style={styles.container}>
-                {/*<Header*/}
-                    {/*title={"我的"}*/}
-                    {/*leftBtn={""}*/}
-                    {/*leftType="text"*/}
-                    {/*leftFun={()=>{}}*/}
-                    {/*rightBtn={""}*/}
-                    {/*rightType="text"*/}
-                    {/*rightFun={()=>{}}*/}
-                {/*/>*/}
                 <TouchableOpacity
-                    onPress={()=>cfn.goToPage(this,this.state.isLogin ? 'userInfo':'loginAndRegist',{name:'登录'})}
+                    onPress={()=>cfn.goToPage(this,'loginAndRegist',{name:'登录'})}
                     activeOpacity={1} style={[styles.itemHeader,{backgroundColor:'#d22'}]}>
-                    <View style={{flexDirection: 'row',alignItems:'center'}}>
+                    <View style={{alignItems:'center',justifyContent:'center'}}>
                         <View style={styles.userIconContainer}>
-                            {this.state.isLogin ?
-                                <Image style={styles.userImg} source={defaultIcon}/> :
-                                <Icon style={styles.userIcon} name={'ios-contact-outline'}/>}
+
+                            <Image style={styles.userImg} source={defaultIcon}/>
+
                         </View>
 
                         <View style={styles.userContent}>
-                            <Text style={styles.userName}>{this.state.isLogin ? global.userData.username : '登录/注册'}</Text>
-                            <Text style={styles.userDesc}>{this.getLoginDesc(this.state.isLogin)}</Text>
+                            <Text style={styles.userName}>{global.userData.username}</Text>
+                            <Text style={styles.userDesc}>{`${dateBase.cn_time()}亲爱的${global.userData.username}~`}</Text>
                         </View>
-                        <Icon style={styles.forward} name="ios-arrow-forward"/>
+
                     </View>
 
                 </TouchableOpacity>
@@ -149,15 +125,14 @@ const styles = StyleSheet.create({
     },
     itemHeader: {
         width:cfn.deviceWidth(),
-        height:cfn.picHeight(350),
+        height:cfn.picHeight(400),
         backgroundColor:'#fff',
-        flexDirection:'row',
-        alignItems:'flex-end',
-        paddingBottom:cfn.picHeight(50)
+        alignItems:'center',
+        justifyContent:'center'
     },
     userIconContainer: {
-        width:cfn.picWidth(120),
-        height:cfn.picWidth(120),
+        width:cfn.picWidth(150),
+        height:cfn.picWidth(150),
         alignItems:'center',
         justifyContent:'center',
         borderRadius:cfn.picWidth(75),
@@ -170,21 +145,25 @@ const styles = StyleSheet.create({
 
     },
     userImg: {
-        width:cfn.picWidth(120),
-        height:cfn.picWidth(120),
+        width:cfn.picWidth(150),
+        height:cfn.picWidth(150),
         borderRadius:cfn.picWidth(75),
     },
     userContent: {
-        width:cfn.deviceWidth()-cfn.picWidth(120 + 20 + 20 + 60)
+        width:cfn.deviceWidth()-cfn.picWidth(120),
+        alignItems:'center',
+        justifyContent:'center',
     },
     userName: {
-        fontSize:18,
-        color:'#fff'
+        fontSize:22,
+        color:'#fff',
+        marginTop:cfn.picHeight(30)
     },
     userDesc: {
         color:'#ddd',
         marginTop:cfn.picHeight(10),
-        width:cfn.deviceWidth()-cfn.picWidth(120 + 20 + 20 + 60)
+        width:cfn.deviceWidth()-cfn.picWidth(120),
+        textAlign:'center'
     },
     forward: {
         fontSize: 30,

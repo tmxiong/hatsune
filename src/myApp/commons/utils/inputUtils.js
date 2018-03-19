@@ -6,8 +6,10 @@ module.exports = {
         if(t == '') {
             return[false,'用户名不能为空！']
         }else if(t.length < 3) {
-            return[false,'用户名不能少于3个字！']
-        }else {
+            return[false,'用户名长度不能小少于3个字！']
+        }else if(t.length > 16) {
+            return[false,'用户名长度不能超过16个字！']
+        } else {
             return[true,''];
         }
     },
