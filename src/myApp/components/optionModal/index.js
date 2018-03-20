@@ -25,13 +25,7 @@ export default class modal extends PureComponent {
     static defaultProps={
         visible:false,
         onPressOption:()=>{},
-        optionData:[
-            {
-                icon:'',
-                option:'111',
-                isSelected:false,
-            }
-        ],
+        optionData:[],
     };
 
     constructor(props){
@@ -42,12 +36,13 @@ export default class modal extends PureComponent {
         };
 
         this.setModalVisible = this._setModalVisible;
+        this.renderOption = this._renderOption;
         //this.onPressItem = this._onPressItem;
 
     }
 
     componentDidMount() {
-        this.renderOption();
+        this._renderOption();
     }
 
     _setModalVisible(visible) {
@@ -59,19 +54,18 @@ export default class modal extends PureComponent {
     onPressOption(index,option,isSelected) {
 
         if(index != 666) { // 666是刷新按钮
-            this.props.optionData[index].isSelected = !isSelected;
+            this.optionData[index].isSelected = !isSelected;
         }
 
         this._setModalVisible(false);
         this.props.onPressOption(index,option,!isSelected);
 
-        this.renderOption();
+        this._renderOption(this.optionData);
     }
 
-    renderOption() {
-
-        const {optionData} = this.props;
-        let optionView = optionData.map((option,index)=>{
+    _renderOption(optionData) {
+        this.optionData = optionData || this.props.optionData;
+        let optionView = this.optionData.map((option,index)=>{
             return <TouchableOpacity
                 key={index}
                 activeOpacity={0.8}
@@ -94,12 +88,12 @@ export default class modal extends PureComponent {
     render() {
         return (
             <Modal
-                animationType={"fade"}
+                //animationType={"fade"}
                 transparent={true}
                 visible={this.state.visible}
                 onRequestClose={() => {}}
             >
-                <StatusBar hidden={false} animated={true} translucent= {true} backgroundColor={'rgba(0,0,0,0.5)'} barStyle={'light-content'}/>
+                <StatusBar hidden={false}  translucent= {true} backgroundColor={'rgba(0,0,0,0.5)'} barStyle={'light-content'}/>
                 <TouchableOpacity
                     activeOpacity={1}
                     onPress={()=>this.setModalVisible(false)}

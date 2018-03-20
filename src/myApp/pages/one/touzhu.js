@@ -8,6 +8,7 @@ import {
     StatusBar,
     WebView,
     Alert,
+    ToastAndroid
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import WebViewAndroid from 'react-native-webview-android';
@@ -23,18 +24,30 @@ export default class helloPage extends Component {
         super(props);
         this.state = {
             webViewOffset:0,
+            isCollected:false,
+            isLoved:false,
         };
         this.params = props.navigation.state.params;
-
-        this.script = 'document.getElementsByClassName("h_popup_mask")[0].style.display = "none";';
-        // if(!this.params.fromMenu) {
-        //     this.script='document.getElementsByClassName("back_tz")[0].style.display="none"';
-        // }
-
+        this.isCollected = this.isLoved = false;
     }
 
     componentDidMount() {
         EasyLoading.show('加载数据...');
+
+        this.getIsCollectedOrLoved(this.params.data.code);
+        //this.getIsCollectedOrLoved('lovedLottery',this.params.data.code);
+    }
+
+    getOptionData() {
+        return [{
+            icon:'md-star',
+            option:'收藏',
+            isSelected:this.isCollected
+        },{
+            icon:'ios-heart',
+            option:'喜欢',
+            isSelected:this.isLoved
+        }]
     }
 
     _onLoadEnd() {
@@ -111,13 +124,17 @@ export default class helloPage extends Component {
     }
 
     _onPressOption(index,option,isSelected) {
-        let key = null;
-        let data = this.params.data;
-
         if(index == 666) {
             EasyLoading.show('加载数据...');
             this.refs.webViewAndroid.reload();
-        } else if(index == 0) { //收藏
+            return;
+        }
+
+
+        let key = null;
+        let data = this.params.data;
+
+        if(index == 0) { //收藏
             key = 'collectedLottery';
         } else if(index == 1) { //喜欢
             key = 'lovedLottery'
@@ -129,7 +146,39 @@ export default class helloPage extends Component {
             remove(key,data.code)
         }
 
-        getAllDataForKey(key,(d)=>console.log(d),(e)=>console.log(e))
+        this.showToast(key,isSelected);
+
+    }
+
+    showToast(key,isSelected) {
+        let type =  key == 'collectedLottery' ? '收藏' : '喜欢';
+        let toast =  isSelected ? `已成功添加到${type}列表` : `已成功从${type}列表中删除`;
+        ToastAndroid.show(toast, ToastAndroid.SHORT);
+    }
+
+    // 查看此彩种是否在收藏或喜欢列表中
+    async getIsCollectedOrLoved(code) {
+
+        let data = await getAllDataForKey('collectedLottery');
+        for(let i = 0; i < data.length; i++) {
+            if(data[i].code == code) {
+                this.isCollected = true;
+                break;
+            }
+        }
+
+        data = await getAllDataForKey('lovedLottery');
+        for(let i = 0; i < data.length; i++) {
+            if(data[i].code == code) {
+                this.isLoved = true;
+                break;
+            }
+        }
+
+        if(this.isLoved || this.isCollected) {
+            this._optionModal.renderOption(this.getOptionData());
+        }
+       // console.log(data);
     }
 
     render() {
@@ -155,15 +204,7 @@ export default class helloPage extends Component {
                 <OptionModal
                     ref={ref=>this._optionModal = ref}
                     onPressOption={this._onPressOption.bind(this)}
-                    optionData={[{
-                        icon:'md-star',
-                        option:'收藏',
-                        isSelected:false,
-                    },{
-                        icon:'ios-heart',
-                        option:'喜欢',
-                        isSelected:false,
-                    }]}
+                    optionData={this.getOptionData()}
                 />
                 <Loading topOffset={cfn.statusBarHeight()+56}/>
             </View>
