@@ -8,38 +8,38 @@ module.exports = [
         lottery: [
             {
                 name: '竞彩足球',
-                icon: require('../asset/imgs/lotteryIcons_new/jczq.png'),
-                code: icon.jczq,
+                icon: icon.jczq,
+                code: 'jczq',
                 url: 'http://m.aicai.com/b/zchome.do?agentId=1&vt=5'
             },
             {
                 name: '竞足单关',
-                icon: require('../asset/imgs/lotteryIcons_new/jzdg.png'),
-                code: icon.jzdg,
+                icon: icon.jzdg,
+                code: 'jzdg',
                 url: 'http://m.aicai.com/b/zcdg.do?agentId=1&vt=5'
             },
             {
                 name: '竞彩篮球',
-                icon: require('../asset/imgs/lotteryIcons_new/jclq.png'),
-                code: icon.jclq,
+                icon: icon.jclq,
+                code: 'jclq',
                 url: 'http://m.aicai.com/bet/lc.do?agentId=1&vt=5'
             },
             {
                 name: '篮彩单关',
-                icon: require('../asset/imgs/lotteryIcons_new/lcdg.png'),
-                code: icon.lcdg,
+                icon: icon.lcdg,
+                code: 'lcdg',
                 url: 'http://m.aicai.com/bet/lc.do?agentId=1&vt=5'
             },
             {
                 name: '胜负彩',
-                icon: require('../asset/imgs/lotteryIcons_new/sfc.png'),
-                code: icon.sfc,
+                icon: icon.sfc,
+                code: 'sfc',
                 url: 'http://m.aicai.com/bet/sfc.do?agentId=1&vt=5'
             },
             {
                 name: '任选九场',
-                icon: require('../asset/imgs/lotteryIcons_new/rx9c.png'),
-                code: icon.rx9c,
+                icon: icon.rx9c,
+                code: 'rx9c',
                 url: 'http://m.aicai.com/bet/rx9.do?agentId=1&vt=5'
             },
         ]
@@ -49,27 +49,27 @@ module.exports = [
         lottery: [
             {
                 name: '时时彩',
-                icon: require('../asset/imgs/lotteryIcons_new/ssc.png'),
-                code: icon.ssc,
+                icon: icon.ssc,
+                code: 'ssc',
                 url: 'http://m.aicai.com/bet/cqssc.do?agentId=1&vt=5'
             },
             {
                 name: '粤11选5',
-                icon: require('../asset/imgs/lotteryIcons_new/y11x5.png'),
-                code: icon.y11x5,
+                icon: icon.y11x5,
+                code: 'y11x5',
                 url: 'http://m.aicai.com/bet/gd11x5.do?agentId=1&vt=5'
             },
 
             {
                 name: '湖北快3',
-                icon: require('../asset/imgs/lotteryIcons_new/hbk3.png'),
-                code: icon.hbk3,
+                icon: icon.hbk3,
+                code: 'hbk3',
                 url: 'http://m.aicai.com/bet/hbk3.do?agentId=1&vt=5'
             },
             {
                 name: '新快3',
-                icon: require('../asset/imgs/lotteryIcons_new/xk3.png'),
-                code: icon.xk,
+                icon: icon.xk3,
+                code: 'xk',
                 url: 'http://m.aicai.com/bet/k3.do?agentId=1&vt=5'
             },
             {
@@ -86,8 +86,8 @@ module.exports = [
             },
             {
                 name: '11运夺金',
-                icon: require('../asset/imgs/lotteryIcons_new/11ydj.png'),
-                code:icon.syydj,
+                icon: icon.syydj,
+                code:'syydj',
                 url: 'http://m.aicai.com/bet/sd11x5.do?agentId=1&vt=5'
             },
 
@@ -98,20 +98,20 @@ module.exports = [
         lottery: [
             {
                 name: '福彩3D',
-                icon: require('../asset/imgs/lotteryIcons_new/fc3d.png'),
-                code: icon.fc3d,
+                icon: icon.fc3d,
+                code: 'fc3d',
                 url: 'http://m.aicai.com/bet/fc3d.do?agentId=1&vt=5'
             },
             {
                 name: '双色球',
-                icon: require('../asset/imgs/lotteryIcons_new/ssq.png'),
-                code: icon.ssq,
+                icon: icon.ssq,
+                code: 'ssq',
                 url: 'http://m.aicai.com/bet/ssq.do?agentId=1&vt=5'
             },
             {
                 name: '大乐透',
-                icon: require('../asset/imgs/lotteryIcons_new/dlt.png'),
-                code: icon.dlt,
+                icon: icon.dlt,
+                code: 'dlt',
                 url: 'http://m.aicai.com/bet/dlt.do?agentId=1&vt=5'
             },
 

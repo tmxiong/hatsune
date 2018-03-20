@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     StatusBar,
     Alert,
-    ScrollView
+    ScrollView,
 } from 'react-native';
 import Header from '../../components/header'
 import cfn from '../../commons/utils/commonFun'
@@ -81,7 +81,7 @@ export default class index extends Component {
     _modifyInfo(key,name) {
         // global.loginedUserData.set(key,value);
         // global.loginedUserData.save();
-        cfn.goToPage(this,'setUserInfo',{key:key,name:name})
+        cfn.goToPage(this,'setUserInfo',{key:key,name:name,updateView:this.updateView.bind(this)})
     }
 
     updateView(data) {

@@ -69,7 +69,7 @@ export default class index extends Component {
             lotteryMenu.push(
                 <TouchableOpacity
                     onPress={()=>cfn.goToPage(this,'touzhu',
-                        {name:data[i].name, url: data[i].url ,fromMenu:true})}
+                        {name:data[i].name, url: data[i].url ,fromMenu:true, data:data[i]})}
                     activeOpacity={0.8} key={data[i].code} style={styles.menuBodyItem}>
                     <Image style={styles.imgIcon} source={data[i].icon}/>
                     <Text>{data[i].name}</Text>

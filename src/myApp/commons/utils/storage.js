@@ -61,6 +61,21 @@ function clearMapForKey(key) {
     global.storage.clearMapForKey(key);
 }
 
+// 获取某个key下的所有数据(仅key-id数据)
+function getAllDataForKey(key,callback_success,ballback_failure) {
+    global.storage.getAllDataForKey(key)
+        .then((data)=>callback_success(data))
+        .catch((err)=>ballback_failure(err))
+
+}
+
+// 删除key下的某个id
+function remove(key,id) {
+    global.storage.remove({
+        key: key,
+        id: id
+    });
+}
 
 /*******************  leancloudStorage  *****************/
 
@@ -85,6 +100,8 @@ module.exports = {
     save,
     load,
     clearMapForKey,
+    getAllDataForKey,
+    remove,
 
     initAV,
     getUserDataBySessionToken

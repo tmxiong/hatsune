@@ -13,6 +13,8 @@ import cfn from '../../commons/utils/commonFun'
 import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
+import OptionModal from '../../components/optionModal'
+import {save,remove,getAllDataForKey} from '../../commons/utils/storage'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -108,6 +110,28 @@ export default class helloPage extends Component {
         }
     }
 
+    _onPressOption(index,option,isSelected) {
+        let key = null;
+        let data = this.params.data;
+
+        if(index == 666) {
+            EasyLoading.show('加载数据...');
+            this.refs.webViewAndroid.reload();
+        } else if(index == 0) { //收藏
+            key = 'collectedLottery';
+        } else if(index == 1) { //喜欢
+            key = 'lovedLottery'
+        }
+
+        if(isSelected) {
+            save(key,data.code,data);
+        }else {
+            remove(key,data.code)
+        }
+
+        getAllDataForKey(key,(d)=>console.log(d),(e)=>console.log(e))
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -116,9 +140,8 @@ export default class helloPage extends Component {
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
                     rightBtn={"ios-menu"}
-                    rightFun={()=>{}}
+                    rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
-
                 <WebViewAndroid
                     ref="webViewAndroid"
                     javaScriptEnabled={true}
@@ -129,6 +152,19 @@ export default class helloPage extends Component {
                     onMessage={this._onMessage.bind(this)}
                     source={{uri:this.params.url}} // or use the source(object) attribute...
                     style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                <OptionModal
+                    ref={ref=>this._optionModal = ref}
+                    onPressOption={this._onPressOption.bind(this)}
+                    optionData={[{
+                        icon:'md-star',
+                        option:'收藏',
+                        isSelected:false,
+                    },{
+                        icon:'ios-heart',
+                        option:'喜欢',
+                        isSelected:false,
+                    }]}
+                />
                 <Loading topOffset={cfn.statusBarHeight()+56}/>
             </View>
         )

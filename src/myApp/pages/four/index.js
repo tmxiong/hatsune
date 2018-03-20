@@ -116,13 +116,13 @@ export default class index extends Component {
 
                 <ScrollView>
                     <View style={{height:cfn.picHeight(30)}}/>
-                    <View style={styles.itemBody}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={()=>cfn.goToPage(this,'myArticle',{name:'我收藏的文章'})} style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-bookmark"/>
                         <Text style={styles.itemText}>我收藏的文章</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-heart"/>
                         <Text style={styles.itemText}>我喜欢的文章</Text>

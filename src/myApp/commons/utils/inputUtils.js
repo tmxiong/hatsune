@@ -35,6 +35,35 @@ module.exports = {
         }else {
             return [true,''];
         }
+    },
+
+    _checkPhoneNum(n) {
+        var myreg = /^1[0-9]{10}$/;
+        if(n == '') {
+            return [false, '手机号不能为空！']
+        } else if(!myreg.test(n)) {
+            return [false, '请输入正确的手机号！']
+        } else {
+            return [true,''];
+        }
+    },
+
+    _checkAge(n) {
+        if(n == '') {
+            return [false, '年龄不能为空！']
+        }else {
+            return [true,''];
+        }
+    },
+
+    _checkNickname(s) {
+        if (s == '') {
+            return [false, '昵称不能为空！']
+        }else if(s.length > 16) {
+            return [false, '昵称不能超过16位！']
+        } else {
+            return [true,''];
+        }
     }
 
 };

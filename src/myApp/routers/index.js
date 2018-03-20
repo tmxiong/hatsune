@@ -17,6 +17,7 @@ import kaijiangDetail from '../pages/three/kaijiangDetail'
 import loginAndRegist from '../pages/four/loginAndRegist'
 import userInfo from '../pages/four/userInfo'
 import setUserInfo from '../pages/four/setUserInfo'
+import myArticle from '../pages/four/myArticle'
 
 const routers = StackNavigator({
     //launch: {screen: launch},
@@ -35,6 +36,8 @@ const routers = StackNavigator({
     kaijiang: {screen: kaijiang, navigationOptions: { header:null,}},
     kaijiangDetail: {screen: kaijiangDetail, navigationOptions: { header:null,}},
 
+    // 走势图
+    trend:{screen: trend, navigationOptions: { header:null,}},
 
     // 登录
     loginAndRegist: {screen: loginAndRegist, navigationOptions: { header:null,}},
@@ -42,8 +45,9 @@ const routers = StackNavigator({
     userInfo: {screen: userInfo, navigationOptions: { header:null,}},
     // 修改用户信息
     setUserInfo: {screen: setUserInfo, navigationOptions: { header:null,}},
-    // 走势图
-    trend:{screen: trend, navigationOptions: { header:null,}},
+    // 喜欢／收藏／历史文章
+    myArticle: {screen: myArticle, navigationOptions: { header:null,}},
+
 
 
     // 彩票网站web页面
