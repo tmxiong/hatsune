@@ -15,6 +15,7 @@ import global from '../../commons/global/global'
 import {load} from '../../commons/utils/storage'
 import dateBase from '../../commons/utils/dateBase'
 import {defaultIcon} from '../../commons/config/images'
+import {getUserDataBySessionToken} from '../../commons/utils/storage'
 export default class index extends Component {
 
     static defaultProps = {};
@@ -28,29 +29,37 @@ export default class index extends Component {
     }
 
     componentDidMount() {
+
         if(!global.userData) {
             this.getUserData();
         }
 
     }
 
-
-    getUserData() {
-        load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this));
+    autoLogin() {
         load('userData','sessionToken',(data)=>{
-            console.log(data)
-            global.AV.User.become(data).then(function(user) {
-                console.log(user)
-            })
+            global.sessionToken = data;
+            getUserDataBySessionToken(data,(user)=>{
+                // 更新信息
+                global.loginedUserData = user;
+                global.userData = user.attributes;
+            },(err)=>{
+
+            });
 
         },this.onFailure.bind(this))
     }
 
-    onSuccess(data) {
+    getUserData() {
+        load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this));
+    }
 
+    onSuccess(data) {
+        // 如果之前登录了，每次打开都自动登录获取最新数据
+        this.autoLogin();
         global.userData = data;
         this.setState({isLogin:true});
-        console.log(data)
+        //console.log(data)
     }
 
     onFailure(err) {

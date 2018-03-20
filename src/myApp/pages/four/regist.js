@@ -82,15 +82,17 @@ export default class regist extends PureComponent {
 
         // 注册成功！！
         user.signUp()
-            .then((res)=>{
+            .then((data)=>{
                 this.props.dismisLoading();
                 // 保存用户名，用于展示
-                global.userData = res.attributes;
-                save('userData','userData',res);
+                global.userData = data.attributes;
+                save('userData','userData',data);
 
                 // 保存SessionToken 用于下次登录
                 global.sessionToken = data._sessionToken;
                 save('userData','sessionToken',data._sessionToken);
+
+                global.loginedUserData = res;
 
                 // 刷新上一页为登录状态
                 this.props.updateToLogin();

@@ -45,6 +45,8 @@ export default class login extends PureComponent {
         // 保存SessionToken 用于下次登录
         global.sessionToken = data._sessionToken;
         save('userData','sessionToken',data._sessionToken);
+
+        global.loginedUserData = data;
     }
 
     _login() {

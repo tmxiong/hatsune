@@ -16,6 +16,7 @@ import kaijiang from '../pages/three/kaijiang'
 import kaijiangDetail from '../pages/three/kaijiangDetail'
 import loginAndRegist from '../pages/four/loginAndRegist'
 import userInfo from '../pages/four/userInfo'
+import setUserInfo from '../pages/four/setUserInfo'
 
 const routers = StackNavigator({
     //launch: {screen: launch},
@@ -39,6 +40,8 @@ const routers = StackNavigator({
     loginAndRegist: {screen: loginAndRegist, navigationOptions: { header:null,}},
     // 用户信息设置与修改
     userInfo: {screen: userInfo, navigationOptions: { header:null,}},
+    // 修改用户信息
+    setUserInfo: {screen: setUserInfo, navigationOptions: { header:null,}},
     // 走势图
     trend:{screen: trend, navigationOptions: { header:null,}},
 

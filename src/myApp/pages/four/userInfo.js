@@ -6,7 +6,8 @@ import {
     Image,
     TouchableOpacity,
     StatusBar,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 import Header from '../../components/header'
 import cfn from '../../commons/utils/commonFun'
@@ -24,7 +25,8 @@ export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogin:false,
+            isLogin:global.userData,
+            userData:global.userData,
 
         };
     }
@@ -33,6 +35,7 @@ export default class index extends Component {
         if(!global.userData) {
             this.getUserData();
         }
+        //console.log(global.loginedUserData);
     }
 
 
@@ -62,6 +65,7 @@ export default class index extends Component {
                         EasyLoading.dismis();
                         clearMapForKey('userData');
                         global.userData = null;
+                        global.loginedUserData = null;
                         that.props.navigation.state.params.updateToNoLogin();
                         cfn.goBack(that);
                         console.log(res)
@@ -74,21 +78,16 @@ export default class index extends Component {
         ]);
     }
 
-    _modifyInfo(info) {
-        getUserDataBySessionToken(global.sessionToken,(user)=>{
-            user.set('article',[{name:'西游记',price:120},{name:'红楼梦',price:99}]);
-            return user.save();
-        },(err)=>{
-            console.log(err)
-        })
+    _modifyInfo(key,name) {
+        // global.loginedUserData.set(key,value);
+        // global.loginedUserData.save();
+        cfn.goToPage(this,'setUserInfo',{key:key,name:name})
+    }
 
-        setTimeout(()=>{
-            getUserDataBySessionToken(global.sessionToken,(user)=>{
-                console.log(user);
-            },(err)=>{
-                console.log(err)
-            })
-        },3000)
+    updateView(data) {
+        this.setState({
+            userData:data
+        })
     }
 
     render() {
@@ -101,7 +100,7 @@ export default class index extends Component {
                     </View>
 
                     <View style={styles.userContent}>
-                        <Text style={styles.userName}>{global.userData.username}</Text>
+                        <Text style={styles.userName}>{this.state.userData.username}</Text>
                         <Text style={styles.userDesc}>{`${dateBase.cn_time()}亲爱的${global.userData.username}~`}</Text>
                     </View>
                     <TouchableOpacity activeOpacity={0.8}
@@ -113,53 +112,65 @@ export default class index extends Component {
 
 
                 </View>
+                <ScrollView>
+                    <View style={{height:cfn.picHeight(30)}}/>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={()=>this._modifyInfo('nickname','设置昵称')}
+                        style={styles.itemBody}>
+                        <Text style={styles.itemText}>昵称</Text>
+                        <Text style={{color:'#888'}}>{this.state.userData.nickname || '未设置'}</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={()=>this._modifyInfo('sex','设置性别')}
+                        style={styles.itemBody}>
+                        <Text style={styles.itemText}>性别</Text>
+                        <Text style={{color:'#888'}}>{this.state.userData.sex || '未设置'}</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={()=>this._modifyInfo('age','设置年龄')}
+                        style={styles.itemBody}>
+                        <Text style={styles.itemText}>年龄</Text>
+                        <Text style={{color:'#888'}}>{this.state.userData.age || '未设置'}</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={()=>this._modifyInfo('email','设置邮箱')}
+                        style={styles.itemBody}>
+                        <Text style={styles.itemText}>邮箱</Text>
+                        <Text style={{color:'#888'}}>{this.state.userData.email || '未设置'}</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        onPress={()=>this._modifyInfo('phoneNum','设置手机号')}
+                        style={styles.itemBody}>
+                        <Text style={styles.itemText}>手机号</Text>
+                        <Text style={{color:'#888'}}>{this.state.userData.phoneNum || '未设置'}</Text>
+                        <View style={styles.itemForwardContainer}>
+                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                        </View>
+                    </TouchableOpacity>
 
-                <View style={{height:cfn.picHeight(30)}}/>
-                <TouchableOpacity
-                    onPress={()=>this._modifyInfo('男')}
-                    style={styles.itemBody}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>性别</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                    <View style={{height:100,marginTop:20,alignItems:'center'}}>
+
+                        <Button onPress={this._logout.bind(this)} style={styles.btn} block disabled={false}> 注销 / 切换账号 </Button>
                     </View>
-                </TouchableOpacity>
-                <View style={styles.itemBody}>
-                    <Icon style={styles.itemIcon} name="ios-time"/>
-                    <Text style={styles.itemText}>阅读过的文章</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
-                    </View>
-                </View>
+                </ScrollView>
 
-                <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>我收藏的彩种</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
-                    </View>
-                </View>
-
-                <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>应用介绍</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
-                    </View>
-                </View>
-
-                <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
-                    <Icon style={styles.itemIcon} name="md-bookmark"/>
-                    <Text style={styles.itemText}>版本更新</Text>
-                    <View style={styles.itemForwardContainer}>
-                        <Icon style={styles.itemForward} name="ios-arrow-forward"/>
-                    </View>
-                </View>
-
-                <View style={{height:100,marginTop:20,alignItems:'center'}}>
-
-                    <Button onPress={this._logout.bind(this)} style={styles.btn} block disabled={false}> 注销 / 切换账号 </Button>
-                </View>
             <Loading/>
             </View>
         )
@@ -213,9 +224,8 @@ const styles = StyleSheet.create({
         width:cfn.deviceWidth()-cfn.picWidth(120),
         textAlign:'center'
     },
-    forward: {
-        fontSize: 30,
-        color:'#ddd',
+    itemForward: {
+        color:'#ccc',
     },
     itemBody: {
         width:cfn.deviceWidth(),
@@ -236,7 +246,11 @@ const styles = StyleSheet.create({
 
     },
     itemText: {
-
+        color:'#222',
+        marginLeft:20,
+        fontSize:16,
+        width:cfn.picWidth(200),
+        //backgroundColor:'#e45'
     },
     itemForwardContainer: {
         position:'absolute',
