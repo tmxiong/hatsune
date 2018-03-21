@@ -1,3 +1,10 @@
+/**
+ * from:
+ *      1. touzhuOther
+ *      2. article
+ *      3. index --> newsList index.js
+ * */
+
 import React, {Component} from 'react';
 import {
     StyleSheet,
@@ -15,7 +22,7 @@ import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import config from '../../commons/config/config'
-import {save} from '../../commons/utils/storage'
+import {save, getAllDataForKey} from '../../commons/utils/storage'
 import OptionModal from '../../components/optionModal'
 export default class helloPage extends Component {
 
@@ -29,11 +36,13 @@ export default class helloPage extends Component {
             isLoved:false,
         };
         this.params = props.navigation.state.params;
+        this.id = this.params.url.split('id=')[1].split('&')[0];
         this.isCollected = this.isLoved = false;
     }
 
     componentDidMount() {
         EasyLoading.show('加载数据...');
+        this.getIsCollectedOrLoved(this.id)
     }
 
     getOptionData() {
@@ -46,6 +55,38 @@ export default class helloPage extends Component {
             option:'喜欢',
             isSelected:this.isLoved
         }]
+    }
+
+    // 查看此彩种是否在收藏或喜欢列表中
+    async getIsCollectedOrLoved(id) {
+
+        try{
+            let data = await getAllDataForKey('collectedArticle');
+            for(let i = 0; i < data.length; i++) {
+                if(data[i].id == id) {
+                    this.isCollected = true;
+                    break;
+                }
+            }
+        }catch(e){}
+
+
+        try{
+            data = await getAllDataForKey('lovedArticle');
+            for(let i = 0; i < data.length; i++) {
+                if(data[i].id == id) {
+                    this.isLoved = true;
+                    break;
+                }
+            }
+        }catch(e){}
+
+
+
+        if(this.isLoved || this.isCollected) {
+            this._optionModal.renderOption(this.getOptionData());
+        }
+        // console.log(data);
     }
 
     _rightFun() {
@@ -90,36 +131,55 @@ export default class helloPage extends Component {
     }
 
     _onMessage(e) {
+        console.log(e);
+        let message = e.message.split('|');
+        this.title = message[1];
         this.setState({
-            webViewOffset:cfn.px2dp(e.message),
+            webViewOffset:cfn.px2dp(Number(message[0])),
         });
 
         setTimeout(()=>{
             EasyLoading.dismis();
-        },300)
+        },300);
+
+        // 存为阅读历史
+        this.currentData = {
+            name: this.params.name,
+            title: this.title,
+            url: this.params.url,
+            id: this.id,
+            from:this.params.from
+        };
+        save('readArticle',this.id,this.currentData);
+        console.log(this.currentData);
     }
 
     _javascriptToInject() {
-        return `
-        var height = 0;
-        if(document.getElementsByClassName("v-header")[0]){
-            height = document.getElementsByClassName("v-header")[0].offsetHeight;
-        }
-            
-        
-            if(document.getElementsByClassName("cms-title")[0]){document.getElementsByClassName("cms-title")[0].textContent = '${config.appName}';}
-            if(document.getElementsByClassName("nnew_xgx")[0]){document.getElementsByClassName("nnew_xgx")[0].style.display="none";}
-            if(document.getElementsByClassName("footer-down")[0]){document.getElementsByClassName("footer-down")[0].style.display="none";}
-            if(document.getElementsByClassName("nnews_xgg")[0]){document.getElementsByClassName("nnews_xgg")[0].style.display="none";}
-            if(document.getElementsByClassName("h_popup_mask")[0]){document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
-           
+
+        const{from} = this.params;
+
+        if(from == 'index' || from == 'article') { //来自 首页的
+            return `
+            if(document.getElementById("title")){var title=document.getElementById("title").textContent;
+            window.webView.postMessage("0|"+title);}
             if(document.getElementById("shareBtn")){document.getElementById("shareBtn").style.display = "none";}
             if(document.getElementById("tuijian")){document.getElementById("tuijian").style.display = "none";}
             if(document.getElementById("author")){document.getElementById("author").textContent = '${config.appName}';}
-            
-            window.webView.postMessage(height);
-            
             `
+        }else if(from == 'touzhuOther') {
+            return `
+       
+        if(window.document.title) {var title=window.document.title;}
+        if(document.getElementsByClassName("v-header")[0]){var height = document.getElementsByClassName("v-header")[0].offsetHeight;}
+        if(document.getElementsByClassName("cms-title")[0]){document.getElementsByClassName("cms-title")[0].textContent = '${config.appName}';}
+        if(document.getElementsByClassName("nnew_xgx")[0]){document.getElementsByClassName("nnew_xgx")[0].style.display="none";}
+        if(document.getElementsByClassName("footer-down")[0]){document.getElementsByClassName("footer-down")[0].style.display="none";}
+        if(document.getElementsByClassName("nnews_xgg")[0]){document.getElementsByClassName("nnews_xgg")[0].style.display="none";}
+        if(document.getElementsByClassName("h_popup_mask")[0]){document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
+         window.webView.postMessage(height+'|'+title);
+            `
+        }
+
     }
 
     _onNavigationStateChange(e) {
@@ -131,16 +191,9 @@ export default class helloPage extends Component {
                 cfn.goToPage(this,'articleDetail',{name: e.title})
             }
         }
-        // 存为阅读历史
+
         if(!e.loading) {
-            this.currentData = {
-                name: this.params.name,
-                title: this.params.fromWeb? e.title : this.params.title,
-                url: this.params.url,
-                id: this.params.url.split('id=')[1].split('&')[0],
-            };
-            save('readArticle',this.currentData.id,this.currentData);
-            console.log(this.currentData);
+
         }
     }
 

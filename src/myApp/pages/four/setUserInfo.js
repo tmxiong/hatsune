@@ -20,7 +20,9 @@ export default class helloPage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            sex:'男',
+        };
         this.params = props.navigation.state.params;
         this.inputStr = ''
     }
@@ -31,7 +33,7 @@ export default class helloPage extends Component {
             check = inputUtils._checkNickname(input);
             if(!check[0]) return Alert.alert('错误：',check[1]);
         }else if(key == 'sex') {
-
+            input = this.state.sex;
         } else if (key == 'age') {
             check = inputUtils._checkAge(input);
             if(!check[0]) return Alert.alert('错误：',check[1]);
@@ -57,6 +59,8 @@ export default class helloPage extends Component {
 
     renderView(key,name) {
 
+        let that = this;
+
         let view1 = <InputGroup borderType="regular" style={{backgroundColor:'#fff'}}>
             <Input style={styles.text} onChangeText={(t)=>this.inputStr = t} keyboardType="numeric" maxLength={2} placeholderTextColor="#ccc" placeholder={name}/>
         </InputGroup>;
@@ -70,8 +74,8 @@ export default class helloPage extends Component {
             selectedValue={this.state.sex}
             mode="dropdown"
             onValueChange={(sex) => {
-                this.inputStr = sex;
-                this.setState({sex: sex})}
+                that.inputStr = sex;
+                that.setState({sex: sex})}
             }>
             <Picker.Item label="男" value="男" />
             <Picker.Item label="女" value="女" />

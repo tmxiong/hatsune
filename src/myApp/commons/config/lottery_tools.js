@@ -9,43 +9,50 @@ module.exports=[
         icon:'ios-trophy-outline',
         url:'http://m.aicai.com/kjgg/index.do?agentId=1&vt=5',
         desc:'走势分析一网打尽',
-        color:'#25A9FF'
+        color:'#25A9FF',
+        page:''
     },
     {
         name:'我的收藏',
         icon:'ios-star-outline',
         url:'',
         desc:'走势分析一网打尽',
-        color:'#FF5D3B'
+        color:'#FF5D3B',
+        page:''
     },
     {
         name:'预测资讯',
         icon:'ios-list-box-outline',
         url:'http://m.aicai.com/newInfo/index.do?navId=2&agentId=1&vt=5',
-        desc:'走势分析一网打尽',
-        color:'#FF2D55'
+        desc:'开奖资讯精准预测',
+        color:'#FF2D55',
+        page:'article'
     },
     {
         name:'赛事比分',
         icon:'ios-football',
         url:'http://m.aicai.com/league/zc/match/fbMatchListView?agentId=1&vt=5',
         desc:'走势分析一网打尽',
-        color:'#46BC62'
+        color:'#46BC62',
+        page:''
     },
     {
         name:'精品杀码',
         icon:'ios-person',
-        url:'http://m.aicai.com/f/filterCode.do?gameId=101&agentId=1&vt=5'
+        url:'http://m.aicai.com/f/filterCode.do?gameId=101&agentId=1&vt=5',
+        page:''
     },
     {
         name:'走势图表',
         icon:'md-trending-up',
-        url:'http://m.aicai.com/zst/index.do?agentId=1&vt=5'
+        url:'http://m.aicai.com/zst/index.do?agentId=1&vt=5',
+        page:''
     },
 
     {
         name:'阅读记录',
         icon:'md-star',
         url:'',
+        page:''
     }
 ];

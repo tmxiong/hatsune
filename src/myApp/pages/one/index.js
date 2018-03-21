@@ -94,7 +94,7 @@ export default class index extends Component {
                 <TouchableOpacity
                     key={'s'+i}
                     activeOpacity={0.8}
-                    onPress={()=>cfn.goToPage(this,'tool',{})}
+                    onPress={()=>cfn.goToPage(this,tools[i].page,{})}
                     style={[styles.toolCell,{borderRightColor:'#eee',borderRightWidth:1}]}>
                     <Icon name={tools[i].icon} style={[styles.toolIcon,{color:tools[i].color}]}/>
                     <View style={styles.toolCellHead}>

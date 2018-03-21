@@ -91,6 +91,17 @@ export default class newsDetail extends Component {
 
     onNavigationStateChange(e) {
         console.log(e);
+        let url = e.url;
+        if(url.match('detail')) {
+            this._webView.stopLoading();
+            if(!e.loading) {
+                cfn.goToPage(this,'articleDetail',{name:'彩市资讯',url:url,from:'article'})
+            }
+        }
+    }
+
+    _rightFun() {
+        this._optionModal.setModalVisible(true);
     }
 
     render() {

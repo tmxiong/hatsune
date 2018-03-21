@@ -90,7 +90,7 @@ export default class helloPage extends Component {
 
     _onPressItem(rowData,sectionId, rowId) {
         cfn.goToPage(this,'articleDetail',
-            {name:rowData.name, url: rowData.url ,fromMenu:true, data:rowData})
+            {name:rowData.name, url: rowData.url ,from:rowData.from, data:rowData})
     }
 
     _renderRow(rowData,sectionId, rowId) {

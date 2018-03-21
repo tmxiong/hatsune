@@ -93,7 +93,7 @@ export default class articles extends PureComponent {
                         name: '彩市资讯',
                         rowData: rowData,
                         url: urls.getArticleDetail(rowData.id),
-                        fromWeb:false,
+                        from:'index', // 来自首页
                         title: rowData.title
                     }
                 )}
