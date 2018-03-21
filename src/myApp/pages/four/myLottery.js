@@ -21,8 +21,8 @@ export default class helloPage extends Component {
         super(props);
         this.state = {
             ds: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2
-            })
+            rowHasChanged: (r1, r2) => r1 !== r2
+        })
         };
         this.params = props.navigation.state.params;
         this.rowData = null;  // 点击或滑动item存储该rowData
@@ -68,7 +68,7 @@ export default class helloPage extends Component {
     }
 
     _delete() {
-        remove(this.params.key,this.rowData.id);
+        remove(this.params.key,this.rowData.code);
         this.getStorageData(this.params.key);
     }
 
@@ -89,7 +89,7 @@ export default class helloPage extends Component {
     }
 
     _onPressItem(rowData,sectionId, rowId) {
-        cfn.goToPage(this,'articleDetail',
+        cfn.goToPage(this,'touzhu',
             {name:rowData.name, url: rowData.url ,fromMenu:true, data:rowData})
     }
 
@@ -97,17 +97,14 @@ export default class helloPage extends Component {
         return (
             <Swipeout  right={this.swipeBtns} buttonWidth={cfn.picWidth(140)}
                        autoClose={true} onOpen={()=>this._onOpen(rowData,sectionId, rowId)}>
-                <TouchableOpacity activeOpacity={0.8} onPress={()=>this._onPressItem(rowData,sectionId, rowId)} style={styles.item}>
-                    <Text style={styles.itemText}>{rowData.title + rowData.title}</Text>
-
-                    <View style={styles.iconContainer}>
-                        <Icon style={styles.icon} name="ios-arrow-forward"/>
-                    </View>
-
-
-
-                </TouchableOpacity>
-            </Swipeout>)
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>this._onPressItem(rowData,sectionId, rowId)} style={styles.item}>
+                <Image style={styles.icon} source={rowData.icon}/>
+                <Text style={styles.itemText}>{rowData.name}</Text>
+                <View style={styles.iconContainer}>
+                    <Icon style={styles.iconRight} name="ios-arrow-forward"/>
+                </View>
+            </TouchableOpacity>
+        </Swipeout>)
     }
 
     render() {
@@ -129,15 +126,15 @@ export default class helloPage extends Component {
                             key={1}
                             dataSource={this.state.ds}
                             renderRow={this._renderRow.bind(this)}
-                        />] :
+                />] :
                     <View style={{width:cfn.deviceWidth(),alignItems:'center',marginTop:50}}><Text style={{color:'#aaa',fontSize:18}}>暂无数据</Text></View>
                 }
 
                 {/*<Swipeout  right={swipeBtns}*/}
-                {/*buttonWidth={cfn.picWidth(140)} autoClose={true} onOpen={this._onOpen.bind(this)}>*/}
-                {/*<View style={styles.item}>*/}
-                {/*<Text>Swipe me left</Text>*/}
-                {/*</View>*/}
+                           {/*buttonWidth={cfn.picWidth(140)} autoClose={true} onOpen={this._onOpen.bind(this)}>*/}
+                    {/*<View style={styles.item}>*/}
+                        {/*<Text>Swipe me left</Text>*/}
+                    {/*</View>*/}
                 {/*</Swipeout>*/}
 
             </View>
@@ -161,12 +158,16 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     item: {
-        height:cfn.picHeight(120),
+        height:cfn.picHeight(100),
         alignItems:'center',
         flexDirection:'row',
-        backgroundColor:'#fff',
-        borderBottomWidth:1,
-        borderBottomColor:'#eee'
+        backgroundColor:'#fff'
+    },
+    icon: {
+        width:cfn.picWidth(70),
+        height:cfn.picWidth(70),
+        marginLeft:cfn.picWidth(20),
+        marginRight:cfn.picWidth(20)
     },
     iconContainer: {
         width: cfn.picWidth(120),
@@ -174,13 +175,13 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center'
     },
-    icon: {
+    iconRight: {
         textAlign:'center',
         color:'#ccc'
     },
     itemText: {
         color:'#555',
         marginLeft:cfn.picWidth(20),
-        width:cfn.deviceWidth() - cfn.picWidth(120)
+        width:cfn.deviceWidth() - cfn.picWidth(120+110)
     }
 });

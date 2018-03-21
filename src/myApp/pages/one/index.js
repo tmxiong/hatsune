@@ -23,7 +23,7 @@ import tools from '../../commons/config/lottery_tools'
 import global from '../../commons/global/global'
 import {Icon} from 'native-base';
 import {load} from '../../commons/utils/storage'
-
+import NewsList from '../../components/newsList'
 export default class index extends Component {
 
     constructor(props) {
@@ -39,11 +39,11 @@ export default class index extends Component {
     }
 
     componentDidMount() {
-        this.getLotteryDataByStorage();
         this.setToolMenu();
+        this.getLotteryDataByStorage();
     }
 
-    getLotteryDataByStorage() {
+    async getLotteryDataByStorage() {
         // global.storage.getAllDataForKey('lotteryMenu')
         //     .then((data)=>this.setLotteryStorageData(data))
         //     .catch((error)=>this.setLotteryMenu(this.lottery))
@@ -51,7 +51,12 @@ export default class index extends Component {
         // global.storage.load({key:'lotteryMenu',id:'lotteryMenu'})
         //     .then((data)=>this.setLotteryStorageData(data))
         //     .catch((error)=>this.setLotteryMenu(this.lottery))
-        load('lotteryMenu','lotteryMenu',this.setLotteryStorageData.bind(this),this.setLotteryMenu.bind(this))
+        try {
+            let data = await load('lotteryMenu','lotteryMenu');
+            this.setLotteryStorageData(data);
+        }  catch(e) {
+            this.setLotteryMenu(this.lottery)
+        }
 
     }
 
@@ -167,6 +172,21 @@ export default class index extends Component {
 
                         </View>
                     </View>
+
+                    <View style={[styles.menuContainer,{marginTop:cfn.picHeight(20)}]}>
+                        <View style={styles.menuTitle}>
+                            <View style={styles.titleIcon}/>
+                            <Text style={styles.titleText}>彩市资讯</Text>
+                            <TouchableOpacity
+                                onPress={()=>cfn.goToPage(this,'article', {name:'彩种列表'})}
+                                activeOpacity={0.8}
+                                style={styles.more}>
+                                <Text>更多>></Text>
+                            </TouchableOpacity>
+                        </View>
+                        <NewsList _this={this}/>
+                    </View>
+
                 </ScrollView>
 
                 <StatusBar hidden={false}

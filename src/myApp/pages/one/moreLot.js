@@ -140,7 +140,7 @@ export default class helloPage extends Component {
         if (!sortable) {
             let sortedDataSource = this._sortableSudokuGrid.getSortedDataSource()
             //console.log(`_onPressManagementButton get sorted/added/removed DataSource`)
-            console.log(sortedDataSource);
+            //console.log(sortedDataSource);
             let candidateDataSource = this._candidatesSudokuGrid.getSortedDataSource()
             //console.log(`_onPressManagementButton get sorted/added/removed candidateDataSource`)
             //console.log(candidateDataSource)

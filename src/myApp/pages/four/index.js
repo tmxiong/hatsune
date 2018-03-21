@@ -36,22 +36,25 @@ export default class index extends Component {
 
     }
 
-    autoLogin() {
-        load('userData','sessionToken',(data)=>{
+    async autoLogin() {
+        try{
+            let data = await load('userData','sessionToken');
             global.sessionToken = data;
             getUserDataBySessionToken(data,(user)=>{
                 // 更新信息
                 global.loginedUserData = user;
                 global.userData = user.attributes;
-            },(err)=>{
+            })
+        }catch(e){}
 
-            });
-
-        },this.onFailure.bind(this))
     }
 
-    getUserData() {
-        load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this));
+    async getUserData() {
+        try{
+            let data = await load('userData','userData');
+            this.onSuccess(data)
+        }catch (e){}
+
     }
 
     onSuccess(data) {
@@ -63,7 +66,7 @@ export default class index extends Component {
     }
 
     onFailure(err) {
-        console.log(err)
+
     }
 
     getLoginDesc(isLogin) {
@@ -116,42 +119,52 @@ export default class index extends Component {
 
                 <ScrollView>
                     <View style={{height:cfn.picHeight(30)}}/>
-                    <TouchableOpacity activeOpacity={0.8} onPress={()=>cfn.goToPage(this,'myArticle',{name:'我收藏的文章'})} style={styles.itemBody}>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goToPage(this,'myArticle',
+                                          {name:'我收藏的文章',key:'collectedArticle'})} style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-bookmark"/>
                         <Text style={styles.itemText}>我收藏的文章</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
                     </TouchableOpacity>
-                    <View style={styles.itemBody}>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goToPage(this,'myArticle',
+                                          {name:'我喜欢的文章',key:'lovedArticle'})} style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-heart"/>
                         <Text style={styles.itemText}>我喜欢的文章</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
-                    </View>
-                    <View style={styles.itemBody}>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goToPage(this,'myArticle', // read 的过去也是 read 666
+                                          {name:'阅读过的文章',key:'readArticle'})} style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="ios-time"/>
                         <Text style={styles.itemText}>阅读过的文章</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
-                    </View>
-
-                    <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
+                    </TouchableOpacity>
+                    <View style={{height:cfn.picHeight(30)}}/>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goToPage(this,'myLottery',
+                                          {name:'我收藏的彩种',key:'collectedLottery'})} style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-bookmark"/>
                         <Text style={styles.itemText}>我收藏的彩种</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
-                    </View>
-                    <View style={[styles.itemBody]}>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goToPage(this,'myLottery',
+                                          {name:'我喜欢的彩种',key:'lovedLottery'})} style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-heart"/>
                         <Text style={styles.itemText}>我喜欢的彩种</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
-                    </View>
+                    </TouchableOpacity>
 
                     <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
                         <Icon style={styles.itemIcon} name="md-list-box"/>

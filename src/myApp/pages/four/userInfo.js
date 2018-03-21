@@ -39,8 +39,12 @@ export default class index extends Component {
     }
 
 
-    getUserData() {
-        load('userData','userData',this.onSuccess.bind(this),this.onFailure.bind(this))
+    async getUserData() {
+        try{
+            let data = await load('userData','userData');
+            this.onSuccess(data);
+        }catch (e){}
+
     }
 
     onSuccess(data) {
@@ -48,10 +52,6 @@ export default class index extends Component {
         global.userData = data;
         this.setState({isLogin:true});
         console.log(data)
-    }
-
-    onFailure(err) {
-        console.log(err)
     }
 
     _logout() {

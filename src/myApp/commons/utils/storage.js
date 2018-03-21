@@ -50,10 +50,12 @@ function save(key,id,data) {
 }
 
 // 获取
-function load(key,id,callback_success,ballback_failure) {
-    global.storage.load({key:key,id:id})
-        .then((data)=>callback_success(data))
-        .catch((error)=>ballback_failure(this.lottery))
+function load(key,id) {
+    return new Promise((resolve,reject)=>{
+        global.storage.load({key:key,id:id})
+            .then((data)=>resolve(data))
+            .catch((err)=>reject(err))
+    })
 }
 
 // 删除某个key下的所有数据
@@ -63,10 +65,6 @@ function clearMapForKey(key) {
 
 // 获取某个key下的所有数据(仅key-id数据)
 function getAllDataForKey(key) {
-    // global.storage.getAllDataForKey(key)
-    //     .then((data)=>callback_success(data))
-    //     .catch((err)=>ballback_failure(err))
-
     return new Promise((resolve, reject)=>{
         global.storage.getAllDataForKey(key)
             .then((data)=>resolve(data))
@@ -78,10 +76,11 @@ function getAllDataForKey(key) {
 
 // 删除key下的某个id
 function remove(key,id) {
-    global.storage.remove({
-        key: key,
-        id: id
-    });
+    return new Promise((resolve,reject)=>{
+        global.storage.remove({key: key, id: id})
+            .then((res)=>resolve(res))
+            .catch((err)=>reject(err))
+    })
 }
 
 /*******************  leancloudStorage  *****************/

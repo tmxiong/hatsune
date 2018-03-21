@@ -81,7 +81,8 @@ export default class two extends Component {
                     leftBtn={""}
                     leftType="text"
                     leftFun={()=>{}}
-                    rightBtn={"ios-menu"}
+                    rightBtn={""}
+                    rightType="text"
                     rightFun={()=>{}}
                 />
 

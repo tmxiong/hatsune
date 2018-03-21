@@ -78,7 +78,7 @@ export default class helloPage extends Component {
         if(url.match(/articleDetail/) || url.match(/article.do/)) {
             this.refs.webViewAndroid.stopLoading();
             if(!e.loading) {
-                cfn.goToPage(this,'articleDetail',{name: e.title,url:url})
+                cfn.goToPage(this,'articleDetail',{name: e.title,url:url,fromWeb:true})
             }
         }
     }

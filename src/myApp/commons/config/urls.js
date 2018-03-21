@@ -1,3 +1,10 @@
+
+// https://m.qmcai.com/hd/caipiaoclass/index.html?fromType=cpkt_1002&hideTab=true
+
+let timeStamp = function () {
+    return new Date().getTime();
+};
+
 // 福彩3D 双色球 大乐透开奖
 exports.getOpenCode = () =>
     'http://m.zhcw.com/clienth5.do?transactionType=8010&busiCode=300105&cache=yes&src=0000100001%7C6000003060'
@@ -5,3 +12,14 @@ exports.getOpenCode = () =>
 // 5条资讯
 exports.getTitleNews = () =>
 'http://m.zhcw.com/clienth5.do?transactionType=8010&busiCode=300104&cache=yes&src=0000100001%7C6000003060'
+
+// 福彩3d/高频彩/数字彩的列表链接
+exports.getArticle = function (type,offset) {
+    // type = fc/gpc/szc/csxw
+    return 'https://m.qmcai.com/support/cmsv2/information/queryContent?parameter=%7B%22command%22:%22queryContent%22,%22categoryId%22:%22'+ type +'%22,%22offset%22:'+ offset +',%22size%22:15,%22platform%22:%22html%22,%22version%22:%225.2.16%22%7D&callback=jsonp5'
+};
+
+// 福彩3d/高频彩/数字彩的详情链接
+exports.getArticleDetail = function (id) {
+    return 'https://m.qmcai.com/zixun/detail.html?_id=' + id +'&time=' + timeStamp();
+};

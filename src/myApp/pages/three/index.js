@@ -9,6 +9,7 @@ import Header from '../../components/header'
 import WebViewAndroid from 'react-native-webview-android'
 import cfn from '../../commons/utils/commonFun';
 import { Loading, EasyLoading } from '../../components/loading'
+import OptionModal from '../../components/optionModal'
 export default class three extends Component {
 
     constructor(props) {
@@ -51,6 +52,15 @@ export default class three extends Component {
         }
     }
 
+    _onPressOption(index,option,isSelected) {
+        if(index == 666) {
+            EasyLoading.show('加载数据...');
+            this.refs.webViewAndroid.reload();
+            return;
+        }
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -59,7 +69,7 @@ export default class three extends Component {
                     leftBtn={""}
                     leftType="text"
                     rightBtn={"ios-menu"}
-                    rightFun={()=>{}}
+                    rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
                 <WebViewAndroid
                     ref="webViewAndroid"
@@ -71,6 +81,11 @@ export default class three extends Component {
                     onMessage={this._onMessage.bind(this)}
                     source={{uri:'http://m.aicai.com/kjgg/index.do?agentId=1&vt=5'}} // or use the source(object) attribute...
                     style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                <OptionModal
+                    ref={ref=>this._optionModal = ref}
+                    onPressOption={this._onPressOption.bind(this)}
+                    //optionData={this.getOptionData()}
+                />
                 <Loading topOffset={cfn.statusBarHeight()+56+50}/>
             </View>
         )
