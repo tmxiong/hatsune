@@ -90,7 +90,7 @@ export default class newsDetail extends Component {
 
 
     onNavigationStateChange(e) {
-
+        console.log(e);
     }
 
     render() {
