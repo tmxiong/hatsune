@@ -52,17 +52,17 @@ export default class Banner extends PureComponent {
     }
 
     goToDetail(index) {
-        const {navigate} = this.props.navigation;
+
 
         if(index == 1) {
-            navigate('PlayTips',{name:'购彩资讯',type:'csxw'})
+            commonFn.goToPage(this.props._this,'trend',{url:'https://m.aicai.com/zst/xk3/hzzs.do?vt=5&clientType=0',name:'吉林快3-和值走势'})
         } else if(index == 0) {
-            navigate('PlayTips',{
-                type: 'gpc',
-                name: '时时彩推荐'
+            commonFn.goToPage(this.props._this,'touzhuOther',{
+                url: 'https://m.aicai.com/f/filterCode.do?gameId=201&agentId=1&vt=5',
+                name: '精品杀码'
             })
         } else if(index == 2) {
-            navigate('jieshao')
+            commonFn.goToPage(this.props._this,'article',{name: '更多彩市资讯'})
         }
     }
 

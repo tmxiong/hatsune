@@ -80,10 +80,11 @@ export default class regist extends PureComponent {
         user.setPassword(this.psd);
         user.setEmail(this.email);
 
+        var _this = this;
         // 注册成功！！
         user.signUp()
             .then((data)=>{
-                this.props.dismisLoading();
+                _this.props.dismisLoading();
                 // 保存用户名，用于展示
                 global.userData = data.attributes;
                 save('userData','userData',data);
@@ -92,20 +93,20 @@ export default class regist extends PureComponent {
                 global.sessionToken = data._sessionToken;
                 save('userData','sessionToken',data._sessionToken);
 
-                global.loginedUserData = res;
+                global.loginedUserData = data;
 
                 // 刷新上一页为登录状态
-                this.props.updateToLogin();
+                _this.props.updateToLogin();
 
                 // 返回上一页
-                this.props.goBack();
+                _this.props.goBack();
                 console.log(user);
 
         })
             // 注册失败！！
             .catch((err)=>{
-                this.props.dismisLoading();
-                this.setState({errorMsg:err.rawMessage});
+                _this.props.dismisLoading();
+                _this.setState({errorMsg:err.rawMessage});
                 console.log(err)
             });
 
@@ -140,7 +141,7 @@ export default class regist extends PureComponent {
                                 <View style={{height:20}}>
                                     {this.state.errorMsg ? <Text style={{color:'#f00',fontWeight:'bold'}}>错误：{this.state.errorMsg}</Text> : null}
                                 </View>
-                                <Button onPress={()=>this._submit()} style={styles.btn} block disabled={false}> 注册 </Button>
+                                <Button onPress={this._submit.bind(this)} style={styles.btn} block disabled={false}> 注册 </Button>
                             </View>
 
                         </View>

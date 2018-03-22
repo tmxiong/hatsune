@@ -29,6 +29,7 @@ import userInfo from '../pages/four/userInfo'
 import setUserInfo from '../pages/four/setUserInfo'
 import myLottery from '../pages/four/myLottery'
 import myArticle from '../pages/four/myArticle'
+import welcome from '../pages/welcome'
 
 const routers = StackNavigator({
     //launch: {screen: launch},
@@ -65,6 +66,7 @@ const routers = StackNavigator({
     setUserInfo: {screen: setUserInfo, navigationOptions: { header:null,}},
 
 
+    welcome: {screen: welcome, navigationOptions: { header:null,}}
 
 
     // 彩票网站web页面

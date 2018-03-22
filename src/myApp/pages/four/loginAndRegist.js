@@ -89,7 +89,7 @@ export default class helloPage extends Component {
                         goBack={()=>cfn.goBack(this)}
                         updateToLogin={()=>this.params.updateToLogin()}
                         showLoading={()=>this.showLoading('正在注册...')}
-                        dismisLoading={()=>this.dismisLoading()}
+                        dismisLoading={this.dismisLoading.bind(this)}
                     />
                 </ScrollView>
                 <Loading background={'transparent'} topOffset={cfn.statusBarHeight()+56}/>

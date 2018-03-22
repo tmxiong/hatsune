@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Animated, Easing, Text } from 'react-native';
+import { View, Animated, Easing, Text, Image } from 'react-native';
 
 export default class MarqueeLabel extends Component {
     state = {
@@ -114,6 +114,7 @@ export default class MarqueeLabel extends Component {
                 style={{ ...styles.bgViewStyle, ...bgViewStyle }}
                 onLayout={(event) => this.bgViewOnLayout(event)}
             >
+                <Image style={styles.icon} source={require('../../commons/asset/imgs/notice_icon.png')}/>
                 <View
                     style={{
                         ...styles.textContainerStyle,
@@ -123,6 +124,7 @@ export default class MarqueeLabel extends Component {
                         ...textContainerStyle,
                     }}
                 >
+
                     <Animated.Text
                         style={{
                             fontSize: 20,
@@ -165,4 +167,11 @@ const styles = {
         opacity: 0,
         fontSize: 20,
     },
+    icon:{
+        width:20,
+        height:20,
+        resizeMode:'contain',
+        marginLeft:5,
+        marginRight:5
+    }
 };

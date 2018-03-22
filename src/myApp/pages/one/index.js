@@ -24,6 +24,7 @@ import global from '../../commons/global/global'
 import {Icon} from 'native-base';
 import {load} from '../../commons/utils/storage'
 import NewsList from '../../components/newsList'
+import config from '../../commons/config/config'
 export default class index extends Component {
 
     constructor(props) {
@@ -94,7 +95,7 @@ export default class index extends Component {
                 <TouchableOpacity
                     key={'s'+i}
                     activeOpacity={0.8}
-                    onPress={()=>cfn.goToPage(this,tools[i].page,{})}
+                    onPress={()=>cfn.goToPage(this,tools[i].page,{name:tools[i].name,url:tools[i].url})}
                     style={[styles.toolCell,{borderRightColor:'#eee',borderRightWidth:1}]}>
                     <Icon name={tools[i].icon} style={[styles.toolIcon,{color:tools[i].color}]}/>
                     <View style={styles.toolCellHead}>
@@ -116,6 +117,7 @@ export default class index extends Component {
                 <View>
                     <Banner
                         bannerList={banner}
+                        _this={this}
                     />
                     <MarqueeLabel
                         speed={50}
@@ -129,7 +131,7 @@ export default class index extends Component {
                         }}
                         //textContainerStyle={styles.marqueeLabelBg}
                     >
-                        This is a Marquee Label.
+                        {`欢迎使用${config.appName}App，登录使用更精彩！更多实用功能将陆续推出，敬请期待！`}
                     </MarqueeLabel>
                 </View>
 

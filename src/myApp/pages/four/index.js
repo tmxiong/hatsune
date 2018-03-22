@@ -16,15 +16,19 @@ import {load} from '../../commons/utils/storage'
 import dateBase from '../../commons/utils/dateBase'
 import {defaultIcon} from '../../commons/config/images'
 import {getUserDataBySessionToken} from '../../commons/utils/storage'
+import deviceInfo from 'react-native-device-info'
 export default class index extends Component {
 
     static defaultProps = {};
 
     constructor(props) {
         super(props);
+
+        this.version = deviceInfo.getVersion();
+
         this.state = {
             isLogin:global.userData,
-
+            version: `当前版本: V${this.version}`,
         };
     }
 
@@ -84,6 +88,29 @@ export default class index extends Component {
         this.setState({
             isLogin:true,
         })
+    }
+
+    _checkUpdate() {
+
+        this.setState({
+            version:'正在检查更新...'
+        },()=>{
+            fetch('https://www.github.com')
+                .then(()=>{
+                    this.setState({
+                        version:'已经是最新版本 V: '+ this.version
+                    })
+                })
+                .catch(()=>{
+                    this.setState({
+                        version:'连网失败，请稍后重试！'
+                    })
+                })
+        });
+
+
+
+
     }
 
     render() {
@@ -157,8 +184,8 @@ export default class index extends Component {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.8}
-                                      onPress={()=>cfn.goToPage(this,'myLottery',
-                                          {name:'我喜欢的彩种',key:'lovedLottery'})} style={styles.itemBody}>
+                                      onPress={()=>cfn.goToPage(this,'myLottery', {name:'我喜欢的彩种',key:'lovedLottery'})}
+                                      style={styles.itemBody}>
                         <Icon style={styles.itemIcon} name="md-heart"/>
                         <Text style={styles.itemText}>我喜欢的彩种</Text>
                         <View style={styles.itemForwardContainer}>
@@ -166,21 +193,25 @@ export default class index extends Component {
                         </View>
                     </TouchableOpacity>
 
-                    <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>cfn.goToPage(this,'welcome')} style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
                         <Icon style={styles.itemIcon} name="md-list-box"/>
                         <Text style={styles.itemText}>应用介绍</Text>
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
-                    </View>
+                    </TouchableOpacity>
 
-                    <View style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>this._checkUpdate()}
+                                      style={[styles.itemBody,{marginTop:cfn.picHeight(30)}]}>
                         <Icon style={styles.itemIcon} name="md-download"/>
                         <Text style={styles.itemText}>版本更新</Text>
+
                         <View style={styles.itemForwardContainer}>
-                            <Icon style={styles.itemForward} name="ios-arrow-forward"/>
+                            <Text>{this.state.version}</Text>
                         </View>
-                    </View>
+                    </TouchableOpacity>
 
 
 

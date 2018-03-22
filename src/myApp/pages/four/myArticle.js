@@ -98,7 +98,7 @@ export default class helloPage extends Component {
             <Swipeout  right={this.swipeBtns} buttonWidth={cfn.picWidth(140)}
                        autoClose={true} onOpen={()=>this._onOpen(rowData,sectionId, rowId)}>
                 <TouchableOpacity activeOpacity={0.8} onPress={()=>this._onPressItem(rowData,sectionId, rowId)} style={styles.item}>
-                    <Text style={styles.itemText}>{rowData.title + rowData.title}</Text>
+                    <Text style={styles.itemText}>{rowData.title}</Text>
 
                     <View style={styles.iconContainer}>
                         <Icon style={styles.icon} name="ios-arrow-forward"/>

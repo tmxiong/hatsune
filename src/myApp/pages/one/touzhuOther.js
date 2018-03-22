@@ -23,7 +23,7 @@ export default class helloPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            webViewOffset:0,
+            webViewOffset:40,
         };
         this.params = props.navigation.state.params;
 

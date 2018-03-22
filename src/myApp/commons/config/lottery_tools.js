@@ -5,12 +5,38 @@
  */
 module.exports=[
     {
-        name:'开奖公告',
-        icon:'ios-trophy-outline',
-        url:'http://m.aicai.com/kjgg/index.do?agentId=1&vt=5',
-        desc:'走势分析一网打尽',
+        name:'奖金计算器',
+        icon:'md-calculator',
+        url:'https://api.icaipiao123.com/api/v6/bonus_calculate/bonuscalculate?lottery=fucai3d&code=normal',
+        desc:'福彩3D奖金计算器',
         color:'#25A9FF',
-        page:''
+        page:'touzhuOther',
+        key:''
+    },
+    {
+        name:'精品杀码',
+        icon:'ios-person',
+        url:'https://m.aicai.com/f/filterCode.do?gameId=201&agentId=1&vt=5',
+        page:'touzhuOther',
+        desc:'大奖近在咫尺',
+        color:'#46BC62',
+        key:''
+    },
+    {
+        name:'阅读记录',
+        icon:'md-book',
+        url:'',
+        page:'myArticle',
+        key: 'collectedArticle',
+        desc:'不再错过精彩预测',
+    },
+    {
+        name:'预测资讯',
+        icon:'md-list-box',
+        url:'http://m.aicai.com/newInfo/index.do?navId=2&agentId=1&vt=5',
+        desc:'开奖资讯精准预测',
+        color:'#FFCC99',
+        page:'article'
     },
     {
         name:'我的收藏',
@@ -18,16 +44,10 @@ module.exports=[
         url:'',
         desc:'走势分析一网打尽',
         color:'#FF5D3B',
-        page:''
+        page:'',
+        key:''
     },
-    {
-        name:'预测资讯',
-        icon:'ios-list-box-outline',
-        url:'http://m.aicai.com/newInfo/index.do?navId=2&agentId=1&vt=5',
-        desc:'开奖资讯精准预测',
-        color:'#FF2D55',
-        page:'article'
-    },
+
     {
         name:'赛事比分',
         icon:'ios-football',
@@ -36,12 +56,7 @@ module.exports=[
         color:'#46BC62',
         page:''
     },
-    {
-        name:'精品杀码',
-        icon:'ios-person',
-        url:'http://m.aicai.com/f/filterCode.do?gameId=101&agentId=1&vt=5',
-        page:''
-    },
+
     {
         name:'走势图表',
         icon:'md-trending-up',
@@ -49,10 +64,4 @@ module.exports=[
         page:''
     },
 
-    {
-        name:'阅读记录',
-        icon:'md-star',
-        url:'',
-        page:''
-    }
 ];

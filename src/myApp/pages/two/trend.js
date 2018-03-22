@@ -13,6 +13,7 @@ import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import WebViewAndroid from 'react-native-webview-android';
 import global from '../../commons/global/global';
+import OptionModal from '../../components/optionModal'
 export default class trend extends Component {
 
     static defaultProps = {};
@@ -63,6 +64,15 @@ export default class trend extends Component {
         // }
     }
 
+    _onPressOption(index,option,isSelected) {
+        if(index == 666) {
+            EasyLoading.show('加载数据...');
+            this.refs.webViewAndroid.reload();
+            return;
+        }
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -71,7 +81,7 @@ export default class trend extends Component {
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
                     rightBtn={"ios-menu"}
-                    rightFun={()=>{}}
+                    rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
 
                 <WebViewAndroid
@@ -84,7 +94,11 @@ export default class trend extends Component {
                     onMessage={this._onMessage.bind(this)}
                     source={{uri:this.params.url}} // or use the source(object) attribute...
                     style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
-
+                <OptionModal
+                    ref={ref=>this._optionModal = ref}
+                    onPressOption={this._onPressOption.bind(this)}
+                    //optionData={this.getOptionData()}
+                />
                 <Loading topOffset={cfn.statusBarHeight()+56}/>
             </View>
         )
