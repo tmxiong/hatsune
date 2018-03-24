@@ -39,7 +39,7 @@ const mainPage = TabNavigator({
             tabBarLabel: '走势预测',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/toutiao_icon.png')}
+                    source={require('../../commons/asset/imgs/trend_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),
@@ -54,7 +54,7 @@ const mainPage = TabNavigator({
             tabBarLabel: '开奖大厅',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/mine_icon.png')}
+                    source={require('../../commons/asset/imgs/order_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),
@@ -67,10 +67,10 @@ const mainPage = TabNavigator({
         //以下参数也可放置在MinePage.js页面
         navigationOptions: {
 
-            tabBarLabel: '赛事',
+            tabBarLabel: '我的',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/game_icon.png')}
+                    source={require('../../commons/asset/imgs/mine_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),

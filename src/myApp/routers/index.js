@@ -8,8 +8,8 @@
 
 
 import {StackNavigator,TabNavigator} from "react-navigation";
-// import onBackAndroid from '../commons/utils/onBackAndroid'
-// onBackAndroid.bindHardwareBackPress();
+import onBackAndroid from '../commons/utils/onBackAndroid'
+onBackAndroid.bindHardwareBackPress();
 
 // import welcome from '../pages/welcome';
 // import launch from '../pages/launch'
@@ -29,6 +29,7 @@ import userInfo from '../pages/four/userInfo'
 import setUserInfo from '../pages/four/setUserInfo'
 import myLottery from '../pages/four/myLottery'
 import myArticle from '../pages/four/myArticle'
+import feedback from '../pages/four/feedback'
 import welcome from '../pages/welcome'
 
 const routers = StackNavigator({
@@ -64,6 +65,7 @@ const routers = StackNavigator({
     userInfo: {screen: userInfo, navigationOptions: { header:null,}},
     // 修改用户信息
     setUserInfo: {screen: setUserInfo, navigationOptions: { header:null,}},
+    feedback: {screen: feedback, navigationOptions: { header:null,}},
 
 
     welcome: {screen: welcome, navigationOptions: { header:null,}}

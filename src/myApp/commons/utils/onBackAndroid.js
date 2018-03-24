@@ -1,7 +1,8 @@
 import {
-    BackHandler,
+    //BackHandler,
     Platform,
     ToastAndroid,
+    BackAndroid
 }from 'react-native'
 /**
  * 安卓返回键处理
@@ -13,7 +14,7 @@ OnBackAndroid.prototype = {
     //监听
     bindHardwareBackPress: function () {
         if (Platform.OS === 'android') {
-            BackHandler.addEventListener('hardwareBackPress', this.onHomeBackPress.bind(this));
+            BackAndroid.addEventListener('hardwareBackPress', this.onHomeBackPress.bind(this));
         }
     },
 
@@ -46,9 +47,9 @@ OnBackAndroid.prototype = {
 
     exitApp: function () {
 
-        BackHandler.removeEventListener('hardwareBackPress', this.onHomeBackPress.bind(this));
+        BackAndroid.removeEventListener('hardwareBackPress', this.onHomeBackPress.bind(this));
 
-        BackHandler.exitApp();
+        BackAndroid.exitApp();
     }
 };
 

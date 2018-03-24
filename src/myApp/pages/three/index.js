@@ -15,20 +15,21 @@ export default class three extends Component {
     constructor(props) {
         super(props);
         this.state={
-            webViewOffset:0
+            webViewOffset:50
         }
 
     }
 
-    componentDidMount() {
+    componentWillMount() {
         EasyLoading.show('加载数据...');
     }
 
     _javascriptToInject() {
         return `
-        var height = document.getElementsByClassName("v-header")[0].offsetHeight;
-        window.webView.postMessage(height);
+        var height = 0;
+        if(document.getElementsByClassName("v-header")[0]){height = document.getElementsByClassName("v-header")[0].offsetHeight}
         if(document.getElementsByClassName("h_popup_mask")[0]){document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
+        window.webView.postMessage(height);
       `
     }
 
@@ -79,7 +80,7 @@ export default class three extends Component {
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
                     onMessage={this._onMessage.bind(this)}
-                    source={{uri:'http://m.aicai.com/kjgg/index.do?agentId=1&vt=5'}} // or use the source(object) attribute...
+                    source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...
                     style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
                 <OptionModal
                     ref={ref=>this._optionModal = ref}

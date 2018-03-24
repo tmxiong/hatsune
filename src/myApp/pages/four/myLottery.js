@@ -73,6 +73,7 @@ export default class helloPage extends Component {
     }
 
     _clearAll(key,name) {
+        if(this.state.ds.getRowCount() == 0) return;
         Alert.alert('提示：',`确定删除所有${name}？`,[
             {
                 text:'取消',

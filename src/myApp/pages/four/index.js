@@ -6,7 +6,9 @@ import {
     Image,
     TouchableOpacity,
     StatusBar,
-    ScrollView
+    ScrollView,
+    ToastAndroid,
+    Alert
 } from 'react-native';
 import Header from '../../components/header'
 import {Icon} from 'native-base'
@@ -81,13 +83,15 @@ export default class index extends Component {
     updateToNoLogin() {
         this.setState({
             isLogin:false,
-        })
+        });
+        ToastAndroid.show('注销成功！',ToastAndroid.SHORT);
     }
 
     updateToLogin() {
         this.setState({
             isLogin:true,
-        })
+        });
+        ToastAndroid.show('登录成功！',ToastAndroid.SHORT);
     }
 
     _checkUpdate() {
@@ -108,9 +112,18 @@ export default class index extends Component {
                 })
         });
 
+    }
 
-
-
+    _clearCache() {
+        Alert.alert('提示：','是否清除缓存？',[
+            {text:'取消',onPress:()=>{}},
+            {text:'清除',onPress:()=>{
+                setTimeout(()=>{
+                    ToastAndroid.show('已成功清除所有缓存！',ToastAndroid.SHORT)
+                },1000);
+                ToastAndroid.show('正在清除缓存...',ToastAndroid.SHORT)
+            }}
+        ])
     }
 
     render() {
@@ -200,6 +213,11 @@ export default class index extends Component {
                         <View style={styles.itemForwardContainer}>
                             <Icon style={styles.itemForward} name="ios-arrow-forward"/>
                         </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.8}
+                                      onPress={()=>this._clearCache()} style={[styles.itemBody]}>
+                        <Icon style={styles.itemIcon} name="ios-folder"/>
+                        <Text style={styles.itemText}>清除缓存</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity activeOpacity={0.8}

@@ -74,6 +74,7 @@ export default class helloPage extends Component {
                 />
 
                 <ScrollView
+                    pagingEnabled={true}
                     ref={ref=>this._scrollView = ref}
                     showsHorizontalScrollIndicator={false}
                     horizontal={true} scrollEnabled={false}>
@@ -83,6 +84,7 @@ export default class helloPage extends Component {
                         updateToLogin={()=>this.params.updateToLogin()}
                         showLoading={()=>this.showLoading('正在登录...')}
                         dismisLoading={()=>this.dismisLoading()}
+                        goToFeedback={()=>cfn.goToPage(this,'feedback')}
                     />
                     <Regist
                         goToLogin={this.goToLogin.bind(this)}
@@ -90,6 +92,7 @@ export default class helloPage extends Component {
                         updateToLogin={()=>this.params.updateToLogin()}
                         showLoading={()=>this.showLoading('正在注册...')}
                         dismisLoading={this.dismisLoading.bind(this)}
+                        goToFeedback={()=>cfn.goToPage(this,'feedback')}
                     />
                 </ScrollView>
                 <Loading background={'transparent'} topOffset={cfn.statusBarHeight()+56}/>

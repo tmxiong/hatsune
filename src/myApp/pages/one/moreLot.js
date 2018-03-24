@@ -97,7 +97,7 @@ export default class helloPage extends Component {
     }
 
     _onPressCell = (data) => {
-        cfn.goToPage(this,'touzhu',{name:data.name,url:data.url ,fromMenu:true})
+        cfn.goToPage(this,'touzhu',{name:data.name,url:data.url ,fromMenu:true, data:data})
     };
 
     _onRemoveCellButtonPress = (component) => {
@@ -189,7 +189,7 @@ export default class helloPage extends Component {
     }
 
     _onPressCandidateCell = (data) => {
-        cfn.goToPage(this,'touzhu',{name:data.name,url:data.url ,fromMenu:true})
+        cfn.goToPage(this,'touzhu',{name:data.name,url:data.url ,fromMenu:true, data:data})
     }
 
     _onRemoveCandidatesCellButtonPress = (component) => {

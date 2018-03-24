@@ -23,7 +23,7 @@ export default class helloPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            webViewOffset:0,
+            webViewOffset:50,
             isCollected:false,
             isLoved:false,
         };
@@ -103,6 +103,7 @@ export default class helloPage extends Component {
 
         }else if( url.match(/history/)  //开奖记录
             || url.match(/help/) //玩法介绍
+            || url.match(/playHelp/) //玩法介绍  快乐扑克3
             || url.match(/zst/)  //走势图
             || url.match(/openCountDownIndex/)
             || url.match(/winTop/) //竞技彩的 中奖排行

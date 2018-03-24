@@ -32,6 +32,7 @@
     "react-native-shake-event": "^2.0.0",
     "react-native-smart-sortable-sudoku-grid": "^1.0.5",
     "react-native-sound": "^0.8.3",
+    "react-native-splash-screen": "^2.1.0",
     "react-native-storage": "^0.2.2",
     "react-native-swipeout": "^2.0.12",
     "react-native-swiper": "^1.5.13",

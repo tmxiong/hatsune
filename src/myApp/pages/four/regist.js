@@ -151,8 +151,8 @@ export default class regist extends PureComponent {
                                 <Text>已有账号去登录</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity activeOpacity={0.8}>
-                                <Text>帮助？</Text>
+                            <TouchableOpacity onPress={()=>this.props.goToFeedback()} activeOpacity={0.8}>
+                                <Text>注册遇到问题或反馈</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

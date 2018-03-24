@@ -23,7 +23,7 @@ export default class helloPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            webViewOffset:40,
+            webViewOffset:50,
         };
         this.params = props.navigation.state.params;
 
@@ -47,13 +47,18 @@ export default class helloPage extends Component {
 
         return`
             if(document.getElementsByClassName("v-hideSubTitle")[0]){document.getElementsByClassName("v-hideSubTitle")[0].style.display="block"}
+            var height = 0;
             if(document.getElementsByClassName("v-header")[0]){
-            var height = document.getElementsByClassName("v-header")[0].offsetHeight;
-            window.webView.postMessage(height);
+            height = document.getElementsByClassName("v-header")[0].offsetHeight;
+            
             }else if(document.getElementsByClassName("head")[0]){
-            var height = document.getElementsByClassName("head")[0].offsetHeight;
-            window.webView.postMessage(height);
+            height = document.getElementsByClassName("head")[0].offsetHeight;
+           
+            }else if(document.getElementsByClassName("h_topbar")[0]){
+            height = document.getElementsByClassName("h_topbar")[0].offsetHeight;
             }
+            window.webView.postMessage(height);
+            
             
             if(document.getElementsByClassName("h_popup_mask")[0]) {document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
             if(document.getElementsByClassName("service")[0]) {document.getElementsByClassName("service")[0].style.display = "none";}

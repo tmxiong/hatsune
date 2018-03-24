@@ -138,8 +138,8 @@ export default class login extends PureComponent {
                                 <Text>注册新账号</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity activeOpacity={0.8}>
-                                <Text>忘记密码？</Text>
+                            <TouchableOpacity onPress={()=>this.props.goToFeedback()} activeOpacity={0.8}>
+                                <Text>登录遇到问题或反馈</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -171,8 +171,10 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         borderRadius:cfn.picWidth(90),
-        borderColor:'#fff',
-        backgroundColor:'#fff'
+        //borderColor:'#fff',
+        backgroundColor:'#eee',
+        borderWidth:1,
+        borderColor:'#ddd'
     },
     userIcon: {
         fontSize:cfn.picWidth(180),

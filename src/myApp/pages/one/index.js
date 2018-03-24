@@ -25,6 +25,7 @@ import {Icon} from 'native-base';
 import {load} from '../../commons/utils/storage'
 import NewsList from '../../components/newsList'
 import config from '../../commons/config/config'
+import splashScreen from 'react-native-splash-screen';
 export default class index extends Component {
 
     constructor(props) {
@@ -42,6 +43,10 @@ export default class index extends Component {
     componentDidMount() {
         this.setToolMenu();
         this.getLotteryDataByStorage();
+        setTimeout(()=>{
+            splashScreen.hide();
+        },2000)
+
     }
 
     async getLotteryDataByStorage() {
@@ -274,7 +279,8 @@ const styles = StyleSheet.create({
         color:'#c33',
         width:50,
         height:50,
-        marginLeft:15
+        marginLeft:10,
+        textAlign:'center'
     },
     toolCellHead: {
         marginLeft:5,
@@ -286,6 +292,7 @@ const styles = StyleSheet.create({
     },
     toolCellDesc: {
         color:'#ccc',
-        marginTop:5
+        marginTop:5,
+        fontSize:12
     }
 })

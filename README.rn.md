@@ -64,7 +64,7 @@ npm install
 
 #### 测试配置
 
-- 工程 versionCode 号小于等于5 （上架versionCode 需大于5） ❗️
+- 工程 versionCode 号小于等于5 （上架versionCode 需大于6） ❗️
 - 项目 PackageId 为 `com.cp.kosun` ❗️
 - release 环境 ❗️
 

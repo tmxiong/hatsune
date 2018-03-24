@@ -21,7 +21,7 @@ export default class trend extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            flex:0
+            webViewOffset:50
         };
         this.params = props.navigation.state.params;
 

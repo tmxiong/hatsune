@@ -12,7 +12,6 @@ import {
     ScrollView
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
-import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import WebViewAndroid from 'react-native-webview-android';
 import {lotteryIcon as icons} from '../../commons/config/images'
@@ -24,15 +23,10 @@ export default class two extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            flex:0,
-            webViewOffset:0,
+            webViewOffset:50,
             item:null
         };
         this.params = props.navigation.state.params;
-
-        // this.script = 'document.getElementsByClassName("header")[0].style.display="none";' +
-        //     'document.getElementsByClassName("fl_list")[0].style.marginTop=0;' +
-        //     'alert(document.getElementsByClassName("title")[0].offsetHeight)';
 
     }
 
@@ -86,8 +80,6 @@ export default class two extends Component {
                     rightFun={()=>{}}
                 />
 
-
-                <Loading topOffset={26+56}/>
                 <ScrollView>
                     {this.state.item}
                 </ScrollView>
