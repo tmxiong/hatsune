@@ -14,6 +14,10 @@ import Three from '../three'
 import Four from '../four';
 import cfn from '../../commons/utils/commonFun'
 import storage from '../../commons/utils/storage'
+import handleError from '../../commons/utils/handleError'
+handleError();
+
+
 storage.initStorage();
 storage.initAV();
 const mainPage = TabNavigator({
