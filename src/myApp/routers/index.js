@@ -30,10 +30,11 @@ import setUserInfo from '../pages/four/setUserInfo'
 import myLottery from '../pages/four/myLottery'
 import myArticle from '../pages/four/myArticle'
 import feedback from '../pages/four/feedback'
+import launch from '../pages/launch'
 import welcome from '../pages/welcome'
 
 const routers = StackNavigator({
-    //launch: {screen: launch},
+    launch: {screen: launch},
     // 欢迎页 引导页
     //welcome: {screen: welcome},
     main:{screen: main, navigationOptions: { header:null,}},

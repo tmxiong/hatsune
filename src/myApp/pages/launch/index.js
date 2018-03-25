@@ -26,7 +26,7 @@ import {
 
 } from 'react-native';
 
-import JPushModule from 'jpush-react-native';
+// import JPushModule from 'jpush-react-native';
 
 
 import {NavigationActions} from 'react-navigation'
@@ -35,7 +35,8 @@ import cfn from '../../commons/utils/commonFun'
 import Global from '../../commons/global/global';
 import fetchp from '../../commons/utils/fetch-polyfill';
 import config from '../../commons/config/config';
-// import SplashScreen from 'react-native-splash-screen';
+import {load} from '../../commons/utils/storage'
+import SplashScreen from 'react-native-splash-screen';
 
 export default class loadingModal extends Component {
     static navigationOptions = {header: null};
@@ -47,15 +48,16 @@ export default class loadingModal extends Component {
     constructor(props) {
         super(props);
         // 是否显示欢迎页；
-        this.showWelcome = true;
+        Global.showWelcome = true;
     }
 
     componentDidMount() {
 
-        this.initPage();
-
-        this.initStorage();
-
+        // this.initPage();
+        //
+        // this.initStorage();
+        //
+        SplashScreen.hide();
         this.getLocalData();
 
     }
@@ -73,11 +75,21 @@ export default class loadingModal extends Component {
     }
 
     // 判断是否显示欢迎页
-    getLocalData() {
-        this.startTime = new Date().getTime();
-        Global.storage.getAllDataForKey('welcome')
-            .then((data)=>this.setLocalData(data))
-            .catch((error)=>this.setError(error))
+    async getLocalData() {
+        //this.startTime = new Date().getTime();
+        try{
+            Global.showWelcome = await load('welcome','welcome');
+            if(Global.showWelcome) {
+                this.goToPage('welcome');
+            }else {
+                this.goToPage('main');
+            }
+        }catch(e) {
+            this.goToPage('welcome')
+        }
+        // Global.storage.getAllDataForKey('welcome')
+        //     .then((data)=>this.setLocalData(data))
+        //     .catch((error)=>this.setError(error))
     }
 
     setLocalData(data) {
@@ -114,8 +126,8 @@ export default class loadingModal extends Component {
     }
 
     goToPage(route,params) {
-        this.endTime = new Date().getTime();
-        let subTime = this.endTime - this.startTime;
+        //this.endTime = new Date().getTime();
+        //let subTime = this.endTime - this.startTime;
         setTimeout(()=>{
             const resetAction = NavigationActions.reset({
                 index: 0,
@@ -124,41 +136,15 @@ export default class loadingModal extends Component {
                 ]
             });
             this.props.navigation.dispatch(resetAction);
-        },subTime < 2000 ? 2000 - subTime : 0)
+        },2000)
     }
-
-    initStorage() {
-        Global.storage = new Storage({
-            // 最大容量，默认值1000条数据循环存储
-            size: 1000,
-
-            // 存储引擎：对于RN使用AsyncStorage，对于web使用window.localStorage
-            // 如果不指定则数据只会保存在内存中，重启后即丢失
-            storageBackend: AsyncStorage,
-
-            // 数据过期时间，默认一整天（1000 * 3600 * 24 毫秒），设为null则永不过期
-            defaultExpires: null,
-
-            // 读写时在内存中缓存数据。默认启用。
-            enableCache: true,
-
-            // 如果storage中没有相应数据，或数据已过期，
-            // 则会调用相应的sync方法，无缝返回最新数据。
-            // sync方法的具体说明会在后文提到
-            // 你可以在构造函数这里就写好sync的方法
-            // 或是写到另一个文件里，这里require引入
-            // 或是在任何时候，直接对storage.sync进行赋值修改
-            sync: require('../global/sync')  // 这个sync文件是要你自己写的
-        })
-    }
-
 
     render() {
 
         return (
             <View style={{flex:1}}>
                 <StatusBar translucent= {true} backgroundColor={'transparent'} barStyle={'light-content'}/>
-                <Image style={styles.img} source={config.launchImg}/>
+                <Image style={styles.img} source={{uri:'launch_screen'}}/>
                 <View style={styles.indicator}>
                     <ActivityIndicator
                         animating={true}
@@ -180,7 +166,7 @@ const styles = StyleSheet.create({
     img: {
         width:cfn.deviceWidth(),
         height:cfn.deviceHeight(),
-        resizeMode:'cover'
+        resizeMode:'stretch'
     },
     indicator: {
         height: cfn.picHeight(100),

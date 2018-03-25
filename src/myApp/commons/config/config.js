@@ -14,9 +14,9 @@ import {Platform} from 'react-native'
 // };
 module.exports = {
 
-    appName: 'PC蛋蛋预测',
+    appName: '久久彩票',
     baseColor:'#d81e06',
-    // launchImg:require('../imgs/launch/launch.png'),
+    //launchImg:require('../imgs/launch/launch.png'),
     // welcomeImg:[
     //     require('../imgs/welcome/welcome_1.png'),
     //     require('../imgs/welcome/welcome_2.png'),

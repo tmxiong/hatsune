@@ -16,6 +16,7 @@ import {NavigationActions} from 'react-navigation'
 import cfn from '../../commons/utils/commonFun'
 import Indicator from '../../commons/welcome/IndicatorWelcome'
 import {welcome} from '../../commons/config/images';
+import Global from '../../commons/global/global';
 import {save} from '../../commons/utils/storage'
 
 export default class w extends Component {
@@ -26,7 +27,6 @@ export default class w extends Component {
 
     constructor(props) {
         super(props);
-
         // this.showWebView = this.props.navigation.state.params.showWebView;
         // this.url = this.props.navigation.state.params.url;
     }
@@ -36,6 +36,10 @@ export default class w extends Component {
     }
     goToPage() {
         // let route = this.showWebView ? 'CPWebView' : 'Draw';
+        if(!Global.showWelcome) {
+            return this.props.navigation.goBack();
+        }
+
         let route = 'main';
         const resetAction = NavigationActions.reset({
             index: 0,
@@ -44,8 +48,8 @@ export default class w extends Component {
                     params:{}})
             ]
         });
-
-        save('welcome','welcome', {isFirst:false});
+        Global.showWelcome = false;
+        save('welcome','welcome', false);
 
         this.props.navigation.dispatch(resetAction);
     }

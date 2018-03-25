@@ -20,7 +20,7 @@ export default class three extends Component {
 
     }
 
-    componentWillMount() {
+    componentDidMount() {
         EasyLoading.show('加载数据...');
     }
 

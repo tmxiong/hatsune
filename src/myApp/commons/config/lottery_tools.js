@@ -27,7 +27,7 @@ module.exports=[
         icon:'md-book',
         url:'',
         page:'myArticle',
-        key: 'collectedArticle',
+        key: 'readArticle',
         desc:'不再错过精彩预测',
     },
     {

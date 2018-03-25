@@ -25,7 +25,6 @@ import {Icon} from 'native-base';
 import {load} from '../../commons/utils/storage'
 import NewsList from '../../components/newsList'
 import config from '../../commons/config/config'
-import splashScreen from 'react-native-splash-screen';
 export default class index extends Component {
 
     constructor(props) {
@@ -43,9 +42,6 @@ export default class index extends Component {
     componentDidMount() {
         this.setToolMenu();
         this.getLotteryDataByStorage();
-        setTimeout(()=>{
-            splashScreen.hide();
-        },2000)
 
     }
 
@@ -100,7 +96,7 @@ export default class index extends Component {
                 <TouchableOpacity
                     key={'s'+i}
                     activeOpacity={0.8}
-                    onPress={()=>cfn.goToPage(this,tools[i].page,{name:tools[i].name,url:tools[i].url})}
+                    onPress={()=>cfn.goToPage(this,tools[i].page,{name:tools[i].name,url:tools[i].url,key:tools[i].key})}
                     style={[styles.toolCell,{borderRightColor:'#eee',borderRightWidth:1}]}>
                     <Icon name={tools[i].icon} style={[styles.toolIcon,{color:tools[i].color}]}/>
                     <View style={styles.toolCellHead}>
