@@ -22,7 +22,7 @@ import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import config from '../../commons/config/config'
-import {save, getAllDataForKey} from '../../commons/utils/storage'
+import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
 import OptionModal from '../../components/optionModal'
 export default class helloPage extends Component {
 
@@ -93,7 +93,7 @@ export default class helloPage extends Component {
         if(this.currentData) {
             this._optionModal.setModalVisible(true)
         } else {
-            ToastAndroid.show('正在加载数据，请稍后再点击！', ToastAndroid.SHORT);
+            ToastAndroid.show('正在加载数据，请稍候！', ToastAndroid.SHORT);
         }
 
     }

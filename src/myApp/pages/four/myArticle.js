@@ -64,7 +64,7 @@ export default class helloPage extends Component {
 
     _onOpen(rowData,sectionId, rowId) {
         this.rowData = rowData;
-        console.log('open')
+        //console.log('open')
     }
 
     _delete() {
