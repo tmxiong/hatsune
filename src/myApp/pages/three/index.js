@@ -72,16 +72,16 @@ export default class three extends Component {
                     rightBtn={"ios-menu"}
                     rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
-                <WebViewAndroid
-                    ref="webViewAndroid"
-                    javaScriptEnabled={true}
-                    geolocationEnabled={false}
-                    builtInZoomControls={false}
-                    injectedJavaScript={this._javascriptToInject()}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    onMessage={this._onMessage.bind(this)}
-                    source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...
-                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                {/*<WebViewAndroid*/}
+                    {/*ref="webViewAndroid"*/}
+                    {/*javaScriptEnabled={true}*/}
+                    {/*geolocationEnabled={false}*/}
+                    {/*builtInZoomControls={false}*/}
+                    {/*injectedJavaScript={this._javascriptToInject()}*/}
+                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
+                    {/*onMessage={this._onMessage.bind(this)}*/}
+                    {/*source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...*/}
+                    {/*style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />*/}
                 <OptionModal
                     ref={ref=>this._optionModal = ref}
                     onPressOption={this._onPressOption.bind(this)}

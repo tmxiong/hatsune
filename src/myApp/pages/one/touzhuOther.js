@@ -12,10 +12,11 @@ import {
     Alert,
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
-import WebViewAndroid from 'react-native-webview-android';
+// import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
+import WebViewAndroid from '../../components/AndroidWebView';
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -30,7 +31,8 @@ export default class helloPage extends Component {
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...');
+        this._webViewAndroid = this.refs.webViewAndroid.refs.webViewAndroid;
+
     }
 
 
@@ -47,19 +49,18 @@ export default class helloPage extends Component {
 
         return`
             if(document.getElementsByClassName("v-hideSubTitle")[0]){document.getElementsByClassName("v-hideSubTitle")[0].style.display="block"}
-            var height = 0;
+            
             if(document.getElementsByClassName("v-header")[0]){
-            height = document.getElementsByClassName("v-header")[0].offsetHeight;
+            document.getElementsByClassName("v-header")[0].style.display = "none";
             
             }else if(document.getElementsByClassName("head")[0]){
-            height = document.getElementsByClassName("head")[0].offsetHeight;
+            document.getElementsByClassName("head")[0].style.display = "none";
            
             }else if(document.getElementsByClassName("h_topbar")[0]){
-            height = document.getElementsByClassName("h_topbar")[0].offsetHeight;
+            document.getElementsByClassName("h_topbar")[0].style.display = "none";
             }
-            window.webView.postMessage(height);
-            
-            
+          
+           
             if(document.getElementsByClassName("h_popup_mask")[0]) {document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
             if(document.getElementsByClassName("service")[0]) {document.getElementsByClassName("service")[0].style.display = "none";}
             if(document.getElementsByClassName("${className}")[0]){document.getElementsByClassName("${className}")[0].style.display = "none";}
@@ -67,22 +68,11 @@ export default class helloPage extends Component {
         `;
     }
 
-    _onMessage(e) {
-        console.log(e)
-        this.setState({
-            webViewOffset:cfn.px2dp(e.message),
-        },()=>{
-            setTimeout(()=>{
-                EasyLoading.dismis();
-            },400)
-        });
-    }
-
     _onNavigationStateChange(e) {
         let url = e.url;
         console.log(e);
         if(url.match(/articleDetail.do/) || url.match(/article.do/)) {
-            this.refs.webViewAndroid.stopLoading();
+            this._webViewAndroid.stopLoading();
             if(!e.loading) {
                 cfn.goToPage(this,'articleDetail',{name: e.title,url:url,from:'touzhuOther'})
             }
@@ -92,7 +82,7 @@ export default class helloPage extends Component {
     _onPressOption(index,option,isSelected) {
         if(index == 666) {
             EasyLoading.show('加载数据...');
-            this.refs.webViewAndroid.reload();
+            this._webViewAndroid.reload();
             return;
         }
 
@@ -109,22 +99,30 @@ export default class helloPage extends Component {
                     rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
 
+                {/*<WebViewAndroid*/}
+                    {/*ref="webViewAndroid"*/}
+                    {/*javaScriptEnabled={true}*/}
+                    {/*geolocationEnabled={false}*/}
+                    {/*builtInZoomControls={false}*/}
+                    {/*injectedJavaScript={this._javascriptToInject()}*/}
+                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
+                    {/*onMessage={this._onMessage.bind(this)}*/}
+                    {/*source={{uri:this.params.url}} // or use the source(object) attribute...*/}
+                    {/*style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />*/}
+
                 <WebViewAndroid
-                    ref="webViewAndroid"
-                    javaScriptEnabled={true}
-                    geolocationEnabled={false}
-                    builtInZoomControls={false}
-                    injectedJavaScript={this._javascriptToInject()}
+                    ref='webViewAndroid'
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    onMessage={this._onMessage.bind(this)}
-                    source={{uri:this.params.url}} // or use the source(object) attribute...
-                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                    injectedJavaScript={this._javascriptToInject()}
+                    source={{uri:this.params.url}}
+                />
+
                 <OptionModal
                     ref={ref=>this._optionModal = ref}
                     onPressOption={this._onPressOption.bind(this)}
                     //optionData={this.getOptionData()}
                 />
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
+                {/*<Loading topOffset={cfn.statusBarHeight()+56}/>*/}
             </View>
         )
     }
