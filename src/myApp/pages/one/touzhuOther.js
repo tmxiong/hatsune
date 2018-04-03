@@ -58,7 +58,10 @@ export default class helloPage extends Component {
             }else if(document.getElementsByClassName("h_topbar")[0]){
             document.getElementsByClassName("h_topbar")[0].style.display = "none";
             }
-          
+            
+            document.getElementsByClassName("btn_box")[0].style.display = "none";
+            document.getElementsByClassName("f_btn_box")[0].style.display = "none";
+            document.getElementsByClassName("v-showSubTitle")[0].style.display = "none";
            
             if(document.getElementsByClassName("h_popup_mask")[0]) {document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
             if(document.getElementsByClassName("service")[0]) {document.getElementsByClassName("service")[0].style.display = "none";}
@@ -85,8 +88,8 @@ export default class helloPage extends Component {
                     title={this.params.name}
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
-                    rightBtn={"ios-menu"}
-                    rightFun={()=>this._optionModal.setModalVisible(true)}
+                    rightBtn={""}
+                    rightType={"text"}
                 />
 
                 {/*<WebViewAndroid*/}

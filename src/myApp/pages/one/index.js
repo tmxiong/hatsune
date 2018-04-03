@@ -137,26 +137,26 @@ export default class index extends Component {
                 </View>
 
                 <ScrollView>
-                    <View style={styles.menuContainer}>
-                        <View style={styles.menuTitle}>
-                            <View style={styles.titleIcon}/>
-                            <Text style={styles.titleText}>彩种推荐</Text>
-                            <TouchableOpacity
-                                onPress={()=>cfn.goToPage(this,'moreLot',
-                                    {name:'彩种列表',data:this.lottery,reloadMenu:this.getLotteryDataByStorage.bind(this)})}
-                                activeOpacity={0.8}
-                                style={styles.more}>
-                                <Text>更多>></Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.menuBody}>
-                            {/*<View style={styles.menuBodyItem}>*/}
-                            {/*<Image style={styles.imgIcon} source={this.lottery[0].icon}/>*/}
-                            {/*<Text>{this.lottery[0].name}</Text>*/}
-                            {/*</View>*/}
-                            {this.state.lotteryMenu}
-                        </View>
-                    </View>
+                    {/*<View style={styles.menuContainer}>*/}
+                        {/*<View style={styles.menuTitle}>*/}
+                            {/*<View style={styles.titleIcon}/>*/}
+                            {/*<Text style={styles.titleText}>彩种推荐</Text>*/}
+                            {/*<TouchableOpacity*/}
+                                {/*onPress={()=>cfn.goToPage(this,'moreLot',*/}
+                                    {/*{name:'彩种列表',data:this.lottery,reloadMenu:this.getLotteryDataByStorage.bind(this)})}*/}
+                                {/*activeOpacity={0.8}*/}
+                                {/*style={styles.more}>*/}
+                                {/*<Text>更多>></Text>*/}
+                            {/*</TouchableOpacity>*/}
+                        {/*</View>*/}
+                        {/*<View style={styles.menuBody}>*/}
+                            {/*/!*<View style={styles.menuBodyItem}>*!/*/}
+                            {/*/!*<Image style={styles.imgIcon} source={this.lottery[0].icon}/>*!/*/}
+                            {/*/!*<Text>{this.lottery[0].name}</Text>*!/*/}
+                            {/*/!*</View>*!/*/}
+                            {/*{this.state.lotteryMenu}*/}
+                        {/*</View>*/}
+                    {/*</View>*/}
 
                     <View style={[styles.menuContainer,{marginTop:cfn.picHeight(20)}]}>
                         <View style={styles.menuTitle}>

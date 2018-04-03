@@ -27,10 +27,11 @@ export default class three extends Component {
 
     _javascriptToInject() {
         return `
-        var height = 0;
-        if(document.getElementsByClassName("v-header")[0]){height = document.getElementsByClassName("v-header")[0].offsetHeight}
+       
+        
         if(document.getElementsByClassName("h_popup_mask")[0]){document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
-        window.webView.postMessage(height);
+        document.getElementsByClassName("v-showSubTitle")[0].style.display = "none";
+        
       `
     }
 

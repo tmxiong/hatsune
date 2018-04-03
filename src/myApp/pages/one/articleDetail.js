@@ -18,12 +18,12 @@ import {
     ToastAndroid
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
-import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import config from '../../commons/config/config'
 import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
 import OptionModal from '../../components/optionModal'
+import RNWebView from '../../components/RNWebView'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -100,7 +100,7 @@ export default class helloPage extends Component {
     _onPressOption(index,option,isSelected) {
         if(index == 666) {
             EasyLoading.show('加载数据...');
-            this.refs.webViewAndroid.reload();
+            this.refs._webView._webView.reload();
             return;
         }
 
@@ -160,11 +160,9 @@ export default class helloPage extends Component {
 
         if(from == 'index' || from == 'article') { //来自 首页的
             return `
-            if(document.getElementById("title")){var title=document.getElementById("title").textContent;
-            window.webView.postMessage("0|"+title);}
-            if(document.getElementById("shareBtn")){document.getElementById("shareBtn").style.display = "none";}
-            if(document.getElementById("tuijian")){document.getElementById("tuijian").style.display = "none";}
-            if(document.getElementById("author")){document.getElementById("author").textContent = '${config.appName}';}
+            document.getElementById("shareBtn").style.display = "none";
+            document.getElementById("tuijian").style.display = "none";
+            document.getElementById("author").textContent = '${config.appName}';
             `
         }else if(from == 'touzhuOther') {
             return `
@@ -176,7 +174,7 @@ export default class helloPage extends Component {
         if(document.getElementsByClassName("footer-down")[0]){document.getElementsByClassName("footer-down")[0].style.display="none";}
         if(document.getElementsByClassName("nnews_xgg")[0]){document.getElementsByClassName("nnews_xgg")[0].style.display="none";}
         if(document.getElementsByClassName("h_popup_mask")[0]){document.getElementsByClassName("h_popup_mask")[0].style.display = "none";}
-         window.webView.postMessage(height+'|'+title);
+        
             `
         }
 
@@ -186,7 +184,7 @@ export default class helloPage extends Component {
         console.log(e);
         let url = e.url;
         if(url.match(/tzzlottery/)) {
-            this.refs.webViewAndroid.stopLoading();
+            this.refs._webView._webView.stopLoading();
             if(!e.loading) {
                 cfn.goToPage(this,'articleDetail',{name: e.title})
             }
@@ -204,27 +202,22 @@ export default class helloPage extends Component {
                     title={this.params.name}
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
-                    rightBtn={"ios-menu"}
-                    rightFun={()=>this._rightFun()}
+                    rightBtn={""}
+                    rightType={"text"}
                 />
 
-                <WebViewAndroid
-                    ref="webViewAndroid"
-                    javaScriptEnabled={true}
-                    geolocationEnabled={false}
-                    builtInZoomControls={false}
+                <RNWebView
+                    ref="_webView"
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    onMessage={this._onMessage.bind(this)}
                     source={{uri:this.params.url}} // or use the source(object) attribute...
-                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                    />
 
                 <OptionModal
                     ref={ref=>this._optionModal = ref}
                     onPressOption={this._onPressOption.bind(this)}
                     optionData={this.getOptionData()}
                 />
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
             </View>
         )
     }

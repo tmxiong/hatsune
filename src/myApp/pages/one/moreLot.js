@@ -224,9 +224,9 @@ export default class helloPage extends Component {
                     title={this.params.name}
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
-                    rightBtn={this.state.managementButtonText}
+                    rightBtn={''}
                     rightType="text"
-                    rightFun={()=>this._onPressManagementButton()}
+
                 />
                 <View style={{height:40,justifyContent:'center'}}>
                     <Text style={{color:'#aaa',marginLeft:10}}>提示：点击'管理'可对彩种进行排序或增减</Text>

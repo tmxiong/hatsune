@@ -23,12 +23,12 @@ module.exports=[
         key:''
     },
     {
-        name:'阅读记录',
+        name:'开奖大厅',
         icon:'md-book',
         url:'',
-        page:'myArticle',
+        page:'Lottery',
         key: 'readArticle',
-        desc:'不再错过精彩预测',
+        desc:'好运无需等待',
     },
     {
         name:'预测资讯',

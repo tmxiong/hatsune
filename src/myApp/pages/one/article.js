@@ -111,8 +111,8 @@ export default class newsDetail extends Component {
                     title={'更多彩市资讯'}
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
-                    rightBtn={"ios-menu"}
-                    rightFun={()=>this._rightFun()}
+                    rightBtn={""}
+                    rightType="text"
                 />
 
 

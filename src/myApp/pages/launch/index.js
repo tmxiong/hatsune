@@ -80,12 +80,12 @@ export default class loadingModal extends Component {
         try{
             Global.showWelcome = await load('welcome','welcome');
             if(Global.showWelcome) {
-                this.goToPage('welcome');
+                this.goToPage('main');
             }else {
                 this.goToPage('main');
             }
         }catch(e) {
-            this.goToPage('welcome')
+            this.goToPage('main')
         }
         // Global.storage.getAllDataForKey('welcome')
         //     .then((data)=>this.setLocalData(data))
@@ -114,7 +114,7 @@ export default class loadingModal extends Component {
         }else {
             // 不显示webView
             if(this.showWelcome) {
-                this.goToPage('Welcome')
+                this.goToPage('main')
             } else {
                 this.goToPage('Main')
             }
