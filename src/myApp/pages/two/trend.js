@@ -14,6 +14,7 @@ import Header from '../../components/header'
 import WebViewAndroid from 'react-native-webview-android';
 import global from '../../commons/global/global';
 import OptionModal from '../../components/optionModal'
+import RNWebView from '../../components/RNWebView'
 export default class trend extends Component {
 
     static defaultProps = {};
@@ -28,17 +29,14 @@ export default class trend extends Component {
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...');
+        //EasyLoading.show('加载数据...');
     }
 
     _javascriptToInject() {
         // 去除大乐透 双色球 福彩3D的 我要选号按钮 select_btn
         return `
-        $(document).ready(function() {
-          window.webView.postMessage(document.getElementsByClassName("nav")[0].offsetHeight+
-          document.getElementsByClassName("header")[0].offsetHeight);
-          if(document.getElementsByClassName("select_btn")[0]) {document.getElementsByClassName("select_btn")[0].style.display='none'}
-        })
+          document.getElementsByClassName("select_btn")[0].style.display='none';
+          document.getElementsByClassName("header")[0].style.display='none'
         
       `
     }
@@ -80,26 +78,23 @@ export default class trend extends Component {
                     title={this.params.name}
                     leftBtn={"ios-arrow-back"}
                     leftFun={()=>cfn.goBack(this)}
-                    rightBtn={"ios-menu"}
-                    rightFun={()=>this._optionModal.setModalVisible(true)}
+                    rightBtn={""}
+                    rightType={'text'}
                 />
 
-                <WebViewAndroid
-                    ref="webViewAndroid"
-                    javaScriptEnabled={true}
-                    geolocationEnabled={false}
-                    builtInZoomControls={false}
+                <RNWebView
+                    ref='_webView'
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    onMessage={this._onMessage.bind(this)}
                     source={{uri:this.params.url}} // or use the source(object) attribute...
-                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                    style={{marginTop:-cfn.px2dp(117)}}
+                />
                 <OptionModal
                     ref={ref=>this._optionModal = ref}
                     onPressOption={this._onPressOption.bind(this)}
                     //optionData={this.getOptionData()}
                 />
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
+                {/*<Loading topOffset={cfn.statusBarHeight()+56}/>*/}
             </View>
         )
     }

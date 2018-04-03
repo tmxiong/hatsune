@@ -15,6 +15,7 @@ import {Platform} from 'react-native'
 module.exports = {
 
     appName: 'PC蛋蛋28',
+
     baseColor:'#d81e06',
     //launchImg:require('../imgs/launch/launch.png'),
     // welcomeImg:[

@@ -121,18 +121,18 @@ export default class modal extends PureComponent {
                         {/*</TouchableOpacity >*/}
 
                         {this.state.optionView}
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            style={styles.itemContent}
-                            onPress={()=>this.onPressOption(666,'刷新','')}
-                        >
-                            <Icon name={'md-refresh'}
-                                  style={[styles.itemIcon,{color:'#888'}]}
-                            />
-                            <Text style={[styles.itemText,{color: '#888'}]}>
-                                {"刷新"}
-                            </Text>
-                        </TouchableOpacity >
+                        {/*<TouchableOpacity*/}
+                            {/*activeOpacity={0.8}*/}
+                            {/*style={styles.itemContent}*/}
+                            {/*onPress={()=>this.onPressOption(666,'刷新','')}*/}
+                        {/*>*/}
+                            {/*<Icon name={'md-refresh'}*/}
+                                  {/*style={[styles.itemIcon,{color:'#888'}]}*/}
+                            {/*/>*/}
+                            {/*<Text style={[styles.itemText,{color: '#888'}]}>*/}
+                                {/*{"刷新"}*/}
+                            {/*</Text>*/}
+                        {/*</TouchableOpacity >*/}
                     </View>
                 </TouchableOpacity>
             </Modal>

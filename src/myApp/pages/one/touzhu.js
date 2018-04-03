@@ -11,7 +11,7 @@ import {
     ToastAndroid
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
-import WebViewAndroid from 'react-native-webview-android';
+import RNWebView from '../../components/RNWebView';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
@@ -32,8 +32,9 @@ export default class helloPage extends Component {
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...');
 
+
+        console.log(this.refs)
         this.getIsCollectedOrLoved(this.params.data.code);
         //this.getIsCollectedOrLoved('lovedLottery',this.params.data.code);
     }
@@ -65,15 +66,15 @@ export default class helloPage extends Component {
 
 
         return `
-          var height = 0;
-          if(document.getElementsByClassName("v-header")[0]){
-            height = document.getElementsByClassName("v-header")[0].offsetHeight;
+          
+          if(document.getElementsByClassName("v-showSubTitle")[0]){
+            document.getElementsByClassName("v-showSubTitle")[0].style.display='none';
           } else if(document.getElementsByClassName("racing-header")[0]) {
-            height = document.getElementsByClassName("racing-header")[0].offsetHeight;
+            document.getElementsByClassName("racing-header")[0].style.display='none';
           } else if(document.getElementsByClassName("p_header")[0]) {
-            height = document.getElementsByClassName("p_header")[0].offsetHeight;
+            document.getElementsByClassName("p_header")[0].style.display='none';
           }
-          window.webView.postMessage(height)
+          
         `
     }
 
@@ -92,7 +93,7 @@ export default class helloPage extends Component {
         let url = e.url;
         //  我到投注 拦截
         if(url.match(/planQuery/) || url.match(/login/)) {
-            this.refs.webViewAndroid.stopLoading();
+            this.refs._webView._webView.stopLoading();
             if(!e.loading) {
                 Alert.alert('温馨提示：',
                     '应有关部门要求，当前所有彩种均停止销售，开奖历史和技巧资讯可正常查看，已售出彩票兑奖不受影响。您可以到附近实体店进行购彩，给您带来不便敬请谅解！',
@@ -109,7 +110,7 @@ export default class helloPage extends Component {
             || url.match(/winTop/) //竞技彩的 中奖排行
             || url.match(/articles/) //竞技彩的 资讯
         ){
-            this.refs.webViewAndroid.stopLoading();
+            this.refs._webView._webView.stopLoading();
             if(!e.loading && this.params.fromMenu) {
                 let title = e.title;
                 if(title.match(/aicai/) || title=='' || !title) {
@@ -127,7 +128,7 @@ export default class helloPage extends Component {
     _onPressOption(index,option,isSelected) {
         if(index == 666) {
             EasyLoading.show('加载数据...');
-            this.refs.webViewAndroid.reload();
+            this._webViewAndroid.reload();
             return;
         }
 
@@ -192,22 +193,20 @@ export default class helloPage extends Component {
                     rightBtn={"ios-menu"}
                     rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
-                <WebViewAndroid
-                    ref="webViewAndroid"
-                    javaScriptEnabled={true}
-                    geolocationEnabled={false}
-                    builtInZoomControls={false}
+                <RNWebView
+                    ref='_webView'
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    onMessage={this._onMessage.bind(this)}
                     source={{uri:this.params.url}} // or use the source(object) attribute...
-                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />
+                />
+
+
                 <OptionModal
                     ref={ref=>this._optionModal = ref}
                     onPressOption={this._onPressOption.bind(this)}
                     optionData={this.getOptionData()}
                 />
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
+                {/*<Loading topOffset={cfn.statusBarHeight()+56}/>*/}
             </View>
         )
     }
