@@ -102,7 +102,7 @@ export default class index extends Component {
             fetch('https://www.github.com')
                 .then(()=>{
                     this.setState({
-                        version:'已经是最新版本 V: '+ this.version
+                        version:'已经是最新版本： V'+ this.version
                     })
                 })
                 .catch(()=>{

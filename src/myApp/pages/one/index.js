@@ -161,7 +161,7 @@ export default class index extends Component {
                     <View style={[styles.menuContainer,{marginTop:cfn.picHeight(20)}]}>
                         <View style={styles.menuTitle}>
                             <View style={styles.titleIcon}/>
-                            <Text style={styles.titleText}>常用工具</Text>
+                            <Text style={styles.titleText}>时时彩工具</Text>
                         </View>
                         <View style={styles.menuBody}>
                             {/*<View style={[styles.toolCell,{borderRightColor:'#eee',borderRightWidth:1}]}>*/}
@@ -179,7 +179,7 @@ export default class index extends Component {
                     <View style={[styles.menuContainer,{marginTop:cfn.picHeight(20)}]}>
                         <View style={styles.menuTitle}>
                             <View style={styles.titleIcon}/>
-                            <Text style={styles.titleText}>彩市资讯</Text>
+                            <Text style={styles.titleText}>时时彩资讯</Text>
                             <TouchableOpacity
                                 onPress={()=>cfn.goToPage(this,'article', {name:'彩种列表'})}
                                 activeOpacity={0.8}

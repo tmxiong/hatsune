@@ -36,8 +36,8 @@ export default class helloPage extends Component {
     _javascriptToInject() {
         let className = '';
         return`
-            var height = document.getElementsByClassName("v-header")[0].offsetHeight;
-            window.webView.postMessage(height);            
+            document.getElementsByClassName("v-header")[0].style.display='none';
+            document.getElementsByClassName("history-btn")[0].style.display='none';
         `;
     }
 

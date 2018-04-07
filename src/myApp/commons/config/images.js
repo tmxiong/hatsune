@@ -4,7 +4,7 @@
 var images = {
   banner:[
       require('../../commons/asset/imgs/banner_4.png'),
-      require('../../commons/asset/imgs/banner_2.png'),
+      require('../../commons/asset/imgs/banner_5.png'),
       require('../../commons/asset/imgs/banner_3.png'),
   ],
     notice: require('../../commons/asset/imgs/notice_icon.png'),

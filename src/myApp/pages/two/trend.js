@@ -22,33 +22,39 @@ export default class trend extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            webViewOffset:50
+            webViewOffset:116
         };
         this.params = props.navigation.state.params;
 
     }
 
     componentDidMount() {
-        //EasyLoading.show('加载数据...');
+        EasyLoading.show('加载数据...');
     }
 
     _javascriptToInject() {
         // 去除大乐透 双色球 福彩3D的 我要选号按钮 select_btn
+        //document.getElementsByClassName("header")[0].style.display='none'
         return `
-          document.getElementsByClassName("select_btn")[0].style.display='none';
-          document.getElementsByClassName("header")[0].style.display='none'
-        
+          var a = document.getElementsByClassName("select_btn")[0];
+         if(a){a.style.display='none'}
+         var height1 = document.getElementsByClassName("nav")[0].offsetHeight;
+         var height2 = document.getElementsByClassName("header")[0].offsetHeight;
+         window.webView.postMessage(height1+height2);
+         
       `
     }
 
     _onMessage(e) {
-        var px = cfn.px2dp(e.message);
+
+        var dp = cfn.px2dp(e.message);
         this.setState({
-            webViewOffset: px,
+            webViewOffset: dp,
+        },()=>{
+            setTimeout(()=>{
+                EasyLoading.dismis();
+            },300)
         });
-        setTimeout(()=>{
-            EasyLoading.dismis();
-        },300)
     }
 
     _onNavigationStateChange(e) {
@@ -82,19 +88,28 @@ export default class trend extends Component {
                     rightType={'text'}
                 />
 
-                <RNWebView
-                    ref='_webView'
+                {/*<RNWebView*/}
+                    {/*ref='_webView'*/}
+                    {/*injectedJavaScript={this._javascriptToInject()}*/}
+                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
+                    {/*source={{uri:this.params.url}} // or use the source(object) attribute...*/}
+                {/*/>*/}
+                <WebViewAndroid
+                    ref="webViewAndroid"
+                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]}
+                    javaScriptEnabled={true}
+                    geolocationEnabled={false}
+                    builtInZoomControls={false}
+                    source={{uri:this.params.url}}
+                    onMessage={this._onMessage.bind(this)}
                     injectedJavaScript={this._javascriptToInject()}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    source={{uri:this.params.url}} // or use the source(object) attribute...
-                    style={{marginTop:-cfn.px2dp(117)}}
                 />
-                <OptionModal
-                    ref={ref=>this._optionModal = ref}
-                    onPressOption={this._onPressOption.bind(this)}
-                    //optionData={this.getOptionData()}
-                />
-                {/*<Loading topOffset={cfn.statusBarHeight()+56}/>*/}
+                {/*<OptionModal*/}
+                    {/*ref={ref=>this._optionModal = ref}*/}
+                    {/*onPressOption={this._onPressOption.bind(this)}*/}
+                    {/*//optionData={this.getOptionData()}*/}
+                {/*/>*/}
+                <Loading topOffset={cfn.statusBarHeight()+56}/>
             </View>
         )
     }

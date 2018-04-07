@@ -5,30 +5,30 @@
  */
 module.exports=[
     {
-        name:'奖金计算器',
-        icon:'md-calculator',
-        url:'https://api.icaipiao123.com/api/v6/bonus_calculate/bonuscalculate?lottery=fucai3d&code=normal',
-        desc:'福彩3D奖金计算器',
+        name:'基本走势',
+        icon:'md-trending-up',
+        url:'https://m.aicai.com/zst/cqssc/5xjbzs.do?vt=5&clientType=0',
+        desc:'时时彩基本走势图',
         color:'#25A9FF',
-        page:'touzhuOther',
+        page:'trend',
         key:''
     },
     {
-        name:'精品杀码',
-        icon:'ios-person',
-        url:'https://m.aicai.com/f/filterCode.do?gameId=201&agentId=1&vt=5',
-        page:'touzhuOther',
-        desc:'大奖近在咫尺',
+        name:'开奖记录',
+        icon:'ios-list-outline',
+        url:'https://m.aicai.com/kaijiang/ssc/?vt=5',
+        page:'kaijiang',
+        desc:'时时彩开奖记录',
         color:'#46BC62',
         key:''
     },
     {
-        name:'开奖大厅',
-        icon:'md-book',
-        url:'',
-        page:'Lottery',
+        name:'二星直选',
+        icon:'md-tennisball',
+        url:'https://m.aicai.com/zst/cqssc/yl/2xzhiyl.do?vt=5&clientType=0',
+        page:'trend',
         key: 'readArticle',
-        desc:'好运无需等待',
+        desc:'二星直选遗漏图',
     },
     {
         name:'预测资讯',

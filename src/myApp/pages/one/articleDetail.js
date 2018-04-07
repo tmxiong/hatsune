@@ -166,9 +166,7 @@ export default class helloPage extends Component {
             `
         }else if(from == 'touzhuOther') {
             return `
-       
-        if(window.document.title) {var title=window.document.title;}
-        if(document.getElementsByClassName("v-header")[0]){var height = document.getElementsByClassName("v-header")[0].offsetHeight;}
+        if(document.getElementsByClassName("v-header")[0]){document.getElementsByClassName("v-header")[0].style.display='none'}
         if(document.getElementsByClassName("cms-title")[0]){document.getElementsByClassName("cms-title")[0].textContent = '${config.appName}';}
         if(document.getElementsByClassName("nnew_xgx")[0]){document.getElementsByClassName("nnew_xgx")[0].style.display="none";}
         if(document.getElementsByClassName("footer-down")[0]){document.getElementsByClassName("footer-down")[0].style.display="none";}

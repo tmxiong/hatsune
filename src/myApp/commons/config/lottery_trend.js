@@ -4,6 +4,26 @@
 import {lotteryIcon as icon} from './images'
 module.exports = [
     {
+        name:'时时彩',
+        code:'cqssc',
+        icon:icon.ssc,
+        desc:'每天120期，00:05起每5、10、\n5分钟一期',
+        menu:[
+            {
+                title:'基本走势',
+                url:'http://m.aicai.com/zst/cqssc/5xjbzs.do?vt=5&clientType=0'
+            },
+            {
+                title:'三星遗漏',
+                url:'http://m.aicai.com/zst/cqssc/yl/3xzhiyl.do?vt=5&clientType=0'
+            },
+            {
+                title:'二星遗漏',
+                url:'http://m.aicai.com/zst/cqssc/yl/2xzhiyl.do?vt=5&clientType=0'
+            }
+        ]
+    },
+    {
         name:'双色球',
         code:'ssq',
         icon:icon.ssq,
@@ -199,24 +219,5 @@ module.exports = [
             }
         ]
     },
-    {
-        name:'重庆时时彩',
-        code:'cqssc',
-        icon:icon.ssc,
-        desc:'每天120期，00:05起每5、10、\n5分钟一期',
-        menu:[
-            {
-                title:'基本走势',
-                url:'http://m.aicai.com/zst/cqssc/5xjbzs.do?vt=5&clientType=0'
-            },
-            {
-                title:'三星遗漏',
-                url:'http://m.aicai.com/zst/cqssc/yl/3xzhiyl.do?vt=5&clientType=0'
-            },
-            {
-                title:'二星遗漏',
-                url:'http://m.aicai.com/zst/cqssc/yl/2xzhiyl.do?vt=5&clientType=0'
-            }
-        ]
-    },
+
 ];

@@ -55,7 +55,7 @@ export default class Banner extends PureComponent {
 
 
         if(index == 1) {
-            commonFn.goToPage(this.props._this,'trend',{url:'https://m.aicai.com/zst/xk3/hzzs.do?vt=5&clientType=0',name:'吉林快3-和值走势'})
+            commonFn.goToPage(this.props._this,'trend',{url:'http://m.aicai.com/zst/cqssc/5xjbzs.do?vt=5&clientType=0',name:'基本走势'})
         } else if(index == 0) {
             commonFn.goToPage(this.props._this,'touzhuOther',{
                 url: 'https://m.aicai.com/f/filterCode.do?gameId=201&agentId=1&vt=5',

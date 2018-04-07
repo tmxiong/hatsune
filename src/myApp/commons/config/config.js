@@ -14,7 +14,7 @@ import {Platform} from 'react-native'
 // };
 module.exports = {
 
-    appName: '高频时时彩',
+    appName: '时时彩',
 
     baseColor:'#d81e06',
     //launchImg:require('../imgs/launch/launch.png'),

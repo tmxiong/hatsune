@@ -42,13 +42,19 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        setTimeout(()=>{
+        this.timer1 = setTimeout(()=>{
             this.setState({
                 source:{uri:this.props.source.uri}
             })
         },400)
         //SplashScreen.hide();
         //this._webView.injectJavaScript("$(document).ready(function(){window.postMessage('hello')})");
+    }
+
+    componentWillUnmount() {
+        if(this.timer1) clearTimeout(this.timer1);
+        if(this.timer2) clearTimeout(this.timer2);
+        if(this.timer3) clearTimeout(this.timer3);
     }
 
     _injectedJavaScript() {
@@ -75,8 +81,8 @@ export default class App extends Component {
 
     // 加载成功
     _onLoad() {
-
-        setTimeout(()=>{
+        let _this = this;
+        this.timer2 = setTimeout(()=>{
 
             if(this.state.isError) return;
             //this.state.fadeOutOpacity.setValue(0)
@@ -93,7 +99,7 @@ export default class App extends Component {
                     isRefreshing:false,
                     isError:false
                 });
-                setTimeout(()=>{
+                _this.timer3 = setTimeout(()=>{
                     this.setState({zIndex:-1})
                 },400)
             })
