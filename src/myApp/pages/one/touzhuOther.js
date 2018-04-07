@@ -16,7 +16,7 @@ import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
-import RNWebView from '../../components/RNWebView';
+import WebViewRN from '../../components/webViewRN';
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -103,7 +103,7 @@ export default class helloPage extends Component {
                     {/*source={{uri:this.params.url}} // or use the source(object) attribute...*/}
                     {/*style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />*/}
 
-                <RNWebView
+                <WebViewRN
                     ref='_webView'
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
                     injectedJavaScript={this._javascriptToInject()}

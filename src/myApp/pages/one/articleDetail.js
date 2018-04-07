@@ -23,7 +23,7 @@ import Header from '../../components/header'
 import config from '../../commons/config/config'
 import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
 import OptionModal from '../../components/optionModal'
-import RNWebView from '../../components/RNWebView'
+import WebViewRN from '../../components/webViewRN'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -204,7 +204,7 @@ export default class helloPage extends Component {
                     rightType={"text"}
                 />
 
-                <RNWebView
+                <WebViewRN
                     ref="_webView"
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}

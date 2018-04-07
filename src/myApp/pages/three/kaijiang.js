@@ -14,7 +14,7 @@ import {
 import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
-import RNWebView from '../../components/RNWebView'
+import WebViewRN from '../../components/webViewRN'
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -80,7 +80,7 @@ export default class helloPage extends Component {
                     rightType={'text'}
                 />
 
-                <RNWebView
+                <WebViewRN
                     ref='_webView'
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}

@@ -33,10 +33,10 @@ import feedback from '../pages/four/feedback'
 import launch from '../pages/launch'
 import welcome from '../pages/welcome'
 
-import RNWebView from '../components/RNWebView'
+import webViewAndroid from '../components/webViewAndroid'
 
 const routers = StackNavigator({
-    //RNWebView: {screen:RNWebView, navigationOptions: { header:null,}},
+    //webViewAndroid: {screen:webViewAndroid, navigationOptions: { header:null,}},
     launch: {screen: launch},
     // 欢迎页 引导页
     //welcome: {screen: welcome},

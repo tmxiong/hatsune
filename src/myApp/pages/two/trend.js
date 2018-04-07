@@ -7,14 +7,15 @@ import {
     TouchableOpacity,
     StatusBar,
     Alert,
+    NetInfo
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
-import WebViewAndroid from 'react-native-webview-android';
+import WebViewAndroid from '../../components/webViewAndroid';
 import global from '../../commons/global/global';
 import OptionModal from '../../components/optionModal'
-import RNWebView from '../../components/RNWebView'
+import WebViewRN from '../../components/webViewRN'
 export default class trend extends Component {
 
     static defaultProps = {};
@@ -41,7 +42,6 @@ export default class trend extends Component {
          var height1 = document.getElementsByClassName("nav")[0].offsetHeight;
          var height2 = document.getElementsByClassName("header")[0].offsetHeight;
          window.webView.postMessage(height1+height2);
-         
       `
     }
 
@@ -88,28 +88,20 @@ export default class trend extends Component {
                     rightType={'text'}
                 />
 
-                {/*<RNWebView*/}
-                    {/*ref='_webView'*/}
-                    {/*injectedJavaScript={this._javascriptToInject()}*/}
-                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
-                    {/*source={{uri:this.params.url}} // or use the source(object) attribute...*/}
-                {/*/>*/}
                 <WebViewAndroid
                     ref="webViewAndroid"
-                    style={[styles.webView,{marginTop:-this.state.webViewOffset}]}
-                    javaScriptEnabled={true}
-                    geolocationEnabled={false}
-                    builtInZoomControls={false}
                     source={{uri:this.params.url}}
-                    onMessage={this._onMessage.bind(this)}
+                    //onMessage={this._onMessage.bind(this)}
                     injectedJavaScript={this._javascriptToInject()}
+                    navBarHeight={cfn.statusBarHeight()+56}
+                    //style={{height:cfn.deviceHeight()-cfn.statusBarHeight()-56}}
                 />
                 {/*<OptionModal*/}
                     {/*ref={ref=>this._optionModal = ref}*/}
                     {/*onPressOption={this._onPressOption.bind(this)}*/}
                     {/*//optionData={this.getOptionData()}*/}
                 {/*/>*/}
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
+                {/*<Loading topOffset={cfn.statusBarHeight()+56}/>*/}
             </View>
         )
     }

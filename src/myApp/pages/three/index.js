@@ -10,7 +10,9 @@ import WebViewAndroid from 'react-native-webview-android'
 import cfn from '../../commons/utils/commonFun';
 import { Loading, EasyLoading } from '../../components/loading'
 import OptionModal from '../../components/optionModal'
-import RNWebView from '../../components/RNWebView'
+import WebViewRN from '../../components/webViewRN'
+var ScrollableTabView = require('react-native-scrollable-tab-view');
+import { Container, Content, Tabs } from 'native-base';
 export default class three extends Component {
 
     constructor(props) {
@@ -74,29 +76,24 @@ export default class three extends Component {
                     rightBtn={""}
                     rightType="text"
                 />
-                {/*<WebViewAndroid*/}
-                    {/*ref="webViewAndroid"*/}
-                    {/*javaScriptEnabled={true}*/}
-                    {/*geolocationEnabled={false}*/}
-                    {/*builtInZoomControls={false}*/}
+
+
+                {/*<WebViewRN*/}
+                    {/*ref='_webView'*/}
                     {/*injectedJavaScript={this._javascriptToInject()}*/}
                     {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
-                    {/*onMessage={this._onMessage.bind(this)}*/}
                     {/*source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...*/}
-                    {/*style={[styles.webView,{marginTop:-this.state.webViewOffset}]} />*/}
-                {/*<OptionModal*/}
-                    {/*ref={ref=>this._optionModal = ref}*/}
-                    {/*onPressOption={this._onPressOption.bind(this)}*/}
-                    {/*//optionData={this.getOptionData()}*/}
                 {/*/>*/}
-                {/*<Loading topOffset={cfn.statusBarHeight()+56+50}/>*/}
 
-                <RNWebView
-                    ref='_webView'
-                    injectedJavaScript={this._javascriptToInject()}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...
-                />
+                <ScrollableTabView
+                    tabBarBackgroundColor="#f00"
+                    tabBarTextStyle={{color:'#fff'}}
+                >
+                    <View tabLabel="React" />
+                    <View tabLabel="Flow" />
+                    <View tabLabel="Jest" />
+                </ScrollableTabView>
+
             </View>
         )
     }

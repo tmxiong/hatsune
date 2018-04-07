@@ -11,7 +11,7 @@ import {
     ToastAndroid
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
-import RNWebView from '../../components/RNWebView';
+import WebViewRN from '../../components/webViewRN';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
@@ -193,7 +193,7 @@ export default class helloPage extends Component {
                     rightBtn={"ios-menu"}
                     rightFun={()=>this._optionModal.setModalVisible(true)}
                 />
-                <RNWebView
+                <WebViewRN
                     ref='_webView'
                     injectedJavaScript={this._javascriptToInject()}
                     onNavigationStateChange={this._onNavigationStateChange.bind(this)}
