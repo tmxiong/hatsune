@@ -29,4 +29,6 @@ module.exports = {
 
     AV_APP_ID: 't2KlaXtFmin9V5cQgE9pAJgF-gzGzoHsz',
     AV_APP_KEY: 'Y1C32dNauiF7tsF17YKcz1JT',
+
+    SHOW_API_SECRET : 'eb7f104bd5c44f5fb6862b3b9a4b31af',
 };

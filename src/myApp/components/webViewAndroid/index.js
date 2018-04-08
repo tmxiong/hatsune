@@ -53,9 +53,10 @@ export default class webViewAndroid extends Component {
     }
 
     componentWillUnmount() {
-        if(this.timer1) clearTimeout(this.timer1);
-        if(this.timer2) clearTimeout(this.timer2);
-        if(this.timer3) clearTimeout(this.timer3);
+        this.timer1 && clearTimeout(this.timer1);
+        this.timer2 && clearTimeout(this.timer2);
+        this.timer3 && clearTimeout(this.timer3);
+
     }
 
     _injectedJavaScript() {

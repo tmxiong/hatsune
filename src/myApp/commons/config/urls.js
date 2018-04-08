@@ -1,6 +1,6 @@
 
 // https://m.qmcai.com/hd/caipiaoclass/index.html?fromType=cpkt_1002&hideTab=true
-
+let secret = 'eb7f104bd5c44f5fb6862b3b9a4b31af';
 let timeStamp = function () {
     return new Date().getTime();
 };
@@ -22,4 +22,9 @@ exports.getArticle = function (type,offset) {
 // 福彩3d/高频彩/数字彩的详情链接
 exports.getArticleDetail = function (id) {
     return 'https://m.qmcai.com/zixun/detail.html?_id=' + id +'&time=' + timeStamp();
+};
+
+// 彩票显示所有彩票最新一期开奖号码
+exports.getNewestLotteryCode = function (id) {
+    return 'https://route.showapi.com/44-1?code='+ id +'&showapi_appid=46754&showapi_test_draft=false&showapi_timestamp='+ timeStamp() +'&showapi_sign='+secret;
 };
