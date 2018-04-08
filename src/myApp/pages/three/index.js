@@ -16,19 +16,43 @@ import Watch from './watch';
 import Gaopin from './gaopincai';
 import Shuzi from './shuzicai';
 import Jingji from './jingjicai';
+import lottery from '../../commons/config/lottery_kaijiang'
+import urls from '../../commons/config/urls'
 export default class three extends Component {
 
     constructor(props) {
         super(props);
         this.state={
-            webViewOffset:50
+            webViewOffset:50,
+            data:[],
         }
 
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...');
+        //EasyLoading.show('加载数据...');
+        this.getData();
     }
+
+    getData() {
+        let codes = '';
+        for(let i = 0,len = lottery.length; i <len; i++) {
+            codes += lottery[i].code+'|';
+        }
+        let url = urls.getNewestLotteryCode(codes);
+        fetch(url)
+            .then((res)=>res.json())
+            .then((data)=>this.setData(data))
+            .catch((e)=>{});
+    }
+
+    setData(data) {
+        this.setState({
+            data: data.showapi_res_body.result
+        })
+    }
+
+
 
     _javascriptToInject() {
         return `
@@ -80,24 +104,25 @@ export default class three extends Component {
                 {/*/>*/}
 
 
-                <WebViewRN
-                    ref='_webView'
-                    injectedJavaScript={this._javascriptToInject()}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...
-                />
-                {/*<View style={{height:30,backgroundColor:'#d22'}}/>*/}
-                {/*<ScrollableTabView*/}
+                {/*<WebViewRN*/}
+                    {/*ref='_webView'*/}
+                    {/*injectedJavaScript={this._javascriptToInject()}*/}
+                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
+                    {/*source={{uri:'http://m.aicai.com/kjgg/index.do'}} // or use the source(object) attribute...*/}
+                {/*/>*/}
 
-                    {/*tabBarBackgroundColor="#d22"*/}
-                    {/*tabBarTextStyle={{color:'#fff'}}*/}
-                    {/*tabBarUnderlineStyle={{backgroundColor:'#fff'}}*/}
-                {/*>*/}
-                    {/*<Watch tabLabel="关注" />*/}
-                    {/*<Shuzi tabLabel="数字彩" />*/}
-                    {/*<Gaopin tabLabel="高频彩" />*/}
-                    {/*<Jingji tabLabel="竞技彩" />*/}
-                {/*</ScrollableTabView>*/}
+                <View style={{height:30,backgroundColor:'#d22'}}/>
+                <ScrollableTabView
+
+                    tabBarBackgroundColor="#d22"
+                    tabBarTextStyle={{color:'#fff'}}
+                    tabBarUnderlineStyle={{backgroundColor:'#fff'}}
+                >
+                    <Watch tabLabel="关注" data={null}/>
+                    <Shuzi tabLabel="数字彩" data={this.state.data.slice(0,8)}/>
+                    <Gaopin tabLabel="高频彩" data={this.state.data.slice(9,17)}/>
+                    <Jingji tabLabel="竞技彩" data={this.state.data.slice(18,20)}/>
+                </ScrollableTabView>
 
             </View>
         )

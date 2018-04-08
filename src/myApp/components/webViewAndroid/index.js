@@ -47,7 +47,7 @@ export default class webViewAndroid extends Component {
     }
 
     componentDidMount() {
-        SplashScreen.hide();
+        //SplashScreen.hide();
         this._checkNetInfo();
         //this._webView.injectJavaScript("$(document).ready(function(){window.postMessage('hello')})");
     }

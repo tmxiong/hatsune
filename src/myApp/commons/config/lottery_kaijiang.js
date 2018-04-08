@@ -55,10 +55,6 @@ module.exports=[
         code:'cqssc'
     },
     {
-        name:'内蒙古时时彩',
-        code:'nmgssc'
-    },
-    {
         name:'天津时时彩',
         code:'tjssc'
     },
@@ -71,6 +67,10 @@ module.exports=[
         code:'hljssc'
     },
     {
+        name:'上海时时乐',
+        code:'shssl'
+    },
+    {
         name:'安徽11选5',
         code:'ah11x5',
     },
@@ -79,7 +79,7 @@ module.exports=[
         code:'hb11x5',
     },
     {
-        name:'安徽11选5',
+        name:'广东11选5',
         code:'gd11x5',
     },
 
