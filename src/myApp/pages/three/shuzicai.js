@@ -5,25 +5,32 @@ import {
     View,
     Image,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    De
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import {Icon} from 'native-base'
 export default class shuzicai extends Component {
 
-    static defaultProps = {};
+    static defaultProps = {
+        data: null,
+    };
 
     constructor(props) {
         super(props);
         this.state = {
             items: null,
-        }
+        };
+        this._setData = this.setData.bind(this);
     }
 
     componentWillReceiveProps(props) {
+        console.warn('componentWillReceiveProps');
 
-        console.log(props.data);
-        //this.setData(props.data);
+    }
+
+    componentDidMount() {
+        console.warn('componentDidMount')
     }
 
     setData(data) {
