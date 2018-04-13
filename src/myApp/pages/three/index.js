@@ -17,7 +17,9 @@ import Shuzi from './shuzicai';
 import Jingji from './jingjicai';
 import lottery from '../../commons/config/lottery_kaijiang'
 import urls from '../../commons/config/urls'
-export default class three extends Component {
+import {connect} from 'react-redux';
+import {fetchOpenCode, setOpenCode} from '../../app/actions'
+class three extends Component {
 
     constructor(props) {
         super(props);
@@ -50,9 +52,11 @@ export default class three extends Component {
     }
 
     setData(data) {
+        data = data.showapi_res_body.result;
         this.setState({
             data: data.showapi_res_body.result
-        })
+        });
+        //this.props.dispatch(setOpenCode(data))
     }
 
 
@@ -140,6 +144,12 @@ export default class three extends Component {
     }
 
 }
+function setData(store) {
+    return ({loadState: store.loadState})
+}
+
+export default connect()(three)
+// export default three
 
 const styles = StyleSheet.create({
     container: {

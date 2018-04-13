@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import {Icon} from 'native-base'
-export default class shuzicai extends Component {
+import {connect} from 'react-redux'
+class shuzicai extends Component {
 
     static defaultProps = {
         data: null,
@@ -21,16 +22,15 @@ export default class shuzicai extends Component {
         this.state = {
             items: null,
         };
-        this._setData = this.setData.bind(this);
     }
 
     componentWillReceiveProps(props) {
-        console.warn('componentWillReceiveProps');
+        //console.warn('componentWillReceiveProps');
 
     }
 
     componentDidMount() {
-        console.warn('componentDidMount')
+        //console.warn('componentDidMount')
     }
 
     setData(data) {
@@ -101,6 +101,7 @@ export default class shuzicai extends Component {
     }
 
     render() {
+        // const {data} = this.props;
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -133,6 +134,13 @@ export default class shuzicai extends Component {
     }
 
 }
+function setData(store) {
+    return ({
+        data: store
+    })
+}
+export default connect()(shuzicai)
+// export default shuzicai
 
 const styles = StyleSheet.create({
     container: {

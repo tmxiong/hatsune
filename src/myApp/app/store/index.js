@@ -1,26 +1,26 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware, { END } from 'redux-saga';
-import {createLogger} from 'redux-logger';
-import rootReducer from '../reducers';
-import sagas from '../sagas';
-
-const configureStore = preloadedState => {
-    const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(
-        rootReducer,
-        preloadedState,
-        compose (
-            applyMiddleware(sagaMiddleware, createLogger())
-        )
-    );
-
-    sagaMiddleware.run(sagas);
-    store.close = () => store.dispatch(END);
-    return store;
-};
-
-const store = configureStore();
-export default store;
+// import { createStore, applyMiddleware, compose } from 'redux';
+// import createSagaMiddleware, { END } from 'redux-saga';
+// import {createLogger} from 'redux-logger';
+// import rootReducer from '../reducers';
+// import sagas from '../sagas';
+//
+// const configureStore = preloadedState => {
+//     const sagaMiddleware = createSagaMiddleware();
+//     const store = createStore(
+//         rootReducer,
+//         preloadedState,
+//         compose (
+//             applyMiddleware(sagaMiddleware, createLogger())
+//         )
+//     );
+//
+//     sagaMiddleware.run(sagas);
+//     store.close = () => store.dispatch(END);
+//     return store;
+// };
+//
+// const store = configureStore();
+// export default store;
 
 // import { createStore, applyMiddleware, compose } from 'redux';
 // import createLogger from 'redux-logger';
@@ -39,3 +39,15 @@ export default store;
 // const store = configureStore();
 //
 // export default store;
+
+
+import {createStore, applyMiddleware} from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import rootReducer from '../reducers/index';
+
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+
+export default function configureStore(initialState) {
+    const store = createStoreWithMiddleware(rootReducer, initialState);
+    return store;
+}
