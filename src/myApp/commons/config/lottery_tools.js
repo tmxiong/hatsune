@@ -23,12 +23,12 @@ module.exports=[
         key:''
     },
     {
-        name:'二星直选',
+        name:'和值走势',
         icon:'md-tennisball',
-        url:'https://m.aicai.com/zst/cqssc/yl/2xzhiyl.do?vt=5&clientType=0',
+        url:'http://m.aicai.com/zst/xk3/hzzs.do?vt=5&clientType=0',
         page:'trend',
         key: 'readArticle',
-        desc:'二星直选遗漏图',
+        desc:'时时彩和值走势图',
     },
     {
         name:'预测资讯',

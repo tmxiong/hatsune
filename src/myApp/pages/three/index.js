@@ -36,7 +36,7 @@ class three extends Component {
         //EasyLoading.show('加载数据...');
 
 
-        this.getData();
+        //this.getData();
     }
 
     getData() {
@@ -63,8 +63,12 @@ class three extends Component {
 
     _javascriptToInject() {
         return `
-       
-        window.webView.postMessage(50);
+       var a = document.getElementsByClassName('h_popup_mask')[0];
+       if(a) {a.style.display = "none";}
+       var h = 0;
+       var b = document.getElementsByClassName('v-showSubTitle')[0];
+       if(b){h = b.style.offsetHeight;}
+        window.webView.postMessage(h);
        
       `
     }
@@ -81,18 +85,13 @@ class three extends Component {
 
     _onNavigationStateChange(e) {
         let url = e.url;
-        if(url.match(/article/)) {
+
+        if(url.match(/kaijiang/) || url.match(/history/)) {
             this.refs._webView.refs.webViewAndroid.stopLoading();
             if(!e.loading) {
-                alert('跳转' + url);
+                cfn.goToPage(this,'kaijiang',{url:url,name:e.title})
             }
         }
-        // if(url.match(/kaijiang/) || url.match(/history/)) {
-        //     this.refs._webView._webView.stopLoading();
-        //     if(!e.loading) {
-        //         cfn.goToPage(this,'kaijiang',{url:url,name:e.title})
-        //     }
-        // }
     }
 
     _onPressOption(index,option,isSelected) {
@@ -107,37 +106,38 @@ class three extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/*<Header*/}
-                    {/*title={"开奖大厅"}*/}
-                    {/*leftBtn={""}*/}
-                    {/*leftType="text"*/}
-                    {/*rightBtn={""}*/}
-                    {/*rightType="text"*/}
-                {/*/>*/}
+                <Header
+                    title={"开奖大厅"}
+                    leftBtn={""}
+                    leftType="text"
+                    rightBtn={""}
+                    rightType="text"
+                />
 
 
-                {/*<WebViewAndroid*/}
-                    {/*ref='_webView'*/}
-                    {/*injectedJavaScript={this._javascriptToInject()}*/}
-                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
-                    {/*source={{uri:'http://m.ttacp8.com/zixun/jczq?pageNum=2'}} // or use the source(object) attribute...*/}
-                {/*/>*/}
+                <WebViewAndroid
+                    ref='_webView'
+                    injectedJavaScript={this._javascriptToInject()}
+                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
+                    navBarHeight={cfn.statusBarHeight()+56+50}
+                    source={{uri:'https://m.aicai.com/kjgg/index.do?agentId=1&vt=5'}} // or use the source(object) attribute...
+                />
 
-                <View style={{height:30,backgroundColor:'#d22'}}/>
-                <ScrollableTabView
-                    tabBarBackgroundColor="#d22"
-                    tabBarTextStyle={{color:'#fff'}}
-                    tabBarUnderlineStyle={{backgroundColor:'#fff'}}
-                >
-                    <Watch tabLabel="关注" data={null}/>
-                    <Shuzi tabLabel="数字彩"
-                           ref='shuzi'
-                           data={this.state.data.slice(0,8)}/>
-                    <Gaopin tabLabel="高频彩"
-                            data={this.state.data.slice(9,17)}/>
-                    <Jingji tabLabel="竞技彩"
-                            data={this.state.data.slice(18,20)}/>
-                </ScrollableTabView>
+                {/*<View style={{height:30,backgroundColor:'#d22'}}/>*/}
+                {/*<ScrollableTabView*/}
+                    {/*tabBarBackgroundColor="#d22"*/}
+                    {/*tabBarTextStyle={{color:'#fff'}}*/}
+                    {/*tabBarUnderlineStyle={{backgroundColor:'#fff'}}*/}
+                {/*>*/}
+                    {/*<Watch tabLabel="关注" data={null}/>*/}
+                    {/*<Shuzi tabLabel="数字彩"*/}
+                           {/*ref='shuzi'*/}
+                           {/*data={this.state.data.slice(0,8)}/>*/}
+                    {/*<Gaopin tabLabel="高频彩"*/}
+                            {/*data={this.state.data.slice(9,17)}/>*/}
+                    {/*<Jingji tabLabel="竞技彩"*/}
+                            {/*data={this.state.data.slice(18,20)}/>*/}
+                {/*</ScrollableTabView>*/}
 
             </View>
         )
@@ -148,8 +148,8 @@ function setData(store) {
     return ({loadState: store.loadState})
 }
 
-export default connect()(three)
-// export default three
+// export default connect()(three)
+export default three
 
 const styles = StyleSheet.create({
     container: {

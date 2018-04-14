@@ -13,14 +13,14 @@ module.exports = [
                 title:'基本走势',
                 url:'http://m.aicai.com/zst/cqssc/5xjbzs.do?vt=5&clientType=0'
             },
-            {
-                title:'三星遗漏',
-                url:'http://m.aicai.com/zst/cqssc/yl/3xzhiyl.do?vt=5&clientType=0'
-            },
-            {
-                title:'二星遗漏',
-                url:'http://m.aicai.com/zst/cqssc/yl/2xzhiyl.do?vt=5&clientType=0'
-            }
+            // {
+            //     title:'三星遗漏',
+            //     url:'http://m.aicai.com/zst/cqssc/yl/3xzhiyl.do?vt=5&clientType=0'
+            // },
+            // {
+            //     title:'二星遗漏',
+            //     url:'http://m.aicai.com/zst/cqssc/yl/2xzhiyl.do?vt=5&clientType=0'
+            // }
         ]
     },
     {
@@ -189,10 +189,10 @@ module.exports = [
                 title:'基本走势',
                 url:'http://m.aicai.com/zst/sd11x5/jbzs2.do?vt=5&clientType=0'
             },
-            {
-                title:'任三遗漏',
-                url:'http://m.aicai.com/zst/sd11x5/r3mayl.do?vt=5&clientType=0'
-            },
+            // {
+            //     title:'任三遗漏',
+            //     url:'http://m.aicai.com/zst/sd11x5/r3mayl.do?vt=5&clientType=0'
+            // },
             {
                 title:'任五遗漏',
                 url:'http://m.aicai.com/zst/sd11x5/r5mayl.do?vt=5&clientType=0'
