@@ -4,9 +4,10 @@
 import {combineReducers} from 'redux';
 
 import kaijiang from './kaijiang';
+// import home from './home';
 
 const rootReducer = combineReducers({
-    kaijiang
+    kaijiang,
 });
 
 export default rootReducer;

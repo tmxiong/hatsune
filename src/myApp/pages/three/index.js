@@ -18,7 +18,7 @@ import Jingji from './jingjicai';
 import lottery from '../../commons/config/lottery_kaijiang'
 import urls from '../../commons/config/urls'
 import {connect} from 'react-redux';
-import {fetchOpenCode, setOpenCode} from '../../app/actions'
+import {getOpenCode} from '../../app/actions/kaijiang'
 class three extends Component {
 
     constructor(props) {
@@ -34,8 +34,7 @@ class three extends Component {
 
     componentDidMount() {
         //EasyLoading.show('加载数据...');
-
-
+        getOpenCode(this.props.dispatch);
         //this.getData();
     }
 
@@ -53,10 +52,7 @@ class three extends Component {
 
     setData(data) {
         data = data.showapi_res_body.result;
-        this.setState({
-            data: data.showapi_res_body.result
-        });
-        //this.props.dispatch(setOpenCode(data))
+
     }
 
 
@@ -106,38 +102,34 @@ class three extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header
-                    title={"开奖大厅"}
-                    leftBtn={""}
-                    leftType="text"
-                    rightBtn={""}
-                    rightType="text"
-                />
+                {/*<Header*/}
+                    {/*title={"开奖大厅"}*/}
+                    {/*leftBtn={""}*/}
+                    {/*leftType="text"*/}
+                    {/*rightBtn={""}*/}
+                    {/*rightType="text"*/}
+                {/*/>*/}
 
 
-                <WebViewAndroid
-                    ref='_webView'
-                    injectedJavaScript={this._javascriptToInject()}
-                    onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-                    navBarHeight={cfn.statusBarHeight()+56+50}
-                    source={{uri:'https://m.aicai.com/kjgg/index.do?agentId=1&vt=5'}} // or use the source(object) attribute...
-                />
+                {/*<WebViewAndroid*/}
+                    {/*ref='_webView'*/}
+                    {/*injectedJavaScript={this._javascriptToInject()}*/}
+                    {/*onNavigationStateChange={this._onNavigationStateChange.bind(this)}*/}
+                    {/*navBarHeight={cfn.statusBarHeight()+56+50}*/}
+                    {/*source={{uri:'https://m.aicai.com/kjgg/index.do?agentId=1&vt=5'}} // or use the source(object) attribute...*/}
+                {/*/>*/}
 
-                {/*<View style={{height:30,backgroundColor:'#d22'}}/>*/}
-                {/*<ScrollableTabView*/}
-                    {/*tabBarBackgroundColor="#d22"*/}
-                    {/*tabBarTextStyle={{color:'#fff'}}*/}
-                    {/*tabBarUnderlineStyle={{backgroundColor:'#fff'}}*/}
-                {/*>*/}
-                    {/*<Watch tabLabel="关注" data={null}/>*/}
-                    {/*<Shuzi tabLabel="数字彩"*/}
-                           {/*ref='shuzi'*/}
-                           {/*data={this.state.data.slice(0,8)}/>*/}
-                    {/*<Gaopin tabLabel="高频彩"*/}
-                            {/*data={this.state.data.slice(9,17)}/>*/}
-                    {/*<Jingji tabLabel="竞技彩"*/}
-                            {/*data={this.state.data.slice(18,20)}/>*/}
-                {/*</ScrollableTabView>*/}
+                <View style={{height:30,backgroundColor:'#d22'}}/>
+                <ScrollableTabView
+                    tabBarBackgroundColor="#d22"
+                    tabBarTextStyle={{color:'#fff'}}
+                    tabBarUnderlineStyle={{backgroundColor:'#fff'}}
+                >
+                    <Watch tabLabel="关注" parentThis={this}/>
+                    <Shuzi tabLabel="数字彩" parentThis={this}/>
+                    <Gaopin tabLabel="高频彩" parentThis={this}/>
+                    <Jingji tabLabel="竞技彩" parentThis={this}/>
+                </ScrollableTabView>
 
             </View>
         )
@@ -148,12 +140,13 @@ function setData(store) {
     return ({loadState: store.loadState})
 }
 
-// export default connect()(three)
-export default three
+export default connect()(three)
+// export default three
 
 const styles = StyleSheet.create({
     container: {
-      flex:1
+      flex:1,
+        backgroundColor:'#fff'
     },
     webView: {
         zIndex:-1,

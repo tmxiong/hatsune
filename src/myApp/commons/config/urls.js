@@ -28,3 +28,8 @@ exports.getArticleDetail = function (id) {
 exports.getNewestLotteryCode = function (id) {
     return 'https://route.showapi.com/44-1?code='+ id +'&showapi_appid=46754&showapi_test_draft=false&showapi_timestamp='+ timeStamp() +'&showapi_sign='+secret;
 };
+
+// 显示某个彩种的历史开奖
+exports.getHistoryLotteryCode = function (id) {
+    return 'https://route.showapi.com/44-2?code='+ id +'&count=20&endTime='+ new Date().Format('yyyy-MM-dd hh:mm:ss') +'&showapi_appid=46754&showapi_test_draft=false&showapi_timestamp='+ timeStamp() +'&showapi_sign='+secret;
+};

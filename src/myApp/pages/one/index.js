@@ -25,7 +25,8 @@ import {Icon} from 'native-base';
 import {load} from '../../commons/utils/storage'
 import NewsList from '../../components/newsList'
 import config from '../../commons/config/config'
-export default class index extends Component {
+import {connect} from 'react-redux';
+class index extends Component {
 
     constructor(props) {
         super(props);
@@ -201,6 +202,9 @@ export default class index extends Component {
         )
     }
 }
+
+export default connect()(index)
+
 const styles = StyleSheet.create({
     container: {
         flex:1,
