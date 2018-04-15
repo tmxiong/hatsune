@@ -29,7 +29,7 @@ class jingjicai extends Component {
 
         setTimeout(()=>{
             this.setState({isRefreshing: false})
-        },this.props.stateCode == 1 ? 3000 : 0)
+        },this.props.stateCode == 1 ? 2000 : 0)
 
     }
 
@@ -108,7 +108,7 @@ class jingjicai extends Component {
                         />
                     }
                     style={styles.scrollView}>
-                    {this.renderItems(this.props)}
+                    {!this.state.isRefreshing && this.renderItems(this.props)}
                 </ScrollView>
             </View>
         )

@@ -30,7 +30,7 @@ class gaopincai extends Component {
 
         setTimeout(()=>{
             this.setState({isRefreshing: false})
-        },this.props.stateCode == 1 ? 3000 : 0)
+        },this.props.stateCode == 1 ? 2000 : 0)
 
     }
 
@@ -118,7 +118,7 @@ class gaopincai extends Component {
                         />
                     }
                 >
-                    {this.setItems(this.props)}
+                    {!this.state.isRefreshing && this.setItems(this.props)}
                 </ScrollView>
             </View>
         )

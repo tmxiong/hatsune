@@ -1,6 +1,6 @@
 // 从投注页跳过来的
 
-import React, {Component} from 'react';
+import React, {Component,PropTypes} from 'react';
 import {
     StyleSheet,
     Text,
@@ -18,6 +18,28 @@ import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import WebViewRN from '../../components/webViewRN'
 import urls from '../../commons/config/urls'
+import Menu, { MenuContext, MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
+
+const TopNavigation = () => (
+    <View style={{ padding: 10, flexDirection: 'row', backgroundColor: 'pink',height:100 }}>
+        <View style={{ flex: 1 }}><Text>My App</Text></View>
+        <Menu onSelect={(value) => alert(`User selected the number ${value}`)}>
+            <MenuTrigger>
+                <Text style={{ fontSize: 20, }}>⋮</Text>
+            </MenuTrigger>
+            <MenuOptions>
+                <MenuOption value={1}>
+                    <Text>One</Text>
+                </MenuOption>
+                <MenuOption value={2}>
+                    <Text>Two</Text>
+                </MenuOption>
+            </MenuOptions>
+        </Menu>
+    </View>
+);
+
+
 export default class helloPage extends Component {
 
     static defaultProps = {};
@@ -112,7 +134,7 @@ export default class helloPage extends Component {
                 <TouchableOpacity
                     key={i}
                     activeOpacity={0.8}
-                    onPress={()=>{cfn.goToPage(this.props.parentThis,'kaijiangDetail',{data:data[i]})}}
+                    onPress={()=>{}}
                     style={styles.itemContainer}>
                     <View style={styles.itemHeader}>
                         <Text style={styles.itemName}>{name}</Text>
@@ -142,35 +164,39 @@ export default class helloPage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header
-                    title={this.params.name}
-                    leftBtn={"ios-arrow-back"}
-                    leftFun={()=>cfn.goBack(this)}
-                    rightBtn={""}
-                    rightType={'text'}
-                />
-                <ScrollView
-                    refreshControl={<RefreshControl
-                    refreshing={this.state.isRefreshing}
-                    onRefresh={this._onRefresh.bind(this)}
-                    tintColor="#ff0000"
-                    title="Loading..."
-                    titleColor="#00ff00"
-                    colors={['#ff0000', '#00ff00', '#0000ff']}
-                    progressBackgroundColor="#fff"
-                />}
-                >
-                    {
-                        this.state.isError ?
-                        <TouchableOpacity
-                            style={{alignSelf:'center',marginTop:cfn.deviceWidth()/3}}
-                            activeOpacity={0.8}
-                            onPress={()=>this.state.isError && this._onRefresh()}>
-                            <Text style={{fontSize:15,color:'#888'}}>{'加载错误，点击重试！'}</Text>
-                        </TouchableOpacity> :
-                        this.state.items
-                    }
-                </ScrollView>
+                {/*<Header*/}
+                    {/*title={this.params.name}*/}
+                    {/*leftBtn={"ios-arrow-back"}*/}
+                    {/*leftFun={()=>cfn.goBack(this)}*/}
+                    {/*rightBtn={"md-more"}*/}
+                    {/*rightType={'icon'}*/}
+                {/*/>*/}
+                <MenuContext style={{ flex: 1}}>
+                    <TopNavigation/>
+                    <ScrollView
+                        refreshControl={<RefreshControl
+                            refreshing={this.state.isRefreshing}
+                            onRefresh={this._onRefresh.bind(this)}
+                            tintColor="#ff0000"
+                            title="Loading..."
+                            titleColor="#00ff00"
+                            colors={['#ff0000', '#00ff00', '#0000ff']}
+                            progressBackgroundColor="#fff"
+                        />}
+                    >
+                        {
+                            this.state.isError ?
+                                <TouchableOpacity
+                                    style={{alignSelf:'center',marginTop:cfn.deviceWidth()/3}}
+                                    activeOpacity={0.8}
+                                    onPress={()=>this.state.isError && this._onRefresh()}>
+                                    <Text style={{fontSize:15,color:'#888'}}>{'加载错误，点击重试！'}</Text>
+                                </TouchableOpacity> :
+                                this.state.items
+                        }
+                    </ScrollView>
+                </MenuContext>
+
 
             </View>
         )

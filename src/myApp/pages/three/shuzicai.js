@@ -36,7 +36,7 @@ class shuzicai extends Component {
 
         setTimeout(()=>{
             this.setState({isRefreshing: false})
-        },this.props.stateCode == 1 ? 3000 : 0)
+        },this.props.stateCode == 1 ? 2000 : 0)
 
     }
 
