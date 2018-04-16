@@ -22,7 +22,7 @@ import moreLot from '../pages/one/moreLot'
 import articleDetail from '../pages/one/articleDetail'
 import article from '../pages/one/article'
 import trend from '../pages/two/trend';
-import kaijiang from '../pages/three/kaijiang'
+import help from '../pages/three/help'
 import kaijiangDetail from '../pages/three/kaijiangDetail'
 import loginAndRegist from '../pages/four/loginAndRegist'
 import userInfo from '../pages/four/userInfo'
@@ -57,7 +57,7 @@ const routers = StackNavigator({
     // 更多彩票
     moreLot:{screen: moreLot, navigationOptions: { header:null,}},
     // 开奖列表
-    kaijiang: {screen: kaijiang, navigationOptions: { header:null,}},
+    help: {screen: help, navigationOptions: { header:null,}},
     kaijiangDetail: {screen: kaijiangDetail, navigationOptions: { header:null,}},
 
     // 走势图

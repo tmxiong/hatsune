@@ -18,8 +18,9 @@ import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
-import WebViewRN from '../../components/webViewRN'
+import {getWatch} from '../../app/actions/kaijiang'
 import urls from '../../commons/config/urls'
+import {connect} from 'react-redux'
 import {
     Menu,
     MenuProvider,
@@ -28,7 +29,7 @@ import {
     MenuTrigger
 } from 'react-native-popup-menu';
 
-export default class helloPage extends Component {
+class kaijiangDetail extends Component {
 
     static defaultProps = {};
 
@@ -178,9 +179,11 @@ export default class helloPage extends Component {
                 ToastAndroid.show(`您已取消对${data.name}的关注！ `,ToastAndroid.SHORT);
                 this.setState({isWatched: false});
             }
+            getWatch(this.props.dispatch);
 
         }else if(value == 2) { // 帮助
-            alert(value)
+            //console.warn(data.help);
+            cfn.goToPage(this,'help',{help:data.help,name:'玩法帮助'})
         }else {}
     }
 
@@ -240,14 +243,13 @@ export default class helloPage extends Component {
                         }
                     </ScrollView>
                 </MenuProvider>
-
-
-
             </View>
         )
     }
 
 }
+
+export default connect()(kaijiangDetail)
 
 const styles = StyleSheet.create({
     container: {

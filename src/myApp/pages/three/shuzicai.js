@@ -90,7 +90,8 @@ class shuzicai extends Component {
                 <TouchableOpacity
                     key={i}
                     activeOpacity={0.8}
-                    onPress={()=>{cfn.goToPage(this.props.parentThis,'kaijiangDetail',{data:data[i],name:name})}}
+                    onPress={()=>{cfn.goToPage(this.props.parentThis,'kaijiangDetail',
+                        {data:data[i],name:name})}}
                     style={styles.itemContainer}>
                     <View style={styles.itemHeader}>
                         <Text style={styles.itemName}>{name}</Text>

@@ -18,7 +18,16 @@ export function getOpenCode(dispatch) {
     fetch(url)
         .then((res)=>res.json())
         .then((data)=>{
-            dispatch({type: actions.SET_OPEN_CODE, data: data.showapi_res_body.result});
+            data = data.showapi_res_body.result;
+            for(let i = 0,len = data.length; i < len; i++) {
+                for(let j = 0,len_1 = lottery.length; j < len_1; j++) {
+                    if(data[i].code == lottery[j].code) {
+                        data[i].help = lottery[j].help;
+                        break;
+                    }
+                }
+            }
+            dispatch({type: actions.SET_OPEN_CODE, data: data});
             //dispatch({type: GET_ERROR})
         })
         .catch((e)=>{
@@ -27,10 +36,10 @@ export function getOpenCode(dispatch) {
 
 }
 
-export async function getWatch(dispatch, code) {
+export async function getWatch(dispatch) {
 
     let data = await getAllDataForKey('watch');
 
-    dispatch({type: actions.GET_WATCH, data: data});
+    dispatch({type: actions.SET_WATCH, data: data});
 
 }

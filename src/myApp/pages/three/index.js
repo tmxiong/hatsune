@@ -121,6 +121,7 @@ class three extends Component {
 
                 <View style={{height:30,backgroundColor:'#d22'}}/>
                 <ScrollableTabView
+                    locked={true}
                     tabBarBackgroundColor="#d22"
                     tabBarTextStyle={{color:'#fff'}}
                     tabBarUnderlineStyle={{backgroundColor:'#fff'}}

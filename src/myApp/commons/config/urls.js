@@ -33,3 +33,13 @@ exports.getNewestLotteryCode = function (id) {
 exports.getHistoryLotteryCode = function (id) {
     return 'https://route.showapi.com/44-2?code='+ id +'&count=20&endTime='+ new Date().Format('yyyy-MM-dd hh:mm:ss') +'&showapi_appid=46754&showapi_test_draft=false&showapi_timestamp='+ timeStamp() +'&showapi_sign='+secret;
 };
+
+// 彩票玩法介绍
+exports.getHelp = function (type) {
+    if(type.match('https')) {
+        return type;
+    }else{
+        return 'http://pimg1.126.net/swdp/game_rule/'+ type +'.html?time='+timeStamp();
+    }
+
+};

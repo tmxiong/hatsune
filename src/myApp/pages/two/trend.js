@@ -30,7 +30,7 @@ export default class trend extends Component {
     }
 
     componentDidMount() {
-        EasyLoading.show('加载数据...');
+        //EasyLoading.show('加载数据...');
     }
 
     _javascriptToInject() {
