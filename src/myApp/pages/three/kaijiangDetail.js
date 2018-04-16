@@ -11,34 +11,22 @@ import {
     WebView,
     Alert,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    ToastAndroid
 } from 'react-native';
 import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
+import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
 import WebViewRN from '../../components/webViewRN'
 import urls from '../../commons/config/urls'
-import Menu, { MenuContext, MenuOptions, MenuOption, MenuTrigger } from 'react-native-menu';
-
-const TopNavigation = () => (
-    <View style={{ padding: 10, flexDirection: 'row', backgroundColor: 'pink',height:100 }}>
-        <View style={{ flex: 1 }}><Text>My App</Text></View>
-        <Menu onSelect={(value) => alert(`User selected the number ${value}`)}>
-            <MenuTrigger>
-                <Text style={{ fontSize: 20, }}>⋮</Text>
-            </MenuTrigger>
-            <MenuOptions>
-                <MenuOption value={1}>
-                    <Text>One</Text>
-                </MenuOption>
-                <MenuOption value={2}>
-                    <Text>Two</Text>
-                </MenuOption>
-            </MenuOptions>
-        </Menu>
-    </View>
-);
-
+import {
+    Menu,
+    MenuProvider,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger
+} from 'react-native-popup-menu';
 
 export default class helloPage extends Component {
 
@@ -50,7 +38,8 @@ export default class helloPage extends Component {
             data: [],
             items: null,
             isRefreshing: true,
-            isError: false
+            isError: false,
+            isWatched:false,
         };
         this.params = props.navigation.state.params;
 
@@ -59,6 +48,22 @@ export default class helloPage extends Component {
     componentDidMount() {
         //EasyLoading.show('加载数据...');
         this.getData();
+        this.checkIsWatched();
+    }
+
+    async checkIsWatched() {
+        let data = await getAllDataForKey('watch');
+        let isWatched = false;
+        const{code} = this.params.data;
+        for(let i = 0; i < data.length; i++) {
+            if(data[i].code == code) {
+                isWatched = true;
+                break;
+            }
+        }
+        this.setState({
+            isWatched: isWatched,
+        })
     }
 
     getData() {
@@ -161,6 +166,24 @@ export default class helloPage extends Component {
         this.getData();
     }
 
+    async _onSelect(value) {
+        const {data} = this.params;
+        if(value == 1) { //关注
+            if(!this.state.isWatched) {
+                save('watch',data.code,data);
+                ToastAndroid.show(`${data.name} 关注成功！`,ToastAndroid.SHORT);
+                this.setState({isWatched: true});
+            }else {
+                remove('watch',data.code,data);
+                ToastAndroid.show(`您已取消对${data.name}的关注！ `,ToastAndroid.SHORT);
+                this.setState({isWatched: false});
+            }
+
+        }else if(value == 2) { // 帮助
+            alert(value)
+        }else {}
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -171,8 +194,29 @@ export default class helloPage extends Component {
                     {/*rightBtn={"md-more"}*/}
                     {/*rightType={'icon'}*/}
                 {/*/>*/}
-                <MenuContext style={{ flex: 1}}>
-                    <TopNavigation/>
+
+                <MenuProvider style={{flexDirection: 'column',width:cfn.deviceWidth(),height:cfn.deviceHeight()}}>
+                    <Header
+                        title={this.params.name}
+                        leftBtn={"ios-arrow-back"}
+                        leftFun={()=>cfn.goBack(this)}
+                        rightBtn={"md-more"}
+                        rightType={'icon'}
+                    />
+                    <Menu
+                        style={{position:'absolute',top:cfn.statusBarHeight(),right:0,width:56,height:56,backgroundColor:'transparent'}}
+                        onSelect={this._onSelect.bind(this)}>
+                        <MenuTrigger text='' style={{backgroundColor:'transparent',width:56,height:56}}/>
+                        <MenuOptions >
+                            <MenuOption value={1}>
+                                <Text style={{color: this.state.isWatched ? 'red' : '#888',margin:5}}>{this.state.isWatched ? '已关注' : '关注'}</Text>
+                            </MenuOption>
+                            <MenuOption value={2}>
+                                <Text style={{color: '#888',margin:5}}>玩法帮助</Text>
+                            </MenuOption>
+                            {/*<MenuOption value={3} disabled={true} text='Three' />*/}
+                        </MenuOptions>
+                    </Menu>
                     <ScrollView
                         refreshControl={<RefreshControl
                             refreshing={this.state.isRefreshing}
@@ -195,7 +239,8 @@ export default class helloPage extends Component {
                                 this.state.items
                         }
                     </ScrollView>
-                </MenuContext>
+                </MenuProvider>
+
 
 
             </View>

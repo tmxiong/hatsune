@@ -4,6 +4,7 @@
 import * as actions from '../actionTypes/kaijiang';
 import lottery from '../../commons/config/lottery_kaijiang';
 import urls from '../../commons/config/urls';
+import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
 
 export function getOpenCode(dispatch) {
 
@@ -26,10 +27,10 @@ export function getOpenCode(dispatch) {
 
 }
 
-export function getOpenCodeDetail(dispatch, code) {
+export async function getWatch(dispatch, code) {
 
-    dispatch({type: actions.GET_OPEN_CODE_DETAIL});
+    let data = await getAllDataForKey('watch');
 
-    let url = '';
-    //fetch()
+    dispatch({type: actions.GET_WATCH, data: data});
+
 }

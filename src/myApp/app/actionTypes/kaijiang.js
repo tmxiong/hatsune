@@ -8,3 +8,5 @@ export const GET_ERROR = 'GET_ERROR';
 export const GET_OPEN_CODE_DETAIL = 'GET_OPEN_CODE_DETAIL';
 export const SET_OPEN_CODE_DETAIL = 'SET_OPEN_CODE_DETAIL';
 export const GET_DETAIL_ERROR = 'GET_DETAIL_ERROR';
+
+export const GET_WATCH = 'GET_WATCH';

@@ -42,7 +42,7 @@ export default class helloPage extends Component {
     }
 
     _onMessage(e) {
-        console.log(e)
+        console.log(e);
         this.setState({
             webViewOffset:cfn.px2dp(e.message),
         });

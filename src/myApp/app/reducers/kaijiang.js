@@ -17,6 +17,8 @@ export default function reducers(state = defaultState, action) {
             return { ...state, stateText: '加载成功！' ,stateCode: 1, data: action.data};
         case types.GET_ERROR:
             return { ...state, stateText: '加载错误，请重试！', stateCode:2 };
+        case types.GET_WATCH:
+            return { ...state, data: action.data };
         default:
             return state;
     }
