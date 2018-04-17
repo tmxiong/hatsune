@@ -18,6 +18,7 @@ import cfn from '../../commons/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
+import WebViewAndroid from '../../components/webViewAndroid'
 import {save,remove,getAllDataForKey} from '../../commons/utils/storage'
 export default class newsDetail extends Component {
 
@@ -48,7 +49,7 @@ export default class newsDetail extends Component {
     };
 
     componentDidMount() {
-        EasyLoading.show('加载数据...');
+        //EasyLoading.show('加载数据...');
     }
 
     goBack() {
@@ -82,7 +83,7 @@ export default class newsDetail extends Component {
     _onPressOption(index,option,isSelected) {
         if (index == 666) {
             EasyLoading.show('加载数据...');
-            this._webView.reload();
+            this.refs.webViewAndroid.refs.webViewAndroid.reload();
             return;
         }
     }
@@ -93,7 +94,7 @@ export default class newsDetail extends Component {
         console.log(e);
         let url = e.url;
         if(url.match('detail')) {
-            this._webView.stopLoading();
+            this.refs.webViewAndroid.refs.webViewAndroid.stopLoading();
             if(!e.loading) {
                 cfn.goToPage(this,'articleDetail',{name:'彩市资讯',url:url,from:'article'})
             }
@@ -102,6 +103,10 @@ export default class newsDetail extends Component {
 
     _rightFun() {
         this._optionModal.setModalVisible(true);
+    }
+
+    _javascriptToInject() {
+        return`window.webView.postMessage(0);`
     }
 
     render() {
@@ -116,15 +121,23 @@ export default class newsDetail extends Component {
                 />
 
 
-                <WebView
-                    ref={(ref)=>this._webView = ref}
-                    source={{uri: 'https://m.qmcai.com/hd/caipiaoclass/index.html'}}
-                    //injectedJavaScript={this.script}
-                    onLoadEnd={()=>this._onLoadEnd()}
-                    onLoadStart={()=>this._onLoadStart()}
-                    onError={()=>this._onError()}
-                    scalesPageToFit={false}
-                    onNavigationStateChange={this.onNavigationStateChange.bind(this)}//在WebView中注册该回调方法
+                {/*<WebView*/}
+                    {/*ref={(ref)=>this._webView = ref}*/}
+                    {/*source={{uri: 'https://m.qmcai.com/hd/caipiaoclass/index.html'}}*/}
+                    {/*//injectedJavaScript={this.script}*/}
+                    {/*onLoadEnd={()=>this._onLoadEnd()}*/}
+                    {/*onLoadStart={()=>this._onLoadStart()}*/}
+                    {/*onError={()=>this._onError()}*/}
+                    {/*scalesPageToFit={false}*/}
+                    {/*onNavigationStateChange={this.onNavigationStateChange.bind(this)}//在WebView中注册该回调方法*/}
+                {/*/>*/}
+                <WebViewAndroid
+                    ref="webViewAndroid"
+                    source={{uri:'https://m.qmcai.com/hd/caipiaoclass/index.html'}}
+                    onNavigationStateChange={this.onNavigationStateChange.bind(this)}
+                    injectedJavaScript={this._javascriptToInject()}
+                    navBarHeight={cfn.statusBarHeight()+56}
+                    //style={{height:cfn.deviceHeight()-cfn.statusBarHeight()-56}}
                 />
 
                 <OptionModal
@@ -132,7 +145,7 @@ export default class newsDetail extends Component {
                     onPressOption={this._onPressOption.bind(this)}
                     //optionData={this.getOptionData()}
                 />
-                <Loading topOffset={cfn.statusBarHeight()+56}/>
+                {/*<Loading topOffset={cfn.statusBarHeight()+56}/>*/}
             </View>)
     }
 

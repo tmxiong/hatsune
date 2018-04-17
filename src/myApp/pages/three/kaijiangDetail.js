@@ -183,7 +183,10 @@ class kaijiangDetail extends Component {
 
         }else if(value == 2) { // 帮助
             //console.warn(data.help);
-            cfn.goToPage(this,'help',{help:data.help,name:'玩法帮助'})
+            setTimeout(()=>{
+                cfn.goToPage(this,'help',{help:data.help,name:'玩法帮助'})
+            },400)
+
         }else {}
     }
 
