@@ -8,9 +8,9 @@ import {
     ScrollView,
     RefreshControl
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import {Icon} from 'native-base'
-import lotterys from '../../commons/config/lottery_kaijiang'
+import lotterys from '../../public/config/lottery_kaijiang'
 import {connect} from 'react-redux'
 import {getOpenCode} from '../../app/actions/kaijiang'
 class gaopincai extends Component {

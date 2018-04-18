@@ -30,12 +30,12 @@ import {
 
 
 import {NavigationActions} from 'react-navigation'
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 // import Storage from 'react-native-storage';
-import Global from '../../commons/global/global';
-import fetchp from '../../commons/utils/fetch-polyfill';
-import config from '../../commons/config/config';
-import {load} from '../../commons/utils/storage'
+import Global from '../../public/global/global';
+import fetchp from '../../public/utils/fetch-polyfill';
+import config from '../../public/config/config';
+import {load} from '../../public/utils/storage'
 import SplashScreen from 'react-native-splash-screen';
 
 export default class loadingModal extends Component {

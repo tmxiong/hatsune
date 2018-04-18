@@ -9,9 +9,9 @@ import {
     Alert
 } from 'react-native';
 import Header from '../../components/header'
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import Swipeout from 'react-native-swipeout';
-import {save,remove,getAllDataForKey,clearMapForKey} from '../../commons/utils/storage'
+import {save,remove,getAllDataForKey,clearMapForKey} from '../../public/utils/storage'
 import {Icon} from 'native-base'
 export default class helloPage extends Component {
 

@@ -12,7 +12,7 @@ import {
     Platform
 } from 'react-native';
 
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 export default class navBar extends PureComponent {
     constructor(props) {
         super();
@@ -24,9 +24,9 @@ export default class navBar extends PureComponent {
 
     static defaultProps = {
         bgColor: '#d81e06',
-        bgImg: require('../../commons/asset/imgs/navBar/nav_bg_transparent.png'),
+        bgImg: require('../../public/asset/imgs/navBar/nav_bg_transparent.png'),
         leftText: null,
-        leftIcon: require('../../commons/asset/imgs/navBar/navbar_back.png'),
+        leftIcon: require('../../public/asset/imgs/navBar/navbar_back.png'),
         middleText: null,
         middleView: null,
         rightText: null,

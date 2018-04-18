@@ -12,11 +12,11 @@ import {
 import {Icon} from 'native-base';
 import Header from '../../components/header'
 import SortableSudokuGrid from '../../components/sortGridView/SortableSudokuGrid';
-import myTheme from '../../commons/theme/index'
-import cfn from '../../commons/utils/commonFun'
-import lotterys from '../../commons/config/lotterys_new'
-import global from '../../commons/global/global'
-import {save} from '../../commons/utils/storage'
+import myTheme from '../../public/theme/index'
+import cfn from '../../public/utils/commonFun'
+import lotterys from '../../public/config/lotterys_new'
+import global from '../../public/global/global'
+import {save} from '../../public/utils/storage'
 export default class helloPage extends Component {
 
     static defaultProps = {};

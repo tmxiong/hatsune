@@ -11,11 +11,11 @@ import {
     WebView,
     Alert,
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import Header from '../../components/header'
 import WebViewAndroid from '../../components/webViewAndroid'
-import config from '../../commons/config/config';
-import urls from '../../commons/config/urls'
+import config from '../../public/config/config';
+import urls from '../../public/config/urls'
 export default class helloPage extends Component {
 
     static defaultProps = {};

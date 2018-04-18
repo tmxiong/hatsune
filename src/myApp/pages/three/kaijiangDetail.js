@@ -14,12 +14,12 @@ import {
     RefreshControl,
     ToastAndroid
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
-import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
+import {save, getAllDataForKey,remove} from '../../public/utils/storage'
 import {getWatch} from '../../app/actions/kaijiang'
-import urls from '../../commons/config/urls'
+import urls from '../../public/config/urls'
 import {connect} from 'react-redux'
 import {
     Menu,

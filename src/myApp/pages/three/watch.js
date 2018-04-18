@@ -8,12 +8,12 @@ import {
     ScrollView,
     ListView
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import {getWatch} from '../../app/actions/kaijiang'
 import {connect} from 'react-redux';
 import {Icon} from 'native-base'
 import Swipeout from 'react-native-swipeout';
-import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
+import {save, getAllDataForKey,remove} from '../../public/utils/storage'
 class watch extends Component {
 
     static defaultProps = {};

@@ -17,11 +17,11 @@ import {
     Alert,
     ToastAndroid
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
-import config from '../../commons/config/config'
-import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
+import config from '../../public/config/config'
+import {save, getAllDataForKey,remove} from '../../public/utils/storage'
 import OptionModal from '../../components/optionModal'
 import WebViewRN from '../../components/webViewRN'
 export default class helloPage extends Component {

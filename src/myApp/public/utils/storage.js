@@ -5,7 +5,7 @@ import Storage from 'react-native-storage'
 import {AsyncStorage} from 'react-native'
 import global from '../global/global'
 import AV from 'leancloud-storage'
-import {AV_APP_ID as appId, AV_APP_KEY as appKey} from '../../commons/config/config';
+import {AV_APP_ID as appId, AV_APP_KEY as appKey} from '../config/config';
 
 
 /**localStorage and leancloudStorage*/
@@ -32,7 +32,7 @@ function initStorage() {
         // 你可以在构造函数这里就写好sync的方法
         // 或是写到另一个文件里，这里require引入
         // 或是在任何时候，直接对storage.sync进行赋值修改
-        sync: require('../../commons/global/sync')  // 这个sync文件是要你自己写的
+        sync: require('../global/sync')  // 这个sync文件是要你自己写的
     })
 }
 

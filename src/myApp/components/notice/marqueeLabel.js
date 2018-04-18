@@ -114,7 +114,7 @@ export default class MarqueeLabel extends Component {
                 style={{ ...styles.bgViewStyle, ...bgViewStyle }}
                 onLayout={(event) => this.bgViewOnLayout(event)}
             >
-                <Image style={styles.icon} source={require('../../commons/asset/imgs/notice_icon.png')}/>
+                <Image style={styles.icon} source={require('../../public/asset/imgs/notice_icon.png')}/>
                 <View
                     style={{
                         ...styles.textContainerStyle,

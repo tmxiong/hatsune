@@ -8,7 +8,7 @@ import {
     ScrollView,
     RefreshControl
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import {Icon} from 'native-base'
 import {connect} from 'react-redux';
 import {getOpenCode} from '../../app/actions/kaijiang'

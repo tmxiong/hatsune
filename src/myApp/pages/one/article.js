@@ -12,14 +12,14 @@ import {
     ToastAndroid,
 
 } from 'react-native';
-import urls from '../../commons/config/urls';
-import config from '../../commons/config/config'
-import cfn from '../../commons/utils/commonFun'
+import urls from '../../public/config/urls';
+import config from '../../public/config/config'
+import cfn from '../../public/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
 import WebViewAndroid from '../../components/webViewAndroid'
-import {save,remove,getAllDataForKey} from '../../commons/utils/storage'
+import {save,remove,getAllDataForKey} from '../../public/utils/storage'
 export default class newsDetail extends Component {
 
     constructor(props) {

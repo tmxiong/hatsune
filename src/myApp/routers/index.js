@@ -8,7 +8,7 @@
 
 
 import {StackNavigator,TabNavigator} from "react-navigation";
-import onBackAndroid from '../commons/utils/onBackAndroid'
+import onBackAndroid from '../public/utils/onBackAndroid'
 onBackAndroid.bindHardwareBackPress();
 
 // import welcome from '../pages/welcome';

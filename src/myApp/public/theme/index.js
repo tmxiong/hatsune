@@ -1,5 +1,5 @@
 import Color from 'color';
-
+import config from '../config/config'
 import {Platform,StatusBar} from 'react-native';
 
 export default {
@@ -127,7 +127,7 @@ export default {
 
     // Header
     iosToolbarBtnColor: '#007aff',
-    toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#d22',
+    toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : config.baseColor,
     toolbarHeight: (Platform.OS === 'ios' ) ? 64 : 56,
     toolbarIconSize: (Platform.OS === 'ios' ) ? 20 : 22,
     toolbarInputColor: '#CECDD2',

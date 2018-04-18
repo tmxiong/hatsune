@@ -11,11 +11,11 @@ import {
     PixelRatio,
     ScrollView
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import Header from '../../components/header'
 import WebViewAndroid from 'react-native-webview-android';
-import {lotteryIcon as icons} from '../../commons/config/images'
-import lotterys from '../../commons/config/lottery_trend';
+import {lotteryIcon as icons} from '../../public/config/images'
+import lotterys from '../../public/config/lottery_trend';
 export default class two extends Component {
 
     static defaultProps = {};

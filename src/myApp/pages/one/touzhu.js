@@ -10,12 +10,12 @@ import {
     Alert,
     ToastAndroid
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import WebViewRN from '../../components/webViewRN';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import OptionModal from '../../components/optionModal'
-import {save,remove,getAllDataForKey} from '../../commons/utils/storage'
+import {save,remove,getAllDataForKey} from '../../public/utils/storage'
 export default class helloPage extends Component {
 
     static defaultProps = {};

@@ -16,7 +16,7 @@ module.exports = {
 
     appName: '时时彩',
 
-    baseColor:'#d81e06',
+    baseColor:'#d22',
     //launchImg:require('../imgs/launch/launch.png'),
     // welcomeImg:[
     //     require('../imgs/welcome/welcome_1.png'),

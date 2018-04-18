@@ -10,14 +10,14 @@ import {
     ScrollView,
 } from 'react-native';
 import Header from '../../components/header'
-import cfn from '../../commons/utils/commonFun'
-import global from '../../commons/global/global'
-import {load} from '../../commons/utils/storage'
-import dateBase from '../../commons/utils/dateBase'
-import {defaultIcon} from '../../commons/config/images'
+import cfn from '../../public/utils/commonFun'
+import global from '../../public/global/global'
+import {load} from '../../public/utils/storage'
+import dateBase from '../../public/utils/dateBase'
+import {defaultIcon} from '../../public/config/images'
 import {  Button, Icon } from 'native-base';
 import {Loading, EasyLoading} from '../../components/loading'
-import {clearMapForKey, getUserDataBySessionToken} from '../../commons/utils/storage'
+import {clearMapForKey, getUserDataBySessionToken} from '../../public/utils/storage'
 export default class index extends Component {
 
     static defaultProps = {};

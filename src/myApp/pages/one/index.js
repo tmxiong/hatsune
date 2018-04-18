@@ -12,19 +12,19 @@ import {
     StatusBar,
     ScrollView
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 
-import {banner} from '../../commons/config/images'
+import {banner} from '../../public/config/images'
 import Banner from '../../components/banner'
 import MarqueeLabel from '../../components/notice/marqueeLabel'
 import { Loading, EasyLoading } from '../../components/loading'
-import lotterys from '../../commons/config/lotterys_new'
-import tools from '../../commons/config/lottery_tools'
-import global from '../../commons/global/global'
+import lotterys from '../../public/config/lotterys_new'
+import tools from '../../public/config/lottery_tools'
+import global from '../../public/global/global'
 import {Icon} from 'native-base';
-import {load} from '../../commons/utils/storage'
+import {load} from '../../public/utils/storage'
 import NewsList from '../../components/newsList'
-import config from '../../commons/config/config'
+import config from '../../public/config/config'
 import {connect} from 'react-redux';
 class index extends Component {
 

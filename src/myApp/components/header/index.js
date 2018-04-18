@@ -7,9 +7,10 @@ import {
     TouchableOpacity,
     StatusBar
 } from 'react-native';
-import myTheme from '../../commons/theme/index'
+import myTheme from '../../public/theme/index'
 import {Container, Header, Button, Title, Icon} from 'native-base';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
+import config from '../../public/config/config'
 export default class header extends PureComponent {
 
     static defaultProps = {
@@ -47,7 +48,7 @@ export default class header extends PureComponent {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor:'#d22',
+        backgroundColor:config.baseColor,
         width:cfn.deviceWidth()
     },
 });

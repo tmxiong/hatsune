@@ -3,11 +3,11 @@
  */
 var images = {
   banner:[
-      require('../../commons/asset/imgs/banner_4.png'),
-      require('../../commons/asset/imgs/banner_5.png'),
-      require('../../commons/asset/imgs/banner_3.png'),
+      require('../asset/imgs/banner_4.png'),
+      require('../asset/imgs/banner_5.png'),
+      require('../asset/imgs/banner_3.png'),
   ],
-    notice: require('../../commons/asset/imgs/notice_icon.png'),
+    notice: require('../asset/imgs/notice_icon.png'),
     lotteryIcon: {
         jczq: require('../asset/imgs/lotteryIcons_new/jczq.png'), // 竞彩足球
         jzdg: require('../asset/imgs/lotteryIcons_new/jzdg.png'), // 竞足单关

@@ -17,8 +17,8 @@ import {
 } from 'react-native';
 import Header from '../../components/header'
 import {Input,Button} from 'native-base'
-import cfn from '../../commons/utils/commonFun'
-import checkInput from '../../commons/utils/inputUtils'
+import cfn from '../../public/utils/commonFun'
+import checkInput from '../../public/utils/inputUtils'
 import {Loading,EasyLoading} from '../../components/loading'
 
 export default class App extends Component {
@@ -75,7 +75,7 @@ export default class App extends Component {
                 <ScrollView>
                     <Image
                         style={styles.image}
-                        source={require('../../commons/asset/imgs/feedback.jpg')}
+                        source={require('../../public/asset/imgs/feedback.jpg')}
                     />
 
                     <Text style={styles.note}>您的意见、建议或遇到的问题：</Text>

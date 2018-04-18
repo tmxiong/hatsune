@@ -12,9 +12,10 @@ import One from '../one';
 import Two from '../two';
 import Three from '../three'
 import Four from '../four';
-import cfn from '../../commons/utils/commonFun'
-import storage from '../../commons/utils/storage'
-import handleError from '../../commons/utils/handleError'
+import cfn from '../../public/utils/commonFun'
+import storage from '../../public/utils/storage'
+import config from '../../public/config/config'
+import handleError from '../../public/utils/handleError'
 handleError();
 
 
@@ -28,7 +29,7 @@ const mainPage = TabNavigator({
             tabBarLabel: '首页',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/home_icon.png')}
+                    source={require('../../public/asset/imgs/home_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),
@@ -43,7 +44,7 @@ const mainPage = TabNavigator({
             tabBarLabel: '走势预测',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/trend_icon.png')}
+                    source={require('../../public/asset/imgs/trend_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),
@@ -58,7 +59,7 @@ const mainPage = TabNavigator({
             tabBarLabel: '开奖大厅',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/order_icon.png')}
+                    source={require('../../public/asset/imgs/order_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),
@@ -74,7 +75,7 @@ const mainPage = TabNavigator({
             tabBarLabel: '我的',
             tabBarIcon: ({ tintColor }) => (
                 <Image
-                    source={require('../../commons/asset/imgs/mine_icon.png')}
+                    source={require('../../public/asset/imgs/mine_icon.png')}
                     style={[styles.icon,{tintColor: tintColor} ]}
                 />
             ),
@@ -88,7 +89,7 @@ const mainPage = TabNavigator({
     swipeEnabled: true, // 禁止左右滑动
     backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
     tabBarOptions: {
-        activeTintColor: '#b22222', // 文字和图片选中颜色
+        activeTintColor: config.baseColor, // 文字和图片选中颜色
         inactiveTintColor: '#999', // 文字和图片默认颜色
         showIcon: true, // android 默认不显示 icon, 需要设置为 true 才会显示
         indicatorStyle: {height: 0}, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了， 不知道还有没有其它方法隐藏？？？

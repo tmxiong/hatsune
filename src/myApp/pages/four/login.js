@@ -7,11 +7,11 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import { Container, Spinner, Button, InputGroup, Input, Icon } from 'native-base';
-import global from '../../commons/global/global'
-import inputUtils from '../../commons/utils/inputUtils'
-import {save} from '../../commons/utils/storage'
+import global from '../../public/global/global'
+import inputUtils from '../../public/utils/inputUtils'
+import {save} from '../../public/utils/storage'
 export default class login extends PureComponent {
 
     static defaultProps = {

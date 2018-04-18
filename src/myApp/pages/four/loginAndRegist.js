@@ -8,7 +8,7 @@ import {
     ScrollView
 } from 'react-native';
 import Header from '../../components/header'
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import Login from './login';
 import Regist from './regist';
 import {Loading, EasyLoading} from '../../components/loading'

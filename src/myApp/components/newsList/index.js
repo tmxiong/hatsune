@@ -13,9 +13,9 @@ import {
     ScrollView,
     ListView
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun';
-import config from '../../commons/config/config'
-import urls from '../../commons/config/urls'
+import cfn from '../../public/utils/commonFun';
+import config from '../../public/config/config'
+import urls from '../../public/config/urls'
 export default class articles extends PureComponent {
     constructor(props) {
         super(props);

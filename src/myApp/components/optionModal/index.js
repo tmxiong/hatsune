@@ -13,7 +13,7 @@ import {
     StatusBar
 } from 'react-native';
 
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import {Icon} from 'native-base'
 
 // import collection_true from '../imgs/collection_icon_true.png';

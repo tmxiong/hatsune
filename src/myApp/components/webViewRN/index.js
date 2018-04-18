@@ -17,7 +17,7 @@ import {
     Easing,
     TouchableOpacity
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import SplashScreen from 'react-native-splash-screen'
 export default class App extends Component {
 

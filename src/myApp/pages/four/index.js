@@ -12,12 +12,12 @@ import {
 } from 'react-native';
 import Header from '../../components/header'
 import {Icon} from 'native-base'
-import cfn from '../../commons/utils/commonFun'
-import global from '../../commons/global/global'
-import {load} from '../../commons/utils/storage'
-import dateBase from '../../commons/utils/dateBase'
-import {defaultIcon} from '../../commons/config/images'
-import {getUserDataBySessionToken} from '../../commons/utils/storage'
+import cfn from '../../public/utils/commonFun'
+import global from '../../public/global/global'
+import {load} from '../../public/utils/storage'
+import dateBase from '../../public/utils/dateBase'
+import {defaultIcon} from '../../public/config/images'
+import {getUserDataBySessionToken} from '../../public/utils/storage'
 import deviceInfo from 'react-native-device-info'
 export default class index extends Component {
 

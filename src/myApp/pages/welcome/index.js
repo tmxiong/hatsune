@@ -13,11 +13,11 @@ import {
     StatusBar
 } from 'react-native';
 import {NavigationActions} from 'react-navigation'
-import cfn from '../../commons/utils/commonFun'
-import Indicator from '../../commons/welcome/IndicatorWelcome'
-import {welcome} from '../../commons/config/images';
-import Global from '../../commons/global/global';
-import {save} from '../../commons/utils/storage'
+import cfn from '../../public/utils/commonFun'
+import Indicator from '../../public/welcome/IndicatorWelcome'
+import {welcome} from '../../public/config/images';
+import Global from '../../public/global/global';
+import {save} from '../../public/utils/storage'
 
 export default class w extends Component {
 

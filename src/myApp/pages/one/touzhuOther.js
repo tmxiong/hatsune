@@ -11,7 +11,7 @@ import {
     WebView,
     Alert,
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 // import WebViewAndroid from 'react-native-webview-android';
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'

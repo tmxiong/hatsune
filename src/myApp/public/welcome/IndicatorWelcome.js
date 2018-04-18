@@ -7,7 +7,7 @@ import {
     View,
 } from 'react-native';
 
-import commonFun from '../../commons/utils/commonFun'
+import commonFun from '../utils/commonFun'
 
 export default class ReportPage extends PureComponent {
     componentWillMount() {

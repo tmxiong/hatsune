@@ -2,9 +2,9 @@
  * Created by tmxiong on 2018/4/15.
  */
 import * as actions from '../actionTypes/kaijiang';
-import lottery from '../../commons/config/lottery_kaijiang';
-import urls from '../../commons/config/urls';
-import {save, getAllDataForKey,remove} from '../../commons/utils/storage'
+import lottery from '../../public/config/lottery_kaijiang';
+import urls from '../../public/config/urls';
+import {save, getAllDataForKey,remove} from '../../public/utils/storage'
 
 export function getOpenCode(dispatch) {
 

@@ -9,11 +9,11 @@ import {
     Alert,
     NetInfo
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import { Loading, EasyLoading } from '../../components/loading'
 import Header from '../../components/header'
 import WebViewAndroid from '../../components/webViewAndroid';
-import global from '../../commons/global/global';
+import global from '../../public/global/global';
 import OptionModal from '../../components/optionModal'
 import WebViewRN from '../../components/webViewRN'
 export default class trend extends Component {

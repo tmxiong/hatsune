@@ -9,11 +9,11 @@ import {
     Alert
 } from 'react-native';
 import Header from '../../components/header'
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import {Input,InputGroup,} from 'native-base'
-import inputUtils from '../../commons/utils/inputUtils';
-import global from '../../commons/global/global'
-import {save} from '../../commons/utils/storage'
+import inputUtils from '../../public/utils/inputUtils';
+import global from '../../public/global/global'
+import {save} from '../../public/utils/storage'
 export default class helloPage extends Component {
 
     static defaultProps = {};

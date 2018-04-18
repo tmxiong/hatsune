@@ -9,8 +9,8 @@ import {
     Animated,
     TouchableOpacity
 } from 'react-native';
-import commonFun from '../../commons/utils/commonFun';
-import {notice as notice_icon} from '../../commons/config/images'
+import commonFun from '../../public/utils/commonFun';
+import {notice as notice_icon} from '../../public/config/images'
 export default class Notice extends PureComponent {
     constructor(props) {
         super();

@@ -18,7 +18,7 @@ import {
     TouchableOpacity,
     NetInfo,
 } from 'react-native';
-import cfn from '../../commons/utils/commonFun'
+import cfn from '../../public/utils/commonFun'
 import SplashScreen from 'react-native-splash-screen'
 import WebViewAndroid from 'react-native-webview-android'
 export default class webViewAndroid extends Component {

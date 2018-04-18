@@ -10,7 +10,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import commonFn from '../../commons/utils/commonFun';
+import commonFn from '../../public/utils/commonFun';
 import Indicator from './Indicator';
 
 export default class Banner extends PureComponent {

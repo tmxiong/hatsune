@@ -6,7 +6,7 @@ import {
     ScrollView
 } from 'react-native'
 import Header from '../../components/header'
-import cfn from '../../commons/utils/commonFun';
+import cfn from '../../public/utils/commonFun';
 import { Loading, EasyLoading } from '../../components/loading'
 import OptionModal from '../../components/optionModal'
 import WebViewAndroid from '../../components/webViewAndroid'
@@ -15,8 +15,8 @@ import Watch from './watch';
 import Gaopin from './gaopincai';
 import Shuzi from './shuzicai';
 import Jingji from './jingjicai';
-import lottery from '../../commons/config/lottery_kaijiang'
-import urls from '../../commons/config/urls'
+import lottery from '../../public/config/lottery_kaijiang'
+import urls from '../../public/config/urls'
 import {connect} from 'react-redux';
 import {getOpenCode} from '../../app/actions/kaijiang'
 class three extends Component {

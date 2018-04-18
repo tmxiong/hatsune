@@ -14,11 +14,11 @@ module.exports=[
         key:''
     },
     {
-        name:'开奖记录',
+        name:'大小奇偶',
         icon:'ios-list-outline',
-        url:'https://m.aicai.com/kaijiang/ssc/?vt=5',
-        page:'kaijiang',
-        desc:'时时彩开奖记录',
+        url:'http://m.aicai.com/zst/ssq/dxjo.do?vt=5&clientType=0',
+        page:'trend',
+        desc:'大小奇偶走势图',
         color:'#46BC62',
         key:''
     },
